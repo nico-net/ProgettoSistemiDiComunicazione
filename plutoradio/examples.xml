@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<demos>
+  <demoitem>
+    <source>GetADALMPLUTORadioInformationExample</source>
+    <type>live</type>
+    <extension>mlx</extension>
+    <metadata>ex02989952</metadata>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+  </demoitem>
+  <demoitem>
+    <source>CaptureRFDataToBasebandFileUsingADALMPLUTORadioExample</source>
+    <type>live</type>
+    <extension>mlx</extension>
+    <metadata>ex11234797</metadata>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+  </demoitem>
+  <demoitem>
+    <source>QPSKTransmitterWithADALMPLUTORadioSimulinkExample</source>
+    <type>model</type>
+    <extension>m</extension>
+    <file>html/QPSKTransmitterWithADALMPLUTORadioSimulinkExample.html</file>
+    <metadata>ex21915523</metadata>
+    <thumbnail>html/QPSKTransmitterWithADALMPLUTORadioSimulinkExample_01.png</thumbnail>
+    <sandboxPublished/>
+    <hideCode/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+    <product>simulink</product>
+    <file component="plutoradio" timestamp="1655222053">plutoradioqpsktransmitter_init.m</file>
+    <file component="plutoradio" open="open" timestamp="1655472821">plutoradioQPSKTransmitterSimulinkExample.slx</file>
+  </demoitem>
+  <demoitem>
+    <source>QPSKReceiverWithADALMPLUTORadioSimulinkExample</source>
+    <type>model</type>
+    <extension>m</extension>
+    <file>html/QPSKReceiverWithADALMPLUTORadioSimulinkExample.html</file>
+    <metadata>ex33688333</metadata>
+    <thumbnail>html/QPSKReceiverWithADALMPLUTORadioSimulinkExample_01.png</thumbnail>
+    <sandboxPublished/>
+    <hideCode/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+    <product>simulink</product>
+    <file component="plutoradio" open="open" timestamp="1673977277">plutoradioQPSKReceiverSimulinkExample.slx</file>
+    <file component="plutoradio" timestamp="1655382167">plutoradioqpskreceiver_init.m</file>
+    <file component="repository/spc" timestamp="1671465404">FrameSynchronizer.m</file>
+  </demoitem>
+  <demoitem>
+    <source>CreateReceiverSystemObjectAndReceiveDataOnSingleChannelExample</source>
+    <type>live</type>
+    <extension>mlx</extension>
+    <metadata>ex34044650</metadata>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+  </demoitem>
+  <demoitem>
+    <source>FrequencyCorrectionForADALMPLUTORadioInSimulinkExample</source>
+    <type>M-file</type>
+    <extension>m</extension>
+    <metadata>ex42092313</metadata>
+    <thumbnail>html/FrequencyCorrectionForADALMPLUTORadioInSimulinkExample_01.png</thumbnail>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>simulink</product>
+    <product>plutoradio</product>
+    <file component="plutoradio" timestamp="1553283675">plutoradioFrequencyCorrectionRx.slx</file>
+  </demoitem>
+  <demoitem>
+    <source>FrequencyCorrectionForADALMPLUTORadioExample</source>
+    <type>M-file</type>
+    <extension>m</extension>
+    <metadata>ex55210699</metadata>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+  </demoitem>
+  <demoitem>
+    <source>PlutoRadioFindingFMRadioStationsPostCaptureDataAnalysisExample</source>
+    <type>M-file</type>
+    <extension>m</extension>
+    <metadata>ex61576913</metadata>
+    <thumbnail>html/PlutoRadioFindingFMRadioStationsPostCaptureDataAnalysisExample_01.png</thumbnail>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+  </demoitem>
+  <demoitem>
+    <source>QPSKReceiverWithADALMPLUTORadioExample</source>
+    <type>M-file</type>
+    <extension>m</extension>
+    <metadata>ex72076173</metadata>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+    <file component="repository/spc" timestamp="1655382167">QPSKDataDecoder.m</file>
+    <file component="repository/spc" timestamp="1671465404">QPSKReceiver.m</file>
+    <file component="plutoradio" timestamp="1671446313">plutoradioqpskreceiver_init.m</file>
+    <file component="plutoradio" timestamp="1671446313">runPlutoradioQPSKReceiver.m</file>
+    <file component="repository/spc" timestamp="1671465404">FrameSynchronizer.m</file>
+  </demoitem>
+  <demoitem>
+    <source>FrequencyOffsetCalibrationWithADALMPLUTORadioSimulinkExample</source>
+    <type>model</type>
+    <extension>m</extension>
+    <file>html/FrequencyOffsetCalibrationWithADALMPLUTORadioSimulinkExample.html</file>
+    <metadata>ex75097684</metadata>
+    <thumbnail>data/plutoradiofreqcalibspectrum.png</thumbnail>
+    <sandboxPublished/>
+    <hideCode/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+    <product>simulink</product>
+    <file component="plutoradio" open="open" timestamp="1655383897">plutoradiofreqcalib.slx</file>
+    <file component="plutoradio" timestamp="1655383897">plutoradiofreqcalib_rx.slx</file>
+    <file component="plutoradio" timestamp="1674629911">plutoradiofreqcalibspectrum.png</file>
+  </demoitem>
+  <demoitem>
+    <source>QPSKTransmitterWithADALMPLUTORadioExample</source>
+    <type>live</type>
+    <extension>mlx</extension>
+    <metadata>ex91324824</metadata>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+    <file component="repository/spc" timestamp="1655754949">QPSKTransmitter.m</file>
+    <file component="plutoradio" timestamp="1655222053">plutoradioqpsktransmitter_init.m</file>
+    <file component="plutoradio" timestamp="1655222053">runPlutoradioQPSKTransmitter.m</file>
+    <file component="repository/spc" timestamp="1655754949">QPSKBitsGenerator.m</file>
+  </demoitem>
+  <demoitem>
+    <source>UsingFrequencyCorrectionWithOneADALMPLUTORadioExample</source>
+    <type>live</type>
+    <extension>mlx</extension>
+    <metadata>ex93834592</metadata>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+  </demoitem>
+</demos>
