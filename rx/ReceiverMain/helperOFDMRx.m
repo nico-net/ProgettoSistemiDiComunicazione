@@ -1,4 +1,4 @@
-function [rxDataBits,isConnected,toff,diagnostics] = helperOFDMRx(rxWaveform,sysParam,rxObj)
+function [rxDataBits,isConnected,toff,diagnostics, feedbackMessage] = helperOFDMRx(rxWaveform,sysParam,rxObj)
 %helperOFDMRx Processes OFDM signal.
 %   Performs carrier frequency offset estimation and correction, frame
 %   synchronization, OFDM demodulation, channel estimation, channel
@@ -44,6 +44,7 @@ end
 
 if ~camped
     isConnected = false;
+    feedbackMessage = '';
     rxDataBits = [];
     % Search for sync symbol
     [camped,ta,foff] = helperOFDMRxSearch(rxWaveform,sysParam);
@@ -272,6 +273,8 @@ diagnostics = struct( ...
     'decodedModOrder',modOrder,...
     'headerCRCErrorFlag',headerCRCErrFlag,...
     'dataCRCErrorFlag',dataCRCErrFlag);
+
+feedbackMessage = diagnosticMessages(diagnostics);
 
 end
 

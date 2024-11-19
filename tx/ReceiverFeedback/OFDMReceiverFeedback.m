@@ -39,7 +39,7 @@
 % data in each frame, enable the print data flag
 % 
 % 
-
+function [isConnected, feedbackMessage] = OFDMReceiverFeedback()
 % The chosen set of OFDM parameters:
 OFDMParams.FFTLength              = 128;   % FFT length
 OFDMParams.CPLength               = 32;    % Cyclic prefix length
@@ -49,13 +49,15 @@ OFDMParams.PilotSubcarrierSpacing = 9;     % Pilot sub-carrier spacing
 OFDMParams.channelBW              = 3e5;   % Bandwidth of the channel 3 MHz
 
 % Data Parameters
-dataParams.modOrder       = 4;   % Data modulation order
+dataParams.modOrder       = 16;   % Data modulation order
 dataParams.coderate       = "1/2";   % Code rate
-dataParams.numSymPerFrame = 25;   % Number of data symbols per frame
-dataParams.numFrames      = 25;   % Number of frames to transmit
+dataParams.numSymPerFrame = 30;   % Number of data symbols per frame
+dataParams.numFrames      = 5;   % Number of frames to transmit
 dataParams.enableScopes   = false;                    % Switch to enable or disable the visibility of scopes
 dataParams.verbosity      = false;                    % Control to print the output diagnostics at each level of receiver processing
 dataParams.printData      = true;                    % Control to print the output decoded data
+
+feedbackMessage = [];
 %% Initialize Receiver Parameters
 % The |helperGetRadioParams| function initializes the receiver System object™  
 % |ofdmRx.| Assign the name of the radio you are using for receiving the OFDM 
@@ -65,7 +67,7 @@ dataParams.printData      = true;                    % Control to print the outp
 % The |helperGetRadioRxObj| function initializes the radio receiver System object.
 
 radioDevice            = "PLUTO";   % Choose radio device for reception
-centerFrequency        = 432e6;   % Center Frequency
+centerFrequency        = 433e6;   % Center Frequency
 gain                   = 55;   % Set radio gain
 %% 
 % The |helperOFDMSetParamsSDR| function initializes transmit-specific and common 
@@ -160,6 +162,7 @@ for frameNum = 1:dataParams.numFrames
                 % As each character in the data is encoded by 7 bits, decode the received data up to last multiples of 7
                 numBitsToDecode = length(rxDataBits) - mod(length(rxDataBits),7);
                 recData = char(bit2int(reshape(rxDataBits(1:numBitsToDecode),7,[]),7));
+                feedbackMessage = [feedbackMessage, recData];
                 fprintf('Received data in frame %d: %s',frameNum,recData);
             end
         end
@@ -176,8 +179,9 @@ for frameNum = 1:dataParams.numFrames
 end
 % Display the mean BER value across all frames
 fprintf('Simulation complete!\nAverage BER = %d',mean(BER))
-
+feedbackMessage = 0;
 release(radio);
+end
 %% Troubleshooting
 % *No data in any frame*
 % Problem

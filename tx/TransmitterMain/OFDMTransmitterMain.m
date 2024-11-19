@@ -40,7 +40,7 @@
 % You can enable or disable the scopes for visualization, however for long simulations, 
 % it is recommended to disable the scope. To control the diagnostic output, enable 
 % or disable the verbosity as needed.
-
+function [transmitted] = OFDMTransmitterMain()
 % The chosen set of OFDM parameters:
 OFDMParams.FFTLength              = 128;   % FFT length
 OFDMParams.CPLength               = 32;    % Cyclic prefix length
@@ -53,7 +53,7 @@ OFDMParams.channelBW              = 3e6;   % Bandwidth of the channel 3 MHz
 dataParams.modOrder       = 16;   % Data modulation order
 dataParams.coderate       = "2/3";   % Code rate
 dataParams.numSymPerFrame = 30;   % Number of data symbols per frame 20 for setup1
-dataParams.numFrames      = 5;   % Number of frames to transmit
+dataParams.numFrames      = 10;   % Number of frames to transmit
 dataParams.enableScopes   = false;                    % Switch to enable or disable the visibility of scopes
 dataParams.verbosity      = false;                    % Switch to enable or disable the data diagnostic output
 %% Initialize Transmitter Parameters
@@ -61,7 +61,7 @@ dataParams.verbosity      = false;                    % Switch to enable or disa
 % to the variable |radioDevice|. Set the receiver gain and operating center frequency.
 
 radioDevice            = "PLUTO";  % Choose the radio device for transmission
-centerFrequency        = 432e6;  % Center Frequency
+centerFrequency        = 431e6;  % Center Frequency
 gain                   = -10;  % Set radio gain
 %% 
 % The |helperOFDMSetParamsSDR| function initializes transmit-specific and common 
@@ -69,7 +69,7 @@ gain                   = -10;  % Set radio gain
 % function initializes the parameters required for the transmitter System object™ 
 % radio. 
 
-fprintf('Sono in TX\n');
+fprintf('Sono entrato in Tx\n');
 [sysParam,txParam,trBlk] = helperOFDMSetParamsSDR(OFDMParams,dataParams);
 sampleRate               = sysParam.scs*sysParam.FFTLen;                % Sample rate of signal
 ofdmTx                   = helperGetRadioParams(sysParam,radioDevice,sampleRate,centerFrequency,gain);
@@ -186,6 +186,8 @@ for frameNum = 1:sysParam.numFrames+1
     underrun = radio(txWaveform);
     tunderrun = tunderrun + underrun;  % Total underruns
 end
+
+transmitted = 1;
 % Clean up the radio System object
 release(radio);
 %% Further Exploration
@@ -197,3 +199,4 @@ release(radio);
 % _Copyright 2023-2024 The MathWorks, Inc._
 % 
 %
+end

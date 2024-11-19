@@ -39,7 +39,7 @@
 % data in each frame, enable the print data flag
 % 
 % 
-
+function [isConnected, feedbackMessage] = OFDMReceiverMain()
 % The chosen set of OFDM parameters:
 OFDMParams.FFTLength              = 128;   % FFT length
 OFDMParams.CPLength               = 32;    % Cyclic prefix length
@@ -50,11 +50,11 @@ OFDMParams.channelBW              = 3e5;   % Bandwidth of the channel 3 MHz
 
 % Data Parameters
 dataParams.modOrder       = 16;   % Data modulation order
-dataParams.coderate       = "2/3";   % Code rate
+dataParams.coderate       = "1/2";   % Code rate
 dataParams.numSymPerFrame = 25;   % Number of data symbols per frame
 dataParams.numFrames      = 10;   % Number of frames to transmit
 dataParams.enableScopes   = false;                    % Switch to enable or disable the visibility of scopes
-dataParams.verbosity      = false;                    % Control to print the output diagnostics at each level of receiver processing
+dataParams.verbosity      = true;                    % Control to print the output diagnostics at each level of receiver processing
 dataParams.printData      = true;                    % Control to print the output decoded data
 %% Initialize Receiver Parameters
 % The |helperGetRadioParams| function initializes the receiver System object™  
@@ -145,7 +145,7 @@ for frameNum = 1:dataParams.numFrames
         rxIn = helperOFDMRxFrontEnd(rxWaveform,sysParam,rxObj);
 
         % Run the receiver processing
-        [rxDataBits,isConnected,toff,rxDiagnostics] = helperOFDMRx(rxIn,sysParam,rxObj);
+        [rxDataBits,isConnected,toff,rxDiagnostics, feedbackMessage] = helperOFDMRx(rxIn,sysParam,rxObj);
         sysParam.timingAdvance = toff;
 
         % Collect bit and frame error statistics
@@ -178,6 +178,7 @@ end
 fprintf('Simulation complete!\nAverage BER = %d',mean(BER))
 
 release(radio);
+end
 %% Troubleshooting
 % *No data in any frame*
 % Problem
