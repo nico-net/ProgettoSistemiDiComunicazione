@@ -50,9 +50,9 @@ OFDMParams.channelBW              = 3e5;   % Bandwidth of the channel 3 MHz
 
 % Data Parameters
 dataParams.modOrder       = 16;   % Data modulation order
-dataParams.coderate       = "1/2";   % Code rate
+dataParams.coderate       = "2/3";   % Code rate
 dataParams.numSymPerFrame = 25;   % Number of data symbols per frame
-dataParams.numFrames      = 10;   % Number of frames to transmit
+dataParams.numFrames      = 50;   % Number of frames to transmit
 dataParams.enableScopes   = false;                    % Switch to enable or disable the visibility of scopes
 dataParams.verbosity      = true;                    % Control to print the output diagnostics at each level of receiver processing
 dataParams.printData      = true;                    % Control to print the output decoded data
@@ -74,7 +74,7 @@ gain                   = 55;   % Set radio gain
 % System object™ radio.
 
 fprintf('Sono in RX\n');
-[sysParam,txParam,transportBlk] = helperOFDMSetParamsSDR(OFDMParams,dataParams);
+[sysParam,txParam,transportBlk] = helperOFDMSetParamsSDRRx(OFDMParams,dataParams);
 sampleRate                       = sysParam.scs*sysParam.FFTLen;                % Sample rate of signal
 
 ofdmRx = helperGetRadioParams(sysParam,radioDevice,sampleRate,centerFrequency,gain);
@@ -147,9 +147,9 @@ for frameNum = 1:dataParams.numFrames
         % Run the receiver processing
         [rxDataBits,isConnected,toff,rxDiagnostics, feedbackMessage] = helperOFDMRx(rxIn,sysParam,rxObj);
         sysParam.timingAdvance = toff;
-
         % Collect bit and frame error statistics
         if isConnected
+            fprintf('ohoh\n');
             % Continuously update the bit error rate using the |comm.ErrorRate|
             % System object
             berVals = errorRate(...

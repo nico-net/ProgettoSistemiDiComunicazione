@@ -1,4 +1,4 @@
-function [sysParam,txParam,payload] = helperOFDMSetParamsSDR(OFDMParam,dataParam, payload)
+function [sysParam,txParam,payload] = helperOFDMSetParamsSDRRx(OFDMParam,dataParam, payload)
 %helperOFDMSetParamsSDR(OFDMParam,dataParam) Generates simulation parameters.
 %   This function generates transmit-specific and common transmitter/receiver
 %   parameters for the OFDM simulation, based on the high-level user
