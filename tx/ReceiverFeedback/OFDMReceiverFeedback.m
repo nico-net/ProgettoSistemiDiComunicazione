@@ -49,7 +49,7 @@ OFDMParams.PilotSubcarrierSpacing = 9;     % Pilot sub-carrier spacing
 OFDMParams.channelBW              = 3e5;   % Bandwidth of the channel 3 MHz
 
 % Data Parameters
-dataParams.modOrder       = 16;   % Data modulation order
+dataParams.modOrder       = 4;   % Data modulation order
 dataParams.coderate       = "1/2";   % Code rate
 dataParams.numSymPerFrame = 30;   % Number of data symbols per frame
 dataParams.numFrames      = 10;   % Number of frames to transmit
@@ -67,7 +67,7 @@ feedbackMessage = [];
 % The |helperGetRadioRxObj| function initializes the radio receiver System object.
 
 radioDevice            = "PLUTO";   % Choose radio device for reception
-centerFrequency        = 433e6;   % Center Frequency
+centerFrequency        = 866e6;   % Center Frequency
 gain                   = 55;   % Set radio gain
 %% 
 % The |helperOFDMSetParamsSDR| function initializes transmit-specific and common 
@@ -179,7 +179,6 @@ for frameNum = 1:dataParams.numFrames
 end
 % Display the mean BER value across all frames
 fprintf('Simulation complete!\nAverage BER = %d',mean(BER))
-feedbackMessage = 0;
 release(radio);
 end
 %% Troubleshooting
