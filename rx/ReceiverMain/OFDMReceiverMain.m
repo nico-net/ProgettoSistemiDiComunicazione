@@ -44,9 +44,9 @@ function [isConnected, feedbackMessage] = OFDMReceiverMain()
 OFDMParams.FFTLength              = 128;   % FFT length
 OFDMParams.CPLength               = 32;    % Cyclic prefix length
 OFDMParams.NumSubcarriers         = 72;    % Number of sub-carriers in the band
-OFDMParams.Subcarrierspacing      = 3e3;  % Sub-carrier spacing of 30 KHz
+OFDMParams.Subcarrierspacing      = 30e3;  % Sub-carrier spacing of 30 KHz
 OFDMParams.PilotSubcarrierSpacing = 9;     % Pilot sub-carrier spacing
-OFDMParams.channelBW              = 3e5;   % Bandwidth of the channel 3 MHz
+OFDMParams.channelBW              = 3e6;   % Bandwidth of the channel 3 MHz
 
 % Data Parameters
 dataParams.modOrder       = 16;   % Data modulation order
@@ -65,7 +65,7 @@ dataParams.printData      = true;                    % Control to print the outp
 % The |helperGetRadioRxObj| function initializes the radio receiver System object.
 
 radioDevice            = "PLUTO";   % Choose radio device for reception
-centerFrequency        = 431e6;   % Center Frequency
+centerFrequency        = 865e6;   % Center Frequency
 gain                   = 55;   % Set radio gain
 %% 
 % The |helperOFDMSetParamsSDR| function initializes transmit-specific and common 
@@ -146,10 +146,10 @@ for frameNum = 1:dataParams.numFrames
 
         % Run the receiver processing
         [rxDataBits,isConnected,toff,rxDiagnostics, feedbackMessage] = helperOFDMRx(rxIn,sysParam,rxObj);
+        
         sysParam.timingAdvance = toff;
         % Collect bit and frame error statistics
         if isConnected
-            fprintf('ohoh\n');
             % Continuously update the bit error rate using the |comm.ErrorRate|
             % System object
             berVals = errorRate(...

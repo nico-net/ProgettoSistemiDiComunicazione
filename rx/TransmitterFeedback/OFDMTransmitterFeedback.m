@@ -50,20 +50,20 @@ OFDMParams.PilotSubcarrierSpacing = 9;     % Pilot sub-carrier spacing
 OFDMParams.channelBW              = 3e6;   % Bandwidth of the channel 3 MHz
 
 % Data Parameters
-dataParams.modOrder       = 16;   % Data modulation order
+dataParams.modOrder       = 4;   % Data modulation order
 dataParams.coderate       = "1/2";   % Code rate
 dataParams.numSymPerFrame = 30;   % Number of data symbols per frame 20 for setup1
 dataParams.numFrames      = 100;   % Number of frames to transmit
 dataParams.enableScopes   = false;                    % Switch to enable or disable the visibility of scopes
 dataParams.verbosity      = false;                    % Switch to enable or disable the data diagnostic output
 
-transmitted = 0;
+
 %% Initialize Transmitter Parameters
 % Assign the name of the radio you are using for transmitting the OFDM signal 
 % to the variable |radioDevice|. Set the receiver gain and operating center frequency.
 
 radioDevice            = "PLUTO";  % Choose the radio device for transmission
-centerFrequency        = 433e6;  % Center Frequency
+centerFrequency        = 866e6;  % Center Frequency
 gain                   = -10;  % Set radio gain
 %% 
 % The |helperOFDMSetParamsSDR| function initializes transmit-specific and common 

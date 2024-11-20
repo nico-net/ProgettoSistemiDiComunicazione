@@ -1,4 +1,4 @@
-function [sysParam,txParam,payload] = helperOFDMSetParamsSDRRx(OFDMParam,dataParam, payload)
+function [sysParam,txParam, payload] = helperOFDMSetParamsSDR(OFDMParam,dataParam, feedmessage)
 %helperOFDMSetParamsSDR(OFDMParam,dataParam) Generates simulation parameters.
 %   This function generates transmit-specific and common transmitter/receiver
 %   parameters for the OFDM simulation, based on the high-level user
@@ -131,10 +131,11 @@ sysParam.modOrder = dataParam.modOrder;
 
 % Generate payload message
 sysParam.NumBitsPerCharacter = 7;
-payloadMessage = payload;
+payloadMessage = feedmessage;
 messageLength = length(payloadMessage);
 numPayloads = ceil(sysParam.trBlkSize/(messageLength*sysParam.NumBitsPerCharacter)); 
 message = repmat(payloadMessage,1,numPayloads);
+disp(message);
 trBlk = reshape(int2bit(double(message),sysParam.NumBitsPerCharacter),1,[]);
 payload = trBlk(1:sysParam.trBlkSize);
 end

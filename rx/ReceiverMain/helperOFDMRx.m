@@ -28,6 +28,7 @@ function [rxDataBits,isConnected,toff,diagnostics, feedbackMessage] = helperOFDM
 %    dataCRCErrorFlag      - Indicates data CRC status (0-pass, 1-fail)
  
 %   Copyright 2023-2024 The MathWorks, Inc.
+feedbackMessage = '';
 
 persistent camped;
 if isempty(camped)
@@ -44,7 +45,7 @@ end
 
 if ~camped
     isConnected = false;
-    feedbackMessage = '';
+    
     rxDataBits = [];
     % Search for sync symbol
     [camped,ta,foff] = helperOFDMRxSearch(rxWaveform,sysParam);
@@ -80,7 +81,7 @@ else
     end
 
     % Run frame processing
-    [rxDataBits,diagnostics] = rxFrame(rxWaveform,sysParam,rxObj);
+    [rxDataBits,diagnostics, feedbackMessage] = rxFrame(rxWaveform,sysParam,rxObj);
 end
 
 % Collect diagnostics
@@ -98,7 +99,7 @@ diagnostics = rxInternalDiags;
 
 end
 
-function [rxDataBits,diagnostics] = rxFrame(rxWaveform,sysParam,rxObj)
+function [rxDataBits,diagnostics, feedbackMessage] = rxFrame(rxWaveform,sysParam,rxObj)
 
 % Define reference signal, pilot signal, and parameters
 ssIdx           = sysParam.ssIdx;        % sync symbol index
@@ -273,8 +274,9 @@ diagnostics = struct( ...
     'decodedModOrder',modOrder,...
     'headerCRCErrorFlag',headerCRCErrFlag,...
     'dataCRCErrorFlag',dataCRCErrFlag);
-
+disp(diagnostics);
 feedbackMessage = diagnosticMessages(diagnostics);
+disp(feedbackMessage);
 
 end
 

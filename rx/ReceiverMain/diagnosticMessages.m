@@ -23,7 +23,7 @@ for i = 1:numel(fields)
 end
 
 % Rimuovi l'ultimo "; " superfluo
-message = strip(message, "; ");
+message = strip(message, 'both' ,";");
 
 % Visualizza il messaggio
 disp(message);
