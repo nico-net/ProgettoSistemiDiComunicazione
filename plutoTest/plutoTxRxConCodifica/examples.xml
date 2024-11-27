@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<demos>
+  <demoitem>
+    <source>OFDMReceiverUsingSoftwareDefinedRadioExample</source>
+    <type>live</type>
+    <extension>mlx</extension>
+    <metadata>ex15574736</metadata>
+    <thumbnail>html/OFDMReceiverUsingSoftwareDefinedRadioExample_01.png</thumbnail>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+    <product>usrpradio</product>
+    <product>comm</product>
+    <product>niusrp</product>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperGetRadioParams.m</file>
+    <file component="shared_comm_sdr" timestamp="1705113923">helperGetRadioRxObj.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMChannelEstimation.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMFrequencyOffset.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMFrontEndFilter.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMRx.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMRxFrontEnd.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMRxInit.m</file>
+    <file component="shared_comm_sdr" timestamp="1705113923">helperOFDMRxSearch.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMSetParamsSDR.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMPilotSignal.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMRefSignal.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMSyncSignal.m</file>
+    <file component="shared_comm_sdr" timestamp="1705604386">helperOFDMGetTables.m</file>
+  </demoitem>
+  <demoitem>
+    <source>OFDMTransmitterUsingSoftwareDefinedRadioExample</source>
+    <type>live</type>
+    <extension>mlx</extension>
+    <metadata>ex49798481</metadata>
+    <thumbnail>html/OFDMTransmitterUsingSoftwareDefinedRadioExample_02.png</thumbnail>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>comm</product>
+    <product>plutoradio</product>
+    <product>usrpradio</product>
+    <product>niusrp</product>
+    <file component="shared_comm_sdr" timestamp="1705599928">helperGetRadioParams.m</file>
+    <file component="shared_comm_sdr" timestamp="1705601807">helperGetRadioTxObj.m</file>
+    <file component="shared_comm_sdr" timestamp="1705599928">helperOFDMPlotResourceGrid.m</file>
+    <file component="shared_comm_sdr" timestamp="1705599928">helperOFDMSetParamsSDR.m</file>
+    <file component="shared_comm_sdr" timestamp="1705599928">helperOFDMTx.m</file>
+    <file component="shared_comm_sdr" timestamp="1705599928">helperOFDMTxInit.m</file>
+    <file component="shared_comm_sdr" timestamp="1705599928">helperOFDMFrontEndFilter.m</file>
+    <file component="shared_comm_sdr" timestamp="1705599928">helperOFDMPilotSignal.m</file>
+    <file component="shared_comm_sdr" timestamp="1705599928">helperOFDMRefSignal.m</file>
+    <file component="shared_comm_sdr" timestamp="1705599928">helperOFDMSyncSignal.m</file>
+  </demoitem>
+  <demoitem>
+    <source>QPSKReceiverWithSoftwareDefinedRadioExample</source>
+    <type>live</type>
+    <extension>mlx</extension>
+    <metadata>ex93248868</metadata>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+    <product>usrpradio</product>
+    <file component="repository/spc" timestamp="1705429318">QPSKDataDecoder.m</file>
+    <file component="repository/spc" timestamp="1705429318">QPSKReceiver.m</file>
+    <file component="repository/spc" timestamp="1705429318">FrameSynchronizer.m</file>
+    <file component="shared_comm_sdr" timestamp="1705429318">runSDRQPSKReceiver.m</file>
+    <file component="shared_comm_sdr" timestamp="1704630908">sdrQPSKReceiverInit.m</file>
+    <file component="shared_comm_sdr" timestamp="1705429318">helperFindRadios.m</file>
+  </demoitem>
+  <demoitem>
+    <source>QPSKTransmitterWithSoftwareDefinedRadioExample</source>
+    <type>live</type>
+    <extension>mlx</extension>
+    <metadata>ex93617822</metadata>
+    <sandboxPublished/>
+    <product>matlab</product>
+    <product>plutoradio</product>
+    <product>usrpradio</product>
+    <file component="repository/spc" timestamp="1705430861">QPSKTransmitter.m</file>
+    <file component="repository/spc" timestamp="1705430861">QPSKBitsGenerator.m</file>
+    <file component="shared_comm_sdr" timestamp="1704633140">runSDRQPSKTransmitter.m</file>
+    <file component="shared_comm_sdr" timestamp="1704633140">sdrQPSKTransmitterInit.m</file>
+    <file component="shared_comm_sdr" timestamp="1705408003">helperFindRadios.m</file>
+  </demoitem>
+</demos>
