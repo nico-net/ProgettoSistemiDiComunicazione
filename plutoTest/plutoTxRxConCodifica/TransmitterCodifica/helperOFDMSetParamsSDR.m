@@ -78,6 +78,18 @@ elseif codeRate == 2/3
     sysParam.codeRateK = 3;
     sysParam.tracebackDepth = 45;
     txParam.codeRateIndex = 1;
+elseif codeRate == 3/4
+    sysParam.puncVec = [1 1 1 0 0 1];
+    sysParam.codeRate = 3/4;
+    sysParam.codeRateK = 4;
+    sysParam.tracebackDepth = 60;
+    txParam.codeRateIndex = 2;
+elseif codeRate == 5/6
+    sysParam.puncVec = [1 1 1 0 0 1 1 0 0 1];
+    sysParam.codeRate = 5/6;
+    sysParam.codeRateK = 6;
+    sysParam.tracebackDepth = 90;
+    txParam.codeRateIndex = 3;
 end
 
 numSubCar            = sysParam.usedSubCarr; % Number of subcarriers per symbol
