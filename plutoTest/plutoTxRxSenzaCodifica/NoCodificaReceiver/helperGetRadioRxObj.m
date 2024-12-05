@@ -7,7 +7,7 @@ function [radio, spectrumAnalyze, constDiag] = helperGetRadioRxObj(ofdmRx)
 %   data visualizations
 
 
-radio = sdrrx('Pluto', 'RadioID','usb:1');
+radio = sdrrx('Pluto');
 radio.BasebandSampleRate = ofdmRx.SampleRate;
 radio.CenterFrequency = ofdmRx.CenterFrequency;
 radio.SamplesPerFrame = ofdmRx.txWaveformSize;
