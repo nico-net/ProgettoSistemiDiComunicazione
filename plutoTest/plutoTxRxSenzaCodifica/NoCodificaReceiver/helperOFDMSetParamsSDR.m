@@ -28,20 +28,6 @@ sysParam.numFrames      = dataParam.numFrames;
 
 sysParam.numSymPerFrame = dataParam.numSymPerFrame; 
 
-% sysParam.initState = [1 0 1 1 1 0 1]; % Scrambler/descrambler polynomials
-% sysParam.scrMask   = [0 0 0 1 0 0 1];
-% 
-% sysParam.headerIntrlvNColumns = 12;   % Number of columns of header interleaver, must divide into 72 evenly
-% sysParam.dataIntrlvNColumns = 18;     % Number of columns of data interleaver
-% sysParam.dataConvK = 7;               % Convolutional encoder constraint length for data
-% sysParam.dataConvCode = [171 133];    % Convolution polynomials (1/2 rate) for data
-% sysParam.headerConvK = 7;             % Convolutional encoder constraint length for header
-% sysParam.headerConvCode = [171 133];  % Convolution polynomials (1/2 rate) for header
-% 
-% sysParam.headerCRCPoly = [16 12 5 0]; % header CRC polynomial
-% 
-% sysParam.CRCPoly = [32 26 23 22 16 12 11 10 8 7 5 4 2 1 0]; % data CRC polynomial
-% sysParam.CRCLen  = 32;                                      % data CRC length
 
 % Transmission grid parameters
 sysParam.ssIdx = 1;                         % Symbol 1 is the sync symbol
@@ -65,21 +51,7 @@ sysParam.usedSubCarr    = OFDMParam.NumSubcarriers;  % number of active subcarri
 sysParam.BW             = OFDMParam.channelBW;          % total allocated bandwidth
 sysParam.scs            = OFDMParam.Subcarrierspacing;         % subcarrier spacing (Hz)
 sysParam.pilotSpacing   = OFDMParam.PilotSubcarrierSpacing; 
-% codeRate                = str2num(dataParam.coderate);       % Coding rate
-% if codeRate == 1/2
-%     sysParam.tracebackDepth =  30;                      % Traceback depth is 30 for coderate
-%     sysParam.codeRate = 1/2;
-%     sysParam.codeRateK = 2;
-%     sysParam.puncVec = [1 1];
-%     txParam.codeRateIndex = 0;
-% elseif codeRate == 2/3
-%     sysParam.puncVec = [1 1 0 1];
-%     sysParam.codeRate = 2/3;
-%     sysParam.codeRateK = 3;
-%     sysParam.tracebackDepth = 45;
-%     txParam.codeRateIndex = 1;
-% end
-
+sysParam.modOrder       = dataParam.modOrder;
 numSubCar            = sysParam.usedSubCarr; % Number of subcarriers per symbol
 sysParam.pilotIdx    = ((sysParam.FFTLen-sysParam.usedSubCarr)/2) + ...
     (1:sysParam.pilotSpacing:sysParam.usedSubCarr).';

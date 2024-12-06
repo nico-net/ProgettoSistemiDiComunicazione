@@ -294,6 +294,12 @@ else
     modOrder = 2;
 end
 
+%siccome non è presente alcuna correzione dei bit errati (CRC), impongo
+%che la modulazione sia quella che ci si aspetta
+if modOrder ~= sysParam.modOrder
+    fprintf('Errore nella modulazione. Cambio per evitare il blocco\n');
+    modOrder = sysParam.modOrder;
+end
 % FFT Length value
 switch fftLenIndex
     case 0
@@ -327,6 +333,8 @@ switch modOrder
     otherwise
         modType = 'BPSK'; % make default BPSK
 end
+
+
 end
 
 function [headerBits] = OFDMHeaderRecovery(headSymb)
