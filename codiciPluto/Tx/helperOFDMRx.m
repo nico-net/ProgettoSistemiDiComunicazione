@@ -113,16 +113,17 @@ pilotSignal     = helperOFDMPilotSignal(pilotsPerSym);
 numSymPerFrame  = sysParam.numSymPerFrame;
 verbosity       = sysParam.verbosity;
 
+activeSubcarriersRx = 10; %per la comunicazione del feedback solo le ultime 10 sottoportanti sono riservate
 frameLength     = (FFTLength + CPLength)*numSymPerFrame; % total number of samples in one frame
 numSampPerSym   = FFTLength + CPLength;
 shortFrameLength = frameLength - numSampPerSym; % total samples in a frame without the sync symbol
-nullIdx = [1:((FFTLength-usedSubCarr)/2) ...
-    (FFTLength/2)+1 ...
+nullIdx = [1:(FFTLength/2 + usedSubCarr/2-activeSubcarriersRx)
     ((FFTLength+usedSubCarr)/2)+2:FFTLength]';
-dataIdx = setdiff(1:usedSubCarr,1:pilotSpacing:usedSubCarr);
+dataIdx = setdiff(1:activeSubcarriersRx,1:pilotSpacing:activeSubcarriersRx);
 cpFraction = 0.55;
 symbOffset = ceil(cpFraction*CPLength);
 syncSigLen = numSampPerSym;
+
 
 % Perform frequency offset estimation and correction
 if sysParam.enableCFO
@@ -147,7 +148,7 @@ end
 
 % Define output parameters
 softLLRs        = [];
-dataConstData   = zeros(usedSubCarrRx-pilotsPerSym,...
+dataConstData   = zeros(activeSubcarriersRx-pilotsPerSym,...
     numSymPerFrame-length(ssIdx)-length(rsIdx)-length(headerIdx));
 
 %% Perform OFDM demodulation, header decoding, and data decoding per frame
