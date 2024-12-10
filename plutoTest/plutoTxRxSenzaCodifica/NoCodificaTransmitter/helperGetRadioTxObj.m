@@ -8,7 +8,7 @@ function [radio,spectrumAnalyze] = helperGetRadioTxObj(ofdmTx)
 % Copyright 2023-2024 The MathWorks, Inc.
 
 
-radio = sdrtx('Pluto');
+radio = sdrtx('Pluto', 'RadioID', 'usb:0');
 radio.BasebandSampleRate = ofdmTx.SampleRate;
 radio.CenterFrequency = ofdmTx.CenterFrequency;
 radio.Gain  = ofdmTx.Gain;

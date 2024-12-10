@@ -443,14 +443,14 @@ puncVec        = codeParam.puncVec;
 
 NData = size(dataIn,2);
 len   = size(dataIn,1);
-modIndex = log2(modOrd);
-softLLRs = zeros(len*modIndex,NData);
+modIenableCPEndex = log2(modOrd);
+softLLRs = zeros(len*modIenableCPEndex,NData); %modIndex
 deintrlvOut = zeros(size(softLLRs));
-% dataIn = dataIn*4./norm(dataIn);
-% Demodulate and deinterleave
+
 for ii = 1:NData
-    % Demodulate
-    softLLRs(:,ii) = qamdemod(dataIn(:,ii),modOrd,...
+    %Demodulate
+   softLLRs(:,ii) = qamdemod(dataIn(:,ii),sysParam.modOrder,...
+        UnitAveragePower=true,...
         OutputType="approxllr");
 
     % Deinterleave
@@ -458,9 +458,8 @@ for ii = 1:NData
         sysParam.dataIntrlvNColumns);
 
 end
-
-% Convolutional decoding
 vitDecIn = deintrlvOut(:);
+% Convolutional decoding
 vitOut = vitdec((vitDecIn(1:end-sysParam.trBlkPadSize)), ...
     poly2trellis(dataConvK,dataConvCode), ...
     traceBackDepth,'term','unquant',puncVec);
@@ -468,7 +467,7 @@ vitOut2 = vitOut(1:end-(dataConvK-1));
 
 % Descrambling
 dataScrOut = xor(vitOut2, ...
-                pnSeq(sysParam.initState,sysParam.scrMask,numel(vitOut2)));
+               pnSeq(sysParam.initState,sysParam.scrMask,numel(vitOut2)));
 
 % Output CRC
 [outBits,errFlag] = crcDetect(dataScrOut,crcDet);

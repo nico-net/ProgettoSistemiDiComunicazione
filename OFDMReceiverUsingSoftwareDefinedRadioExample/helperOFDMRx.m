@@ -38,7 +38,8 @@ persistent rxInternalDiags;
 if isempty(rxInternalDiags)
     rxInternalDiags = struct( ...
         'estCFO',[],...
-        'estChannel',[]);
+        'estChannel',[],...
+        'dataCRCErrorFlag',[]);
 end
 
 if ~camped
@@ -51,7 +52,7 @@ if ~camped
     else
         diagnostics.estCFO = [];
     end
-    
+    diagnostics.dataCRCErrorFlag = [];
     diagnostics.estChannel = [];
     
     % If ta is not empty, sync symbol was found. Adjust buffer timing so that
@@ -83,12 +84,14 @@ end
 
 % Collect diagnostics
 oldCFO = rxInternalDiags.estCFO;
+oldFrameError = rxInternalDiags.dataCRCErrorFlag;
 oldEstChannel = rxInternalDiags.estChannel;
 rxInternalDiags = diagnostics;
 if sysParam.frameNum < 40
     rxInternalDiags.estCFO = [oldCFO; diagnostics.estCFO];
     rxInternalDiags.estChannel = [oldEstChannel; diagnostics.estChannel];
 end
+rxInternalDiags.dataCRCErrorFlag = [oldFrameError; diagnostics.dataCRCErrorFlag];
 
 diagnostics = rxInternalDiags;
 
@@ -193,10 +196,10 @@ userData = equalizedData;
 
 % Recover header information and display decoded modulation, code rate
 % and FFT Length
-[headerBits] = ...
-    OFDMHeaderRecovery(headerData);
-[modOrder, ~, fftLength,...
-    modName] = OFDMHeaderUnpack(headerBits,sysParam);
+[headerBits,headerCRCErrFlag] = ...
+    OFDMHeaderRecovery(headerData,sysParam);
+[modOrder, codeIndex, ~, fftLength,...
+    modName,codeRate] = OFDMHeaderUnpack(headerBits);
 % if isfield(sysParam,'isSDR')
 %     % if modOrder ~= sysParam.modOrder
 %     %     error('The modulation scheme detected (%s), does not match the modulation scheme mentioned in the data parameters. This results in invalid buffer sizes at the receiver and data decoding is not possible',modName);
@@ -205,9 +208,17 @@ userData = equalizedData;
 %     %     error('The codeRate detected (%s), does not match the codeRate mentioned in the data parameters. This results in invalid buffer sizes at the receiver and data decoding is not possible',codeRate);
 %     % end
 % end
+if headerCRCErrFlag
     if verbosity > 0
-        fprintf('Modulation: %s  and FFT Length=%d\n',...
-            modName, fftLength);
+        fprintf('Header CRC failed\n');
+    end
+    dataCRCErrFlag = 1;
+    decodedDataBits = zeros(sysParam.trBlkSize,1);
+else
+    if verbosity > 0
+        fprintf('Header CRC passed\n');
+        fprintf('Modulation: %s, codeRate=%s, and FFT Length=%d\n',...
+            modName, codeRate, fftLength);
     end
 
     % Perform common phase error (CPE) estimation on pilots and
@@ -233,15 +244,20 @@ userData = equalizedData;
     end
 
     % Recover data bits from data subcarriers
-    [llrOutput,decodedDataBits] =...
+    [llrOutput,decodedDataBits,dataCRCErrFlag] =...
         OFDMDataRecovery(squeeze(dataConstData),...
-        modOrder);
+        modOrder,codeIndex,sysParam);
     softLLRs = llrOutput(:);
     if verbosity > 0
-        fprintf('Data decoding completed\n');
-        fprintf('------------------------------------------\n')
-        
+        if dataCRCErrFlag
+            fprintf('Data CRC failed\n');
+        else
+            fprintf('Data CRC passed\n');
+            fprintf('Data decoding completed\n');
+            fprintf('------------------------------------------\n')
+        end
     end
+end
 
 rxDataBits = double(decodedDataBits); % convert from logical type to double
 
@@ -252,12 +268,14 @@ diagnostics = struct( ...
     'rxConstellationHeader',headerData,...
     'rxConstellationData',dataConstData,...
     'softLLR',softLLRs,...
-    'decodedModOrder',modOrder);
+    'decodedCodeRateIndex',codeIndex,...
+    'decodedModOrder',modOrder,...
+    'headerCRCErrorFlag',headerCRCErrFlag,...
+    'dataCRCErrorFlag',dataCRCErrFlag);
 
 end
 
-
-function [modOrder,fftLenIndex,fftLength,modType] = OFDMHeaderUnpack(inBits,sysParam)
+function [modOrder,codeRateIndex,fftLenIndex,fftLength,modType,codeRate] = OFDMHeaderUnpack(inBits)
 %OFDMHeaderUnpack Unpacks bit information from header
 % [modOrder, codeRateIndex, fftLenIndex,fftLength, modType, codeRate] = 
 % OFDMHeaderUnpack(inBits)
@@ -272,12 +290,15 @@ function [modOrder,fftLenIndex,fftLength,modType] = OFDMHeaderUnpack(inBits,sysP
 % code rate index (codeRateIndex),FFT length index (fftLenIndex),
 % FFT length (fftLength), modulation type (modType) and code rate
 % (codeRate).
+
 % First 3 bits of header represent FFT Length index
 fftLenIndex = bit2int(inBits(1:3),3);
 
 % Next 3 bits represent modulation index value
 modIndex = bit2int(inBits(4:6),3);
 
+% Next 2 bits represent code rate index
+codeRateIndex = bit2int(inBits(7:8),2);
 
 % Modulation order
 if modIndex == 5
@@ -294,12 +315,6 @@ else
     modOrder = 2;
 end
 
-%siccome non è presente alcuna correzione dei bit errati (CRC), impongo
-%che la modulazione sia quella che ci si aspetta
-if modOrder ~= sysParam.modOrder
-    fprintf('Errore nella modulazione. Cambio per evitare il blocco\n');
-    modOrder = sysParam.modOrder;
-end
 % FFT Length value
 switch fftLenIndex
     case 0
@@ -334,10 +349,21 @@ switch modOrder
         modType = 'BPSK'; % make default BPSK
 end
 
+% Punctured code rate
+switch codeRateIndex
+    case 1
+        codeRate = '2/3';
+    case 2
+        codeRate = '3/4';	
+    case 3
+        codeRate = '5/6';	
+    otherwise
+        codeRate = '1/2'; % make default index 0
+end
 
 end
 
-function [headerBits] = OFDMHeaderRecovery(headSymb)
+function [headerBits,errFlag] = OFDMHeaderRecovery(headSymb,sysParam)
 %OFDMHeaderRecovery Demodulates and decodes header information
 % [headerBits,errFlag] = OFDMHeaderRecovery(headSymb,sysParam)
 % takes header data symbols as input and outputs decoded and demodulated
@@ -347,39 +373,35 @@ function [headerBits] = OFDMHeaderRecovery(headSymb)
 % headerBits      - Decoded header bits.
 % errFlag         - CRC error flag, true if CRC failed
 
-% persistent crcDet;
-% if isempty(crcDet)
-%     crcDet = crcConfig(...
-%         'Polynomial',sysParam.headerCRCPoly, ...
-%         'InitialConditions',0, ...
-%         'FinalXOR',0);
-% end
-% 
-% traceBackDepth = 30;
-% deintrlvLen    = sysParam.headerIntrlvNColumns;
+persistent crcDet;
+if isempty(crcDet)
+    crcDet = crcConfig(...
+        'Polynomial',sysParam.headerCRCPoly, ...
+        'InitialConditions',0, ...
+        'FinalXOR',0);
+end
 
-% Demodulazione PSK
-headerLLRs = pskdemod(headSymb(:), 2, ...
+traceBackDepth = 30;
+deintrlvLen    = sysParam.headerIntrlvNColumns;
+
+% Demodulate header symbol
+softBits = pskdemod(headSymb(:), 2, ...
     OutputType="approxllr");
 
-% Conversione LLR in bit
-headerBits = headerLLRs < 0;  % I bit sono 0 quando LLR < 0, 1 quando LLR > 0
+% Deinterleave
+deintrlvOut = reshape(reshape(softBits,[],deintrlvLen).',[],1);
 
+% Viterbi decoding
+vitOut = vitdec((deintrlvOut(:)),...
+    poly2trellis(sysParam.headerConvK,sysParam.headerConvCode), ...
+    traceBackDepth,'term','unquant');
 
-% % Deinterleave
-% deintrlvOut = reshape(reshape(softBits,[],deintrlvLen).',[],1);
-% 
-% % Viterbi decoding
-% vitOut = vitdec((deintrlvOut(:)),...
-%     poly2trellis(sysParam.headerConvK,sysParam.headerConvCode), ...
-%     traceBackDepth,'term','unquant');
-% 
-% % CRC check
-% [headerBits,errFlag] = crcDetect(vitOut(1:(end-(sysParam.headerConvK-1))),crcDet);
+% CRC check
+[headerBits,errFlag] = crcDetect(vitOut(1:(end-(sysParam.headerConvK-1))),crcDet);
 
 end
 
-function [softLLRs,outBits] = OFDMDataRecovery(dataIn,modOrd)
+function [softLLRs,outBits,errFlag] = OFDMDataRecovery(dataIn,modOrd,codeIn,sysParam)
 %OFDMDataRecovery Recovers data bits
 % [softLLRs,outBits,errFlag] = OFDMDataRecovery(dataIn,modOrd,codeIn,sysParam)
 % performs symbol demodulation, deinterleaving, decoding, depuncturing,
@@ -393,17 +415,82 @@ function [softLLRs,outBits] = OFDMDataRecovery(dataIn,modOrd)
 % outBits  - decoded bit output of Viterbi decoder
 % errFlag  - CRC err flag, outputs 1 for CRC fail and 0 CRC pass.
 
-NData = size(dataIn,2);
-modIndex = log2(modOrd);
-softLLRs = zeros(length(dataIn)*modIndex, NData);
-
-% Demodulate
-for ii = 1:NData
-    softLLRs(:,ii) = qamdemod(dataIn(:,ii), modOrd, ...
-        OutputType="approxllr", ...
-        UnitAveragePower=true);
+% Create a persistent PN sequence object for use as an additive scrambler
+persistent pnSeq;
+if isempty(pnSeq)
+    pnSeq = comm.PNSequence(Polynomial='x^-7 + x^-3 + 1',...
+        InitialConditionsSource="Input port",...
+        MaskSource="Input port",...
+        VariableSizeOutput=true,...
+        MaximumOutputSize=[sysParam.trBlkSize + sysParam.CRCLen + ...
+            sysParam.dataConvK 1]);
 end
 
-% Output
-outBits = softLLRs(:) <0;  % The final output bits after demodulation
+% Create a persistent CRC object
+persistent crcDet;
+if isempty(crcDet)
+    crcDet = crcConfig(...
+        'Polynomial',sysParam.CRCPoly,...
+        'InitialConditions',0,...
+        'FinalXOR',0);
+end
+
+dataConvK      = sysParam.dataConvK;
+dataConvCode   = sysParam.dataConvCode; 
+traceBackDepth = sysParam.tracebackDepth; 
+codeParam      = helperOFDMGetTables(codeIn);
+puncVec        = codeParam.puncVec;
+
+NData = size(dataIn,2);
+len   = size(dataIn,1);
+modIndex = log2(modOrd);
+softLLRs = zeros(len*modIndex,NData);
+deintrlvOut = zeros(size(softLLRs));
+%dataIn = dataIn*4./norm(dataIn);
+% Demodulate and deinterleave
+for ii = 1:NData
+    %Demodulate
+   softLLRs(:,ii) = qamdemod(dataIn(:,ii),sysParam.modOrder,...
+        UnitAveragePower=true,...
+        OutputType="approxllr");
+
+    % Deinterleave
+    deintrlvOut(:,ii) = OFDMDeinterleave(softLLRs(:,ii), ...
+        sysParam.dataIntrlvNColumns);
+
+end
+vitDecIn = deintrlvOut(:);
+% Convolutional decoding
+vitOut = vitdec((vitDecIn(1:end-sysParam.trBlkPadSize)), ...
+    poly2trellis(dataConvK,dataConvCode), ...
+    traceBackDepth,'term','unquant',puncVec);
+vitOut2 = vitOut(1:end-(dataConvK-1));
+
+% Descrambling
+dataScrOut = xor(vitOut2, ...
+               pnSeq(sysParam.initState,sysParam.scrMask,numel(vitOut2)));
+
+% Output CRC
+[outBits,errFlag] = crcDetect(dataScrOut,crcDet);
+end
+
+function deintrlvOut = OFDMDeinterleave(softLLRs,deintrlvLen)
+
+lenIn = size(softLLRs,1);
+numIntCols = ceil(lenIn/deintrlvLen);
+numInPad = (deintrlvLen*numIntCols) - lenIn; % number of padded entries needed to make the input data length factorable
+numFullRows = deintrlvLen - numInPad;
+temp1 = reshape(softLLRs(1:numFullRows*numIntCols), ...
+    numIntCols,numFullRows).'; % form full rows
+if numInPad ~= 0
+    temp2 = reshape(softLLRs(numFullRows*numIntCols+1:end), ...
+        numIntCols-1,[]).'; % form partially-filled rows
+    temp2 = [temp2 zeros(numInPad,1)];
+else
+    temp2 = [];
+end
+temp = [temp1; temp2]; % concatenate the two matrices
+tempout = temp(:);
+deintrlvOut = tempout(1:end-numInPad);
+
 end
