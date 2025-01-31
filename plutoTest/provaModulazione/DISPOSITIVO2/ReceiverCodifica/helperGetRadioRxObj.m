@@ -9,7 +9,7 @@ function [radio, spectrumAnalyze, constDiag] = helperGetRadioRxObj(ofdmRx)
 % Copyright 2023-2024 The MathWorks, Inc.
 
 
-radio = sdrrx('Pluto','RadioID','usb:0');
+radio = sdrrx('Pluto','RadioID','usb:1');
 radio.BasebandSampleRate = ofdmRx.SampleRate;
 radio.CenterFrequency = ofdmRx.CenterFrequency;
 radio.SamplesPerFrame = ofdmRx.txWaveformSize;
