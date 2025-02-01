@@ -1,14 +1,16 @@
 function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
     % Questa funzione setta i parametri comuni per la trasmissione e la
     % ricezione delle due pluto.
+
     %% VARIE
     GeneralParam.carrier_frequency        = 865e6;  % Carrier
     GeneralParam.gainTx                   = -20;  % TX radio gain
     GeneralParam.gainRx                   = 40;  % RX radio gain
-    GeneralParam.numRip                   = 4;   % Numero ripetizioni trasmissione
+    GeneralParam.numRip                   = 1;   % Numero ripetizioni trasmissione
     GeneralParam.waitTime                 = 10;  % Attesa in secondi per la ricezione di un ACK
-    GeneralParam.numAtteseMax             = 3;   % Numero di attese massimo prima di invio KeepAlive
+    GeneralParam.numAtteseMax             = 1;   % Numero di attese massimo prima di invio KeepAlive
     GeneralParam.message                  = 'Hello World! ';  % Messaggio da inviare
+    GeneralParam.threshold                = 1e-4;  %Soglia per decidere se il messaggio ricevuto è corretto
     
     %% Parametri OFDM:
     OFDMParams.FFTLength              = 128;   % FFT length

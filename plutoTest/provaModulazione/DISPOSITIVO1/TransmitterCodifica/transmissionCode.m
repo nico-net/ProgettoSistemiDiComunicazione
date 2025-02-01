@@ -1,8 +1,11 @@
 function [radio, txWaveform, sysParam, tunderrun] = transmissionCode(GeneralParam, OFDMParams, dataParams)
+%% OFDM TRANSMITTER DISPOSITIVO 1
+
     %% Initialize Transmitter Parameters
     centerFrequency = GeneralParam.carrier_frequency;
     gain = GeneralParam.gainTx;
-    [sysParam, txParam, trBlk] = helperOFDMSetParamsSDR(OFDMParams, dataParams, GeneralParam.message);
+    message_sent = GeneralParam.message;
+    [sysParam, txParam, trBlk] = helperOFDMSetParamsSDR(OFDMParams, dataParams, message_sent);
     sampleRate = sysParam.scs * sysParam.FFTLen; % Sample rate of signal
     ofdmTx = helperGetRadioParams(sysParam, sampleRate, centerFrequency, gain);
     
