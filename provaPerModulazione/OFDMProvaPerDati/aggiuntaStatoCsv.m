@@ -6,12 +6,12 @@ classe = zeros(height(data), 1); % Inizializza la colonna
 
 % Applicare le condizioni
 for i = 1:height(data)
-    if data.SNR(i) < 10 || data.BER(i) > 8e-3
-        classe(i) = 0;
-    elseif (data.SNR(i) >= 10 && data.SNR(i) <= 20) || (data.BER(i) > 8e-4 && data.BER(i) <= 8e-3)
+    if data.SNR(i) >= 15 && data.BER(i) < 1e-3
+        classe(i) = 2;
+    elseif ((data.SNR(i) >= 7 && data.SNR(i) < 15) && (data.BER(i) < 5e-2)) || (data.SNR(i)>=15 && data.BER(i)>=1e-3 && data.BER(i)<5e-2)
         classe(i) = 1;
     else
-        classe(i) = 2;
+        classe(i) = 0;
     end
 end
 
@@ -21,9 +21,6 @@ data.Classe = classe;
 % Salvare il nuovo file CSV
 writetable(data, 'dati_classificati.csv');
 
-
-% Aggiungere la colonna alla tabella
-data.Classe = classe;
 
 % Contare le occorrenze di ciascuna classe
 num_0 = sum(classe == 0);
