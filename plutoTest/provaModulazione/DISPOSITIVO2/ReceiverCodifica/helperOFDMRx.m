@@ -301,11 +301,7 @@ modIndex = bit2int(inBits(4:6),3);
 codeRateIndex = bit2int(inBits(7:8),2);
 
 % Modulation order
-if modIndex == 5
-    modOrder = 1024;
-elseif modIndex == 4
-    modOrder = 256;
-elseif modIndex == 3
+if modIndex == 3
     modOrder = 64;
 elseif modIndex == 2
     modOrder = 16;
@@ -341,12 +337,8 @@ switch modOrder
         modType = '16QAM';
     case 64
         modType = '64QAM';
-    case 256
-        modType = '256QAM';
-    case 1024
-        modType = '1024QAM';
     otherwise
-        modType = 'BPSK'; % make default BPSK
+        modType = 'BPSK';
 end
 
 % Punctured code rate
@@ -355,8 +347,6 @@ switch codeRateIndex
         codeRate = '2/3';
     case 2
         codeRate = '3/4';	
-    case 3
-        codeRate = '5/6';	
     otherwise
         codeRate = '1/2'; % make default index 0
 end
@@ -449,7 +439,7 @@ deintrlvOut = zeros(size(softLLRs));
 
 for ii = 1:NData
     %Demodulate
-   softLLRs(:,ii) = qamdemod(dataIn(:,ii),sysParam.modOrder,...
+   softLLRs(:,ii) = qamdemod(dataIn(:,ii),modOrd,...
         UnitAveragePower=true,...
         OutputType="approxllr");
 

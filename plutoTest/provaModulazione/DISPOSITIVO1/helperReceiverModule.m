@@ -7,5 +7,6 @@ function [rxFlag, message] = helperReceiverModule(GeneralParam, OFDMParams, data
     while ii<GeneralParam.numRip && ~rxFlag
         [rxFlag, message] = receiverCode(GeneralParam, OFDMParams, dataParams);
         ii = ii + 1;
+        pause(GeneralParam.waitTime);
     end
 end

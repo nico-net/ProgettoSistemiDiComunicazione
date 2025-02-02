@@ -33,11 +33,6 @@ switch codeRateIndex
         codeStruct.codeRate = 3/4;
         codeStruct.codeRateK = 4;
         codeStruct.tracebackDepth = 60;
-    case 3
-        codeStruct.puncVec = [1 1 1 0 0 1 1 0 0 1];
-        codeStruct.codeRate = 5/6;
-        codeStruct.codeRateK = 6;
-        codeStruct.tracebackDepth = 90;
     otherwise
         % Default to index 0
         codeStruct.puncVec = [1 1];
