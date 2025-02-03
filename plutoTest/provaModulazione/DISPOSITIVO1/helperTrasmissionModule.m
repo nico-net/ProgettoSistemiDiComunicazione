@@ -1,11 +1,8 @@
 function helperTrasmissionModule(GeneralParam,OFDMParams, dataParams)
 % funzione per trasmissione
-addpath '/home/nicola-gallucci/Nicola/Matlab/ProgettoSistemi/plutoTest/provaModulazione/DISPOSITIVO1/TransmitterCodifica'
+addpath './TransmitterCodifica'
     [radio, txWaveform, sysParam, tunderrun] = transmissionCode(GeneralParam, OFDMParams,dataParams);
-    for ii = 1:GeneralParam.numRip
-        helperRadioTx(txWaveform,sysParam, radio, tunderrun);
-        pause(2);
-    end
+    helperRadioTx(txWaveform,sysParam, radio, tunderrun);
     % Clean up the radio System object
         release(radio);
 end

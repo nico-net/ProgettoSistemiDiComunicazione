@@ -4,11 +4,11 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
 
     %% VARIE
     GeneralParam.carrier_frequency        = 865e6;  % Carrier
-    GeneralParam.gainTx                   = -20;  % TX radio gain
+    GeneralParam.gainTx                   = -10;  % TX radio gain
     GeneralParam.gainRx                   = 40;  % RX radio gain
-    GeneralParam.numRip                   = 10;   % Numero ripetizioni trasmissione
-    GeneralParam.waitTime                 = 3;  % Attesa in secondi per la ricezione di un ACK
-    GeneralParam.numAtteseMax             = 1;   % Numero di attese massimo prima di invio KeepAlive
+    GeneralParam.numRipRx                 = 5;   % Numero ripetizioni ascolto
+    GeneralParam.waitTime                 = 5;  % Attesa in secondi per la ricezione di un ACK
+    GeneralParam.numAtteseMax             = 2;   % Numero di attese massimo prima di invio KeepAlive
     GeneralParam.message                  = 'Hello World! ';  % Messaggio da inviare
     GeneralParam.threshold                = 1e-4;  %Soglia per decidere se il messaggio ricevuto è corretto
     
@@ -26,9 +26,10 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
     % Code rate accettati: 1/2, 2/3, 3/4
     dataParams.coderate       = "3/4";   % Code ra te
     dataParams.numSymPerFrame = 25;   % Number of data symbols per frame 20 for setup1
-    dataParams.numFrames      = 100;   % Number of frames to transmit
+    dataParams.numFrames      = 500;   % Number of frames to transmit
+    dataParams.numFramesFB    = 300;    %Number of frames to receive
     dataParams.enableScopes   = true;                    % Switch to enable or disable the visibility of scopes
     dataParams.verbosity      = true;                    % Switch to enable or disable the data diagnostic output
-
+    dataParams.printData      = true;
 end
 

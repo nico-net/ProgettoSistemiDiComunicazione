@@ -1,4 +1,4 @@
-function [sysParam,txParam,payload] = helperOFDMSetParamsSDR(OFDMParam,dataParam)
+function [sysParam,txParam,payload] = helperOFDMSetParamsSDR(OFDMParam,dataParam, GeneralParam)
 %helperOFDMSetParamsSDR(OFDMParam,dataParam) Generates simulation parameters.
 %   This function generates transmit-specific and common transmitter/receiver
 %   parameters for the OFDM simulation, based on the high-level user
@@ -24,7 +24,7 @@ txParam = struct();
 txParam.modOrder        = dataParam.modOrder;    
 
 sysParam.isSDR = true;
-sysParam.numFrames      = dataParam.numFrames;
+sysParam.numFrames      = dataParam.numFramesFB;
 
 sysParam.numSymPerFrame = dataParam.numSymPerFrame; 
 

@@ -4,8 +4,8 @@ function [rxFlag, message] = receiverCode(GeneralParam, OFDMParams, dataParams)
 %% Initialize Receiver Parameters
 centerFrequency = GeneralParam.carrier_frequency;
 gain = GeneralParam.gainRx;
-[sysParam,~,transportBlk] = helperOFDMSetParamsSDR(OFDMParams,dataParams);
-sampleRate                       = sysParam.scs*sysParam.FFTLen;                % Sample rate of signal
+[sysParam,~,transportBlk] = helperOFDMSetParamsSDR(OFDMParams,dataParams, GeneralParam);
+sampleRate                = sysParam.scs*sysParam.FFTLen;  % Sample rate of signal
 
 ofdmRx = helperGetRadioParams(sysParam,sampleRate,centerFrequency,gain);
 [radio,spectrumAnalyze,constDiag] = helperGetRadioRxObj(ofdmRx);
@@ -18,9 +18,9 @@ close all;
 errorRate = comm.ErrorRate();
 toverflow = 0; % Receiver overflow count
 rxObj = helperOFDMRxInit(sysParam);
-BER = zeros(1,dataParams.numFrames);
-message_vect = repmat('',dataParams.numFrames,1);
-for frameNum = 1:dataParams.numFrames
+BER = zeros(1,dataParams.numFramesFB);
+message_vect = strings(dataParams.numFramesFB,1);
+for frameNum = 1:dataParams.numFramesFB
     sysParam.frameNum = frameNum;
     [rxWaveform, ~, overflow] = radio();
 
@@ -36,7 +36,6 @@ for frameNum = 1:dataParams.numFrames
 
         % Collect bit and frame error statistics
         if isConnected
-            
             % Continuously update the bit error rate using the |comm.ErrorRate|
             % System object
             berVals = errorRate(...
@@ -63,15 +62,17 @@ for frameNum = 1:dataParams.numFrames
             spectrumAnalyze(rxWaveform);
         end
     end
-    fprintf('BER = %d \n',BER(frameNum));
+    fprintf('\nBER = %d \n',BER(frameNum));
 end
 
-[minBer, idx_min] = min(BER(2:end));
-if minBer < GeneralParam.threshold
-    message = message_vect(idx_min);
-    rxFlag = 1;
-else
-    rxFlag = 0;
-    message = '';
-end
+% [minBer, idx_min] = min(BER(2:end));
+% if minBer < GeneralParam.threshold
+%     message = message_vect(idx_min);
+%     rxFlag = 1;
+% else
+%     rxFlag = 0;
+%     message = '';
+% end
+message = message_vect(end);
+rxFlag = 1;
 release(radio);

@@ -24,7 +24,7 @@ txParam = struct();
 txParam.modOrder        = dataParam.modOrder;    
 
 sysParam.isSDR = true;
-sysParam.numFrames      = dataParam.numFrames;
+sysParam.numFrames      = dataParam.numFramesFB;
 
 sysParam.numSymPerFrame = dataParam.numSymPerFrame; 
 

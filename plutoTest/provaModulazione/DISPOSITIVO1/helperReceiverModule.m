@@ -1,12 +1,12 @@
 function [rxFlag, message] = helperReceiverModule(GeneralParam, OFDMParams, dataParams)
-%Modulo per la ricezione
-    addpath '/home/nicola-gallucci/Nicola/Matlab/ProgettoSistemi/plutoTest/provaModulazione/DISPOSITIVO1/ReceiverCodifica'
-    rxFlag = 0;
-    message = '';
-    ii = 0;
-    while ii<GeneralParam.numRip && ~rxFlag
-        [rxFlag, message] = receiverCode(GeneralParam, OFDMParams, dataParams);
-        ii = ii + 1;
-        pause(GeneralParam.waitTime);
-    end
+%HELPERRECEIVERMODULE   Modulo per la ricezione
+    
+    addpath './ReceiverCodifica'
+    % Si utilizza una modulazione e un code rate robusti per assicurare la
+    % ricezione del feedback
+    dataParams.modOrder = 2;
+    dataParams.coderate = '1/2';
+    [rxFlag, message] = receiverCode(GeneralParam, OFDMParams, dataParams);
+    pause(2);
+    
 end

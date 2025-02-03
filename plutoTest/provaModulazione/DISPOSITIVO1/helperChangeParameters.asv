@@ -1,10 +1,14 @@
-function [codeRateEx, modOrderEx] = helperChangeParameters(message)
+function [dataParams] = prova(message, dataParams)
 %HELPERCHANGEPARAMETERS La funzione cambia i parametri di trasmissione
 %(modulazione e code rate) dopo la ricezione del feedback
 
     substring = find_most_frequent_substring(message,4);
     disp(substring);
+    substring = char(substr)
     modOrder = string(extractBetween(substring, 1, 2));
     coderate = string(extractBetween(substring, strlength(substring)-1, strlength(substring)));
-    [codeRateEx, modOrderEx] = helperChooseCodeMod(modOrder, coderate);
+    dataParams = helperChooseCodeMod(dataParams,modOrder, coderate);
+    disp(coderate);
 end
+string = "01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010";
+dataParams = prova(string, dataParams);

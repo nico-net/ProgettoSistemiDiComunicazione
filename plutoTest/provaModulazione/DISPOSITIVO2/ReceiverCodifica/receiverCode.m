@@ -19,6 +19,8 @@ errorRate = comm.ErrorRate();
 toverflow = 0; % Receiver overflow count
 rxObj = helperOFDMRxInit(sysParam);
 BER = zeros(1,dataParams.numFrames);
+SNR_vect = zeros(1, dataParams.numFrames);
+
 for frameNum = 1:dataParams.numFrames
     sysParam.frameNum = frameNum;
     [rxWaveform, ~, overflow] = radio();
@@ -42,11 +44,13 @@ for frameNum = 1:dataParams.numFrames
                 transportBlk((1:sysParam.trBlkSize)).', ...
                 rxDataBits);
             BER(frameNum) = berVals(1);
+            SNR_vect(frameNum) = helperSNRestimate(spectrumAnalyze);
             if dataParams.printData
                 % As each character in the data is encoded by 7 bits, decode the received data up to last multiples of 7
                 numBitsToDecode = length(rxDataBits) - mod(length(rxDataBits),7);
                 recData = char(bit2int(reshape(rxDataBits(1:numBitsToDecode),7,[]),7));
                 fprintf('Received data in frame %d: %s',frameNum,recData);
+               
             end
         else
             BER(frameNum) = 0.5;
@@ -61,26 +65,17 @@ for frameNum = 1:dataParams.numFrames
             spectrumAnalyze(rxWaveform);
         end
     end
-    fprintf('\nBER = %d \n',BER(frameNum));
+    fprintf('\nBER = %d \n',BER(frameNum));   
 end
 
-%Enable properties of the spectrum analyzer
-res = getSpectrumData(spectrumAnalyze);
-freq = cell2mat(res.FrequencyVector);
-spectrum = cell2mat(res.Spectrum);
-fmin = -100e3;
-idx = (freq >= fmin) & (freq <= fmin*(-1));
-meanPowerdB = mean(spectrum(idx));
-idx = find(freq == 129000);
-SNRestimation = meanPowerdB - (spectrum(idx));
-fprintf('SNR estimated: %d\n', SNRestimation);
-
+SNR_vect = SNR_vect(SNR_vect>0);
 minBer = BER(BER<GeneralParam.threshold);
 if length(minBer) >= (dataParams.numFrames)/4
     rxFlag = 1;
     berMax = max(minBer);
     fprintf('BerMax = %d\n', berMax);
-    class = helperPredictionSVM(SNRestimation, berMax, SVMModel);
+    SNRmean = mean(SNR_vect);
+    class = helperPredictionSVM(SNRmean, berMax, SVMModel);
     disp(class);
 else
     rxFlag = 0;
