@@ -1,4 +1,15 @@
 function most_frequent_substring = find_most_frequent_substring(input_str, word_length)
+%FIND_MOST_FREQUENT_SUBSTRING  Trova la sottostringa più frequente in una
+%stringa data. La funzione viene utilizzata per estrarre i parametri di
+%trasmissione inviati dal ricevitore che vengono ripetuti nel messaggio.
+%INPUT
+%   input_str:      Stringa in ingresso
+%   word_length:    Lunghezza della sottostringa da estrarre
+% 
+%OUTPUT
+%   most_frequent_substring:    Sottostringa più frequente
+
+
     % Convertire la stringa in char array se necessario
     if isstring(input_str)
         input_str = char(input_str);

@@ -1,10 +1,15 @@
 function [radio, spectrumAnalyze, constDiag] = helperGetRadioRxObj(ofdmRx)
-%helperGetRadioTxObj(OFDMTX) returns the radio system object RADIO, based
-%   on the chosen radio device and radio parameters such as Gain,
-%   CentreFrequency, MasterClockRate, and Interpolation factor from the
-%   radioParameter structure OFDMTX. The function additionally gives the
-%   constellation diagram and spectrumAnalyzer system objects as output for
-%   data visualizations
+%helperGetRadioTxObj(OFDMTX) restituisce l'oggetto del sistema radio RADIO,
+%   basato sul dispositivo radio scelto e sui parametri radio come Gain,
+%   CentreFrequency, MasterClockRate e fattore di interpolazione dalla
+%   struttura dei parametri radio OFDMTX. La funzione restituisce inoltre
+%   gli oggetti systemObject per la rappresentazione della costellazione e
+%   per l'analizzatore di spettro, per visualizzare i dati.
+
+%   [RADIO, SPECTRUMANALYZE] = helperGetRadioTxObj(OFDMTX)
+%   RADIO - Oggetto del sistema radio per la trasmissione
+%   SPECTRUMANALYZE - Oggetto systemObject per l'analisi spettrale e la visualizzazione
+
 
 % Copyright 2023-2024 The MathWorks, Inc.
 

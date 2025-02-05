@@ -1,9 +1,14 @@
 function helperTrasmissionModule(GeneralParam,OFDMParams, dataParams)
-% funzione per trasmissione
+%HELPERTRASMISSIONMODULE    Funzione per la trasmissione del segnale
+%INPUT
+%   GeneralParam:  Parametri generali per la trasmissione
+%   OFDMParams:    Parametri per l'OFDM
+%   dataParams:    Parametri specifici per la trasmissione
+
 addpath './TransmitterCodifica'
     [radio, txWaveform, sysParam, tunderrun] = transmissionCode(GeneralParam, OFDMParams,dataParams);
     helperRadioTx(txWaveform,sysParam, radio, tunderrun);
-    % Clean up the radio System object
+    % Libera il System Object
         release(radio);
     clear helperRadioTx transmissionCode
 end

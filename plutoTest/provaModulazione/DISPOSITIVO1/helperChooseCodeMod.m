@@ -1,6 +1,12 @@
 function [codeRateExit, modOrderExit] = helperChooseCodeMod(modOrder, codeRate)
 %HELPERCHOOSECODEMOD La funzione sceglie code rate e modulazione sulla base
 %dei bit ricevuti
+%INPUT
+%   modOrder = Bit per la modulazione
+%   codeRate = Bit per il code rate
+%OUTPUT
+%   modOrderExit = ordine della modulazione associata
+%   codeRateExit = ordine del code rate associato
 
 switch modOrder
     case '00'

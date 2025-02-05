@@ -1,28 +1,24 @@
 function [radio, txWaveform, sysParam, tunderrun] = transmissionCode(GeneralParam, OFDMParams, dataParams)
 %% OFDM TRANSMITTER DISPOSITIVO 1
 
-    %% Initialize Transmitter Parameters
+    %% INIZIALLIZA I PARAMETRI DI TRASMISSIONE
+    
     centerFrequency = GeneralParam.carrier_frequency;
     gain = GeneralParam.gainTx;
     message_sent = GeneralParam.message;
     [sysParam, txParam, trBlk] = helperOFDMSetParamsSDR(OFDMParams, dataParams, message_sent);
-    sampleRate = sysParam.scs * sysParam.FFTLen; % Sample rate of signal
+    sampleRate = sysParam.scs * sysParam.FFTLen; 
     ofdmTx = helperGetRadioParams(sysParam, sampleRate, centerFrequency, gain);
-    
-    % Get the radio transmitter and spectrum analyzer system object
     [radio, spectrumAnalyze] = helperGetRadioTxObj(ofdmTx);
     
-    %% Generate Transmitter Waveform
-    % Initialize transmitter
+    %% GENERA LA WAVEFORM
+
     txObj = helperOFDMTxInit(sysParam);
-    tunderrun = 0; % Initialize count for underruns
+    tunderrun = 0; 
     
-    % Store data bits for BER calculations
     txParam.txDataBits = trBlk;
     [txOut, ~, txDiagnostics] = helperOFDMTx(txParam, sysParam, txObj);
     
-
-    % Repeat the data in a buffer for PLUTO radio to reduce underruns
     txOutSize = length(txOut);
     if txOutSize < 48000
         frameCnt = ceil(48000 / txOutSize);
@@ -37,6 +33,4 @@ function [radio, txWaveform, sysParam, tunderrun] = transmissionCode(GeneralPara
     if dataParams.enableScopes
         spectrumAnalyze(txOut);
     end
-    
-   
 end
