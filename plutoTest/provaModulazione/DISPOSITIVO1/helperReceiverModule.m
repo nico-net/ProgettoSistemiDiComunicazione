@@ -7,6 +7,4 @@ function [rxFlag, message] = helperReceiverModule(GeneralParam, OFDMParams, data
     dataParams.modOrder = 2;
     dataParams.coderate = '1/2';
     [rxFlag, message] = receiverCode(GeneralParam, OFDMParams, dataParams);
-    pause(2);
-    
 end

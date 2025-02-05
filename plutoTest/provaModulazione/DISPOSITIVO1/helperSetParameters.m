@@ -28,8 +28,8 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
     dataParams.numSymPerFrame = 25;   % Number of data symbols per frame 20 for setup1
     dataParams.numFrames      = 500;   % Number of frames to transmit
     dataParams.numFramesFB    = 300;    %Number of frames to receive
-    dataParams.enableScopes   = true;                    % Switch to enable or disable the visibility of scopes
-    dataParams.verbosity      = true;                    % Switch to enable or disable the data diagnostic output
+    dataParams.enableScopes   = true;   % Switch to enable or disable the visibility of scopes
+    dataParams.verbosity      = true;    % Switch to enable or disable the data diagnostic output
     dataParams.printData      = true;
 end
 

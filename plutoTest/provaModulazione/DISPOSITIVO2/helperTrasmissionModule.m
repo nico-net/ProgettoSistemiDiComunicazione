@@ -10,4 +10,5 @@ function helperTrasmissionModule(GeneralParam,OFDMParams, dataParams)
     pause(2);
     % Clean up the radio System object
     release(radio);
+    clear helperRadioTx transmissionCode
 end

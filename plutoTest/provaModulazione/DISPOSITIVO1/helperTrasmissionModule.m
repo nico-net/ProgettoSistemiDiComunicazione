@@ -5,4 +5,5 @@ addpath './TransmitterCodifica'
     helperRadioTx(txWaveform,sysParam, radio, tunderrun);
     % Clean up the radio System object
         release(radio);
+    clear helperRadioTx transmissionCode
 end

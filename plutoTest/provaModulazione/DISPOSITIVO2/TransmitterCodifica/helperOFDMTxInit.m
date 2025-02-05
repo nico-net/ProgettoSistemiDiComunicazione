@@ -23,15 +23,4 @@ txObj.pnSeq = comm.PNSequence(Polynomial= 'x^-7 + x^-3 + 1',...
 txObj.crcHeaderGen = crcConfig('Polynomial',sysParam.headerCRCPoly);
 txObj.crcDataGen   = crcConfig('Polynomial',sysParam.CRCPoly);
 
-% Plot frequency response
-if sysParam.enableScopes
-   [h,w] = freqz(txFilterCoef,1,1024,sysParam.scs*sysParam.FFTLen);
-   figure;
-   plot(w,20*log10(abs(h)));
-   grid on;
-   title('Tx Filter Frequency Response');
-   xlabel('Frequency (Hz)');
-   ylabel('Magnitude (dB)');
-end
-
 end

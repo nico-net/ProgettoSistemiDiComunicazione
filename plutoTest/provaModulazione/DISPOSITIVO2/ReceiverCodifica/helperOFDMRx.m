@@ -200,14 +200,22 @@ userData = equalizedData;
     OFDMHeaderRecovery(headerData,sysParam);
 [modOrder, codeIndex, ~, fftLength,...
     modName,codeRate] = OFDMHeaderUnpack(headerBits);
-% if isfield(sysParam,'isSDR')
-%     % if modOrder ~= sysParam.modOrder
-%     %     error('The modulation scheme detected (%s), does not match the modulation scheme mentioned in the data parameters. This results in invalid buffer sizes at the receiver and data decoding is not possible',modName);
-%     % end
-%     % if str2num(codeRate) ~= sysParam.codeRate
-%     %     error('The codeRate detected (%s), does not match the codeRate mentioned in the data parameters. This results in invalid buffer sizes at the receiver and data decoding is not possible',codeRate);
-%     % end
-% end
+
+
+%Questo codice si attiva se il Tx non ha ricevuto il feedback e non ha
+%cambiato i parametri della comunicazione. Il RX si adatta ai nuovi
+%parametri.
+if modOrder ~= sysParam.modOrder || str2num(codeRate) ~= sysParam.codeRate
+    headerCRCErrFlag = 1;
+    fprintf('Il TX non ha cambiato i parametri di comunicazione\n');
+    sysParam.modOrder = modOrder;
+    codeStruct = helperOFDMGetTables(codeIndex);
+    sysParam.puncVec = codeStruct.puncVec;
+    sysParam.codeRate = codeStruct.codeRate;
+    sysParam.codeRateK = codeStruct.codeRateK;
+    sysParam.tracebackDepth = codeStruct.tracebackDepth;
+end
+
 if headerCRCErrFlag
     if verbosity > 0
         fprintf('Header CRC failed\n');
@@ -449,7 +457,7 @@ for ii = 1:NData
 
 end
 vitDecIn = deintrlvOut(:);
-% Convolutional decoding
+%  Convolutional decoding
 vitOut = vitdec((vitDecIn(1:end-sysParam.trBlkPadSize)), ...
     poly2trellis(dataConvK,dataConvCode), ...
     traceBackDepth,'term','unquant',puncVec);

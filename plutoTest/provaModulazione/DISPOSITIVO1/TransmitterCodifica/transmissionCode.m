@@ -19,13 +19,9 @@ function [radio, txWaveform, sysParam, tunderrun] = transmissionCode(GeneralPara
     
     % Store data bits for BER calculations
     txParam.txDataBits = trBlk;
-    [txOut, txGrid, txDiagnostics] = helperOFDMTx(txParam, sysParam, txObj);
+    [txOut, ~, txDiagnostics] = helperOFDMTx(txParam, sysParam, txObj);
     
-    % Display the grid if verbosity flag is enabled
-    if dataParams.verbosity
-        helperOFDMPlotResourceGrid(txGrid, sysParam);
-    end
-    
+
     % Repeat the data in a buffer for PLUTO radio to reduce underruns
     txOutSize = length(txOut);
     if txOutSize < 48000

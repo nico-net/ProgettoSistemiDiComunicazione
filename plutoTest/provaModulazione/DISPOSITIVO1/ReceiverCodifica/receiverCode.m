@@ -4,7 +4,7 @@ function [rxFlag, message] = receiverCode(GeneralParam, OFDMParams, dataParams)
 %% Initialize Receiver Parameters
 centerFrequency = GeneralParam.carrier_frequency;
 gain = GeneralParam.gainRx;
-[sysParam,~,transportBlk] = helperOFDMSetParamsSDR(OFDMParams,dataParams, GeneralParam);
+[sysParam,~] = helperOFDMSetParamsSDR(OFDMParams,dataParams);
 sampleRate                = sysParam.scs*sysParam.FFTLen;  % Sample rate of signal
 
 ofdmRx = helperGetRadioParams(sysParam,sampleRate,centerFrequency,gain);
@@ -15,10 +15,10 @@ ofdmRx = helperGetRadioParams(sysParam,sampleRate,centerFrequency,gain);
 clear helperOFDMRx helperOFDMRxFrontEnd helperOFDMRxSearch helperOFDMFrequencyOffset;
 close all;
 
-errorRate = comm.ErrorRate();
+%errorRate = comm.ErrorRate();
 toverflow = 0; % Receiver overflow count
 rxObj = helperOFDMRxInit(sysParam);
-BER = zeros(1,dataParams.numFramesFB);
+%BER = zeros(1,dataParams.numFramesFB);
 message_vect = strings(dataParams.numFramesFB,1);
 for frameNum = 1:dataParams.numFramesFB
     sysParam.frameNum = frameNum;
@@ -36,12 +36,12 @@ for frameNum = 1:dataParams.numFramesFB
 
         % Collect bit and frame error statistics
         if isConnected
-            % Continuously update the bit error rate using the |comm.ErrorRate|
-            % System object
-            berVals = errorRate(...
-                transportBlk((1:sysParam.trBlkSize)).', ...
-                rxDataBits);
-            BER(frameNum) = berVals(1);
+            % % Continuously update the bit error rate using the |comm.ErrorRate|
+            % % System object
+            % berVals = errorRate(...
+            %     transportBlk((1:sysParam.trBlkSize)).', ...
+            %     rxDataBits);
+            % BER(frameNum) = berVals(1);
             if dataParams.printData
                 % As each character in the data is encoded by 7 bits, decode the received data up to last multiples of 7
                 numBitsToDecode = length(rxDataBits) - mod(length(rxDataBits),7);
@@ -50,7 +50,7 @@ for frameNum = 1:dataParams.numFramesFB
                 message_vect(frameNum) =  recData;
             end
         else
-            BER(frameNum) = 0.5;
+            %BER(frameNum) = 0.5;
         end
 
         if isConnected && dataParams.enableScopes
@@ -62,17 +62,13 @@ for frameNum = 1:dataParams.numFramesFB
             spectrumAnalyze(rxWaveform);
         end
     end
-    fprintf('\nBER = %d \n',BER(frameNum));
+    % fprintf('\nBER = %d \n',BER(frameNum));
 end
-
-% [minBer, idx_min] = min(BER(2:end));
-% if minBer < GeneralParam.threshold
-%     message = message_vect(idx_min);
-%     rxFlag = 1;
-% else
-%     rxFlag = 0;
-%     message = '';
-% end
-message = message_vect(end);
-rxFlag = 1;
+if isConnected
+    message = message_vect(end);
+    rxFlag = 1;
+else
+    rxFlag = 0;
+    message = '';
+end
 release(radio);
