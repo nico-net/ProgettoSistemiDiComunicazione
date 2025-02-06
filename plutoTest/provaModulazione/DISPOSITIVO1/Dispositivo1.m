@@ -6,9 +6,8 @@
 % * Trasmissione di numFrames simboli per numRip volte
 % * Si mette in attesa di ricezione per waitTime secondi
 % * Ricomincia la trasmissione
-% * Se non riceve riscontro per numAtteseMax volte, il dispositivo inivia un 
-% 'Keep Alive'. Se non riceve risposta, termina la trasmissione
-
+% * Se non riceve riscontro per numAtteseMax volte, il dispositivo termina
+%   trasmissione
 
 % -------------------------------------------
 %% SETUP INIZIALE
@@ -25,7 +24,8 @@ ripetizioniRicezione = 0;
 %% TRASMISSIONE
 
 while endureTransmission
-    %Settaggio del messaggio da inviare (è modificabile!)
+    %Settaggio del messaggio da inviare (è modificabile, ma bisogna modifi-
+    % care anche la stringa ricevuta in DISPOSITIVO 2!)
     GeneralParam.message = 'Hello world! ';
     helperTrasmissionModule(GeneralParam, OFDMParams, dataParams);
 
@@ -55,30 +55,14 @@ while endureTransmission
             break;
         end
     end
-
-% -------------------------------------------
-%% KEEP ALIVE
-
     else
-        %Invio del messaggio di Keep Alive
-        GeneralParam.message = 'Keep Alive';
-        helperTrasmissionModule(GeneralParam, OFDMParams, dataParams);
-        pause(2);
-        [rxFlag, messageReceived] = helperReceiverModule(GeneralParam, OFDMParams, dataParams);
-        if ~rxFlag
-            %Fine della trasmissione. KA non ricevuto
-            endureTransmission = 0;
-        else
-            %Keep alive ricevuto. Si settano i nuovi parametri di
-            %trasmissione
-            dataParams = helperChangeParameters(messageReceived);
-            fprintf('Risposta al KA\n Mod: %d\n  CodeRate = %s\n',dataParams.modOrder, dataParams.coderate);
-        end
+        endureTransmission = 0;
     end
     %Tolgo 1kHz per trasmettere correttamente
     GeneralParam.carrier_frequency = GeneralParam.carrier_frequency - 0.001;
     pause(7);
 end
-fprintf('Trasmissione conclusa\nKeep Alive non ricevuto!\n');
+fprintf('Trasmissione conclusa\n Feedback non ricevuto per %d\n', ...
+    GeneralParam.numAtteseMax);
 
 % -------------------------------------------
