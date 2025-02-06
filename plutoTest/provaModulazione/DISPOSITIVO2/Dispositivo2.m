@@ -55,3 +55,4 @@ while endureCommunication
     end
 end
 fprintf('Comunicazione terminata\nNon è stato ricevuto nulla!\n');
+% -------------------------------------------

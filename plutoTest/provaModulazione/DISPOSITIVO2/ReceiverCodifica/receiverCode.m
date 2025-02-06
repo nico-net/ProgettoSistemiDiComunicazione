@@ -1,22 +1,22 @@
 function [rxFlag, class] = receiverCode(GeneralParam, OFDMParams, dataParams, SVMModel)
-%% *OFDM Receiver DISPOSITIVO 2*
+%% *OFDM RICEVITORE DISPOSITIVO 2*
 
-%% Initialize Receiver Parameters
+%% INIZIALIZZA I PARAMETRI DEL RICEVITORE
 centerFrequency = GeneralParam.carrier_frequency;
 gain = GeneralParam.gainRx;
 [sysParam,~,transportBlk] = helperOFDMSetParamsSDR(OFDMParams,dataParams);
-sampleRate                       = sysParam.scs*sysParam.FFTLen;                % Sample rate of signal
+sampleRate                       = sysParam.scs*sysParam.FFTLen;               
 
 ofdmRx = helperGetRadioParams(sysParam,sampleRate,centerFrequency,gain);
 [radio,spectrumAnalyze,constDiag] = helperGetRadioRxObj(ofdmRx);
-%% Execute Receiver Loop
+%% ESEGUI IL LOOP DEL RICEVITORE
 
-% Clear all the function data as they contain some persistent variables
+
 clear helperOFDMRx helperOFDMRxFrontEnd helperOFDMRxSearch helperOFDMFrequencyOffset;
 close all;
 
 errorRate = comm.ErrorRate();
-toverflow = 0; % Receiver overflow count
+toverflow = 0;
 rxObj = helperOFDMRxInit(sysParam);
 BER = zeros(1,dataParams.numFrames);
 SNR_vect = zeros(1, dataParams.numFrames);
@@ -27,19 +27,15 @@ for frameNum = 1:dataParams.numFrames
 
     toverflow = toverflow + overflow;
 
-    % Run the receiver front-end only when there is no overflow
+    % Runna il front-end del ricevitore solo se non c'è overflow
     if ~overflow
         rxIn = helperOFDMRxFrontEnd(rxWaveform,sysParam,rxObj);
 
-        % Run the receiver processing
+        % Esegui il processo del ricevitore
         [rxDataBits,isConnected,toff,rxDiagnostics] = helperOFDMRx(rxIn,sysParam,rxObj);
         sysParam.timingAdvance = toff;
 
-        % Collect bit and frame error statistics
         if isConnected
-            
-            % Continuously update the bit error rate using the |comm.ErrorRate|
-            % System object
             berVals = errorRate(...
                 transportBlk((1:sysParam.trBlkSize)).', ...
                 rxDataBits);
@@ -70,6 +66,10 @@ end
 
 SNR_vect = SNR_vect(SNR_vect>0);
 minBer = BER(BER<GeneralParam.threshold);
+
+%Se la lunghezza del vettore contenente i BER inferiori alla threshold
+%scelta è maggiore del 25% dei campioni totali, si reputa la ricezione
+%affidabile e si passa alla classificazione del canale.
 if length(minBer) >= (dataParams.numFrames)/4
     rxFlag = 1;
     berMax = max(minBer);

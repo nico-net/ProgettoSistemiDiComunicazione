@@ -6,11 +6,6 @@ function [radio, spectrumAnalyze, constDiag] = helperGetRadioRxObj(ofdmRx)
 %   gli oggetti systemObject per la rappresentazione della costellazione e
 %   per l'analizzatore di spettro, per visualizzare i dati.
 
-%   [RADIO, SPECTRUMANALYZE] = helperGetRadioTxObj(OFDMTX)
-%   RADIO - Oggetto del sistema radio per la trasmissione
-%   SPECTRUMANALYZE - Oggetto systemObject per l'analisi spettrale e la visualizzazione
-
-
 % Copyright 2023-2024 The MathWorks, Inc.
 
 

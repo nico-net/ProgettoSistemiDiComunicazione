@@ -1,20 +1,19 @@
 function syncSignal = helperOFDMSyncSignal()
-%helperOFDMSyncSignal Generates synchronization signal
-%   This function returns a length-62 complex-valued vector for the
-%   frequency-domain representation of the sync signal.
+%helperOFDMSyncSignal Genera il segnale di sincronizzazione
+%   Questa funzione restituisce un vettore di lunghezza 62 a valori complessi per
+%   la rappresentazione nel dominio della frequenza del segnale di sincronizzazione.
 %
-%   By default, this function uses a length-62 Zadoff-Chu sequence with
-%   root index 25. Zadoff-Chu is a constant amplitude signal so long as the
-%   length is a prime number, so the sequence is generated with a length of
-%   63 and adjusted for a length of 62.
+%   Per impostazione predefinita, questa funzione utilizza una sequenza Zadoff-Chu di lunghezza 62 con
+%   indice radice 25. Zadoff-Chu è un segnale a ampiezza costante finché la
+%   lunghezza è un numero primo, quindi la sequenza è generata con una lunghezza di
+%   63 e successivamente adattata a una lunghezza di 62.
 %
-%   This sequence can be user-defined as needed (e.g. a maximum length
-%   seqeunce) as long as the sequence is of length 62 to fit the OFDM
-%   simulation.
+%   Questa sequenza può essere definita dall'utente secondo necessità (ad esempio una sequenza
+%   di lunghezza massima), purché la sequenza abbia lunghezza 62 per adattarsi alla
+%   simulazione OFDM.
 %
 %   syncSignal = helperOFDMSyncSignal() 
-%   syncSignal - frequency-domain sync signal
-
+%   syncSignal - segnale di sincronizzazione nel dominio della frequenza
 
 % Copyright 2023 The MathWorks, Inc.
 

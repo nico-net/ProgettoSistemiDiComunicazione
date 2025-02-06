@@ -8,7 +8,6 @@ function ofdmRadioParams = helperGetRadioParams(sysParams,sampleRate,centerFrequ
 %   la Master Clock Rate e il fattore di decimazione/interpolazione basato sulla frequenza
 %   di campionamento fornita.
 
-
 % Copyright 2023-2024 The MathWorks, Inc.
 ofdmRadioParams.CenterFrequency = centerFrequency;
 ofdmRadioParams.Gain            = gain;

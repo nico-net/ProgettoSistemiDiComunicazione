@@ -1,6 +1,10 @@
 function params = helperChooseParams(class)
-%HELPERCHOOSEPARAMS Summary of this function goes here
-%   Detailed explanation goes here
+%HELPERCHOOSEPARAMS La funzione crea la stringa da inviare come feedback
+%sulla base della classificazione del canale
+%INPUT
+%   class:  classificazione
+%OUTPUT
+%   params:     stringa da trasmettere
 switch class
     case 0
         % modOrder = 4  codeRate = 1/2

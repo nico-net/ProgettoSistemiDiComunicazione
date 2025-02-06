@@ -1,10 +1,14 @@
 function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
-%HELPERSETPARAMETERS     Questa funzione setta i parametri comuni per la trasmissione e la
-    % ricezione delle due pluto.
+%HELPERSETPARAMETERS  Questa funzione setta i parametri comuni per la trasmissione e la
+% ricezione delle due pluto.
+%OUTPUT:
+%   OFDMParams:    parametri della configurazione OFDM
+%   dataParams:     parametri specifici di trasmissione
+%   GeneralParam:   parametri generali
     
     load svm_model.mat SVMModel
     %% VARIE
-    GeneralParam.carrier_frequency        = 865.001e6;  % Carrier
+    GeneralParam.carrier_frequency        = 865.001e6;  % Carrier (+1kHz per correzione CFO)
     GeneralParam.gainTx                   = -20;  % TX radio gain
     GeneralParam.gainRx                   = 50;  % RX radio gain
     GeneralParam.waitTime                 = 5;  % Attesa in secondi per la ricezione 
@@ -15,16 +19,16 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
     OFDMParams.FFTLength              = 128;   % FFT length
     OFDMParams.CPLength               = 32;    % Cyclic prefix length
     OFDMParams.NumSubcarriers         = 72;    % Number of sub-carriers in the band
-    OFDMParams.Subcarrierspacing      = 3e3;  % Sub-carrier spacing of 30 KHz
+    OFDMParams.Subcarrierspacing      = 3e3;  % Sub-carrier spacing 
     OFDMParams.PilotSubcarrierSpacing = 9;     % Pilot sub-carrier spacing
-    OFDMParams.channelBW              = 3e5;   % Bandwidth of the channel 3 MHz
+    OFDMParams.channelBW              = 3e5;   % Bandwidth of the channel 
     
     %% Parametri Dati
     % Modulazioni accettate: QPSK(4), 16-QAM(16), 64-QAM (64)
     dataParams.modOrder       = 64;   % Data modulation order
     % Code rate accettati: 1/2, 2/3, 3/4
-    dataParams.coderate       = "3/4";   % Code ra te
-    dataParams.numSymPerFrame = 25;   % Number of data symbols per frame 20 for setup1
+    dataParams.coderate       = "3/4";   % Code rate
+    dataParams.numSymPerFrame = 25;   % Number of data symbols per frame
     dataParams.numFrames      = 500;   % Number of frames to receive
     dataParams.numFramesFB    = 300;  %Number of frames to transmit for feedback
     dataParams.enableScopes   = true;   % Switch to enable or disable the visibility of scopes

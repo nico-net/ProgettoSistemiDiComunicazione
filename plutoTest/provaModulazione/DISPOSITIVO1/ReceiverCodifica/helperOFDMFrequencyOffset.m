@@ -1,17 +1,17 @@
 function foffset = helperOFDMFrequencyOffset(rxWaveform,sysParam)
-%helperOFDMFrequencyOffset Stima lo spostamento di frequenza usando il prefisso ciclico.
-%   Questa funzione stima lo spostamento di frequenza medio (foffset) utilizzando
-%   il segnale ricevuto nel dominio del tempo. La porzione del prefisso ciclico
-%   del segnale ricevuto nel dominio del tempo viene correlata con la fine del
-%   simbolo per stimare lo spostamento di frequenza. Questa correlazione viene media
-%   su sei simboli, e l'angolo di correlazione massimo viene trovato e memorizzato in un
-%   buffer. 24 angoli vengono mediati per ottenere la stima finale del CFO.
-%
+%helperOFDMFrequencyOffset Stima l'offset di frequenza utilizzando il prefisso ciclico.
+%   Questa funzione stima l'offset di frequenza medio (foffset) utilizzando
+%   la forma d'onda ricevuta nel dominio del tempo. La porzione di prefisso ciclico
+%   della forma d'onda ricevuta viene correlata con la parte finale del simbolo
+%   per stimare l'offset di frequenza. Questa correlazione viene mediata su sei
+%   simboli e l'angolo di correlazione massimo viene trovato e memorizzato in un
+%   buffer. Vengono mediati 24 angoli per ottenere la stima finale dell'offset di frequenza (CFO).
+
 %   foffset = helperOFDMFrequencyOffset(rxWaveform,sysParam) 
-%   rxWaveform - segnale in ingresso nel dominio del tempo
+%   rxWaveform - forma d'onda di ingresso nel dominio del tempo
 %   sysParam - struttura dei parametri di sistema
-%   foffset - spostamento di frequenza normalizzato alla frequenza del simbolo. Un valore
-%   di 1.0 è uguale alla spaziatura tra sottocarrier. 
+%   foffset - offset di frequenza normalizzato alla frequenza del simbolo.
+%   Un valore di 1.0 equivale alla spaziatura tra i sottoportanti.
 
 
 % Copyright 2023 The MathWorks, Inc.

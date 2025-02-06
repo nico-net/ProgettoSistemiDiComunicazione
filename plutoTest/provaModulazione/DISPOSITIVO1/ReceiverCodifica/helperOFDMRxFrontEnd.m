@@ -11,8 +11,6 @@ function rxOut = helperOFDMRxFrontEnd(rxIn,sysParam,rxObj)
 %   sysParam - struttura dei parametri di sistema
 %   rxObj - struttura degli stati e parametri del ricevitore
 
-%
-
 % Copyright 2023 The MathWorks, Inc.
 
 symLen = (sysParam.FFTLen+sysParam.CPLen);

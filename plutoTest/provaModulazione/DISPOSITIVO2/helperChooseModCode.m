@@ -1,6 +1,13 @@
 function [modOrder, codeRate] = helperChooseModCode(params)
-%HELPERCHOOSEMODCODE Summary of this function goes here
-%   Detailed explanation goes here
+
+%HELPERCHOOSEMODCODE Questa funzione serve a risalire alla coppia code rate
+%e modulation order dal messaggio ricevuto
+%INPUT
+%   params:     stringa di ingresso
+%OUTPUT
+%   modOrder:   modulation order
+%   codeRate:   code rate
+
 switch params
     case '0000'
          modOrder = 4;  codeRate = "1/2";

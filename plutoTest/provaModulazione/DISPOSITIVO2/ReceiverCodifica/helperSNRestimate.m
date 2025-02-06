@@ -1,7 +1,10 @@
 function SNRestimation = helperSNRestimate(spectrumAnalyze)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
-    %
+%SNRESTIMATION  La funzione fa una stima del SNR utilizzando l'oggetto
+%spectrumAnalyze. Il SNR è calcolato dividendo la media dei valori
+%associati alla banda (-100kHz, 100kHz) per un valore preso a f=129kHz che
+%rappresenta approsimativamente l'inizio delle bande laterali (costituite
+% principalmente da rumore).
+
     res = getSpectrumData(spectrumAnalyze);
     freq = cell2mat(res.FrequencyVector);
     spectrum = cell2mat(res.Spectrum);
