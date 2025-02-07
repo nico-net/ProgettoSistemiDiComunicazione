@@ -6,13 +6,13 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
 %   dataParams:     parametri specifici di trasmissione
 %   GeneralParam:   parametri generali
     
-    load svm_model.mat SVMModel
+    load SVMModel.mat SVMModel
     %% VARIE
-    GeneralParam.carrier_frequency        = 865.001e6;  % Carrier (+1kHz per correzione CFO)
+    GeneralParam.carrier_frequency        = 865e6;  % Carrier (+1kHz per correzione CFO)
     GeneralParam.gainTx                   = -20;  % TX radio gain
     GeneralParam.gainRx                   = 50;  % RX radio gain
     GeneralParam.waitTime                 = 5;  % Attesa in secondi per la ricezione 
-    GeneralParam.threshold                = 9e-2;  %Soglia per decidere se il messaggio ricevuto è corrett
+    GeneralParam.threshold                = 4e-1;  %Soglia per decidere se il messaggio ricevuto è corrett
     GeneralParam.model                    = SVMModel;  %Modello di classificazione
     
     %% Parametri OFDM:

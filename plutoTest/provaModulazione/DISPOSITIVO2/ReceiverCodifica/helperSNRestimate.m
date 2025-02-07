@@ -13,5 +13,5 @@ function SNRestimation = helperSNRestimate(spectrumAnalyze)
     meanPowerdB = mean(spectrum(idx));
     idx = find(freq == 129000);
     SNRestimation = meanPowerdB - (spectrum(idx));
-    fprintf('SNR estimated: %d\n', SNRestimation);
+    
 end

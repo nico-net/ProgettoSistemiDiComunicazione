@@ -44,8 +44,8 @@ disp(['Accuracy: ', num2str(acc)]);
 
 X_test = [25, 1.4e-6; 
           0, 0.5;
-          7, 3e-3;
-          17, 3e-4;
+          7, 1e-2;
+          17, 1e-2;
           3, 0.1];  % Più campioni
 x_test = minmax_scale(X_test)
 labels = predict(SVMModel, x_test);

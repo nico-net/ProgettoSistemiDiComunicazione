@@ -145,7 +145,7 @@ sysParam.modOrder = dataParam.modOrder;
 
 % Generate payload message
 sysParam.NumBitsPerCharacter = 7;
-payloadMessage = 'Hello World! ';
+payloadMessage = 'Hello World!';
 messageLength = length(payloadMessage);
 numPayloads = ceil(sysParam.trBlkSize/(messageLength*sysParam.NumBitsPerCharacter)); 
 message = repmat(payloadMessage,1,numPayloads);

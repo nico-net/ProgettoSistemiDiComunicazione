@@ -12,8 +12,6 @@ ofdmRx = helperGetRadioParams(sysParam,sampleRate,centerFrequency,gain);
 %% ESEGUI IL LOOP DEL RICEVITORE
 
 clear helperOFDMRx helperOFDMRxFrontEnd helperOFDMRxSearch helperOFDMFrequencyOffset;
-close all;
-
 
 toverflow = 0; % Contatore dell'overflow
 rxObj = helperOFDMRxInit(sysParam);
@@ -33,11 +31,11 @@ for frameNum = 1:dataParams.numFramesFB
         sysParam.timingAdvance = toff;
 
         if isConnected
-            if dataParams.printData
+            if dataParams.printData && mod(frameNum, 20) == 0
                 % As each character in the data is encoded by 7 bits, decode the received data up to last multiples of 7
                 numBitsToDecode = length(rxDataBits) - mod(length(rxDataBits),7);
                 recData = char(bit2int(reshape(rxDataBits(1:numBitsToDecode),7,[]),7));
-                fprintf('Received data in frame %d: %s',frameNum,recData);
+                fprintf('Received data in frame %d: %s\n',frameNum,recData);
                 message_vect(frameNum) =  recData;
             end
         else
@@ -55,9 +53,11 @@ for frameNum = 1:dataParams.numFramesFB
 end
 %% GESTISCI IL MESSAGGIO
 
-% Accetta il messaggio solo se le due stazioni si sono connesse
-if isConnected
+% Accetta il messaggio solo se la stazione ha ricevuto almeno il 20% dei
+% frame
+if length(message_vect)>=dataParams.numFramesFB/5
     message = message_vect(end);
+    fprintf('Messaggio ricevuto: %s\n', message);
     rxFlag = 1;
 else
     rxFlag = 0;

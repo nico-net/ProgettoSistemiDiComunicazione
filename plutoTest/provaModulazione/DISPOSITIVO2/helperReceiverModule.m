@@ -1,16 +1,17 @@
-function [rxFlag, params] = helperReceiverModule(GeneralParam, OFDMParams, dataParams)
+function [rxFlag, params, estCFO] = helperReceiverModule(GeneralParam, OFDMParams, dataParams)
 %HELPERRECEIVERMODULE   Modulo per la ricezione
 
     close all;
     addpath './ReceiverCodifica'
     SVMModel = GeneralParam.model;
     params = '';
-    [rxFlag, class] = receiverCode(GeneralParam, OFDMParams, dataParams, SVMModel);
-    pause(1);
+    [rxFlag, class, estCFO] = receiverCode(GeneralParam, OFDMParams, dataParams, SVMModel);
     
     %Se la ricezione è affidabile, si setta la stringa di trasmissione
     if rxFlag
         params = helperChooseParams(class);
-        fprintf('Classificazione canale: %d\nParams = %s\n', class, params);
+        fprintf('Classificazione canale: %d\n Stringa di trasmissione = %s\n', ...
+            class, params);
     end
+    pause(3);
 end

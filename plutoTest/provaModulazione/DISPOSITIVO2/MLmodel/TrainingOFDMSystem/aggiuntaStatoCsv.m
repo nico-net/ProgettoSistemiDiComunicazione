@@ -1,3 +1,8 @@
+% Questo programma aggiunge le label al file con i dati di training per il
+% modello SVM. La comunicazione è ottima (classe 2) se il SNR è alto e il
+% BER sufficientemente basso. Lo stato è discreto (classe 1) se si hanno
+% valori intermedi di BER  e SNR, altrimenti è di classe 0.
+
 % Leggere il file CSV
 data = readtable('results2.csv'); % Sostituisci 'dati.csv' con il nome del tuo file
 
@@ -6,9 +11,9 @@ classe = zeros(height(data), 1); % Inizializza la colonna
 
 % Applicare le condizioni
 for i = 1:height(data)
-    if data.SNR(i) >= 15 && data.BER(i) < 1e-3
+    if data.SNR(i) >= 17 && data.BER(i) < 2e-2
         classe(i) = 2;
-    elseif ((data.SNR(i) >= 7 && data.SNR(i) < 15) && (data.BER(i) < 5e-2)) || (data.SNR(i)>=15 && data.BER(i)>=1e-3 && data.BER(i)<5e-2)
+    elseif ((data.SNR(i) >= 7 && data.SNR(i) < 17) && (data.BER(i) < 8e-2)) || (data.SNR(i)>=17 && data.BER(i)>2e-2 && data.BER(i)<8e-2)
         classe(i) = 1;
     else
         classe(i) = 0;

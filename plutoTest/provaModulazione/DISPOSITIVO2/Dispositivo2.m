@@ -13,25 +13,33 @@
 endureCommunication = 1;
 
 % Conta il numero di volte in cui il RX non si connette con il TX
-ripetizioniRicezione = 0;
 
 % -------------------------------------------
 %% RICEZIONE E TRASMISSIONE
 while endureCommunication
-
+    ripetizioniRicezione = 0;
     fprintf('In attesa di ricezione\n');
-    [rxFlag, params] = helperReceiverModule(GeneralParam, OFDMParams, dataParams);
-    while ripetizioniRicezione <3
-        if ~rxFlag && ripetizioniRicezione < 3
+     while ripetizioniRicezione <=4
+        [rxFlag, params, estCFO] = helperReceiverModule(GeneralParam, OFDMParams, dataParams);
+        
+        if ~rxFlag && ripetizioniRicezione < 4
             %Aggiornamento del numero di ricezioni fallite
             ripetizioniRicezione = ripetizioniRicezione+1;
-        
-        elseif ripetizioniRicezione == 3
+
+            %Se ci sono troppi fail nel CRC dell'header allora c'è un problema con
+            %il CFO, quindi somma alla carrier il CFO stimato.
+            GeneralParam.carrier_frequency = GeneralParam.carrier_frequency - estCFO;
+            fprintf(['La comunicazione non è avvenuta o è troppo disturbata.' ...
+                'Riprovo la ricezione\n']);
+            pause(3);
+        end
+        if ripetizioniRicezione == 4
             % se per 3 volte il RX non si connette o riceve dati troppo
             % rumorosi, termina la comunicazione
             endureCommunication = 0;
-        else
-            ripetizioniRicezione = 0;
+        end
+        if rxFlag
+            GeneralParam.carrier_frequency = 865e6;
             fprintf('Passo in trasmissione\n');
             %Nuovo messaggio da inviare
             GeneralParam.message = params;
@@ -42,15 +50,13 @@ while endureCommunication
             %header.
             [dataParams.modOrder, dataParams.coderate] = helperChooseModCode(params); 
         
-            %Tolgo 1kHz per trasmettere correttamente
-            GeneralParam.carrier_frequency = GeneralParam.carrier_frequency - 0.001;
-        
             %Attesa di 3s per sincronizzarsi con il TX
-            pause(5);
+            pause(8);
             helperTrasmissionModule(GeneralParam,OFDMParams, dataParams);
-            pause(5);
-             % Per contrastare il CFO, aggiungo 1kHz alla carrier del ricevitore
-            GeneralParam.carrier_frequency = GeneralParam.carrier_frequency + 0.001;
+            %pause(5);
+            % Per contrastare il CFO, aggiungo 3/2 del CFO stimato alla carrier del ricevitore
+            GeneralParam.carrier_frequency = GeneralParam.carrier_frequency + 3/2*estCFO;
+            ripetizioniRicezione = 5;
         end
     end
 end

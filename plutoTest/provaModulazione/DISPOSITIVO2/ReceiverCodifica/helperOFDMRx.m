@@ -66,7 +66,7 @@ else
     isConnected = true;
     toff = sysParam.timingAdvance;
 
-    if sysParam.verbosity > 0
+    if sysParam.verbosity > 0 && mod(sysParam.frameNum, 20) == 0
         fprintf('Detected and processing frame %d\n', sysParam.frameNum);
         fprintf('------------------------------------------\n');
     else
@@ -124,16 +124,16 @@ syncSigLen = numSampPerSym;
 
 % Perform frequency offset estimation and correction
 if sysParam.enableCFO
-    if verbosity > 0
+    if verbosity > 0 && mod(sysParam.frameNum, 20) == 0
         fprintf('Estimating carrier frequency offset ... \n');
     end
     freqOffset = helperOFDMFrequencyOffset(rxWaveform,sysParam);
     rxObj.freqOffset = freqOffset;
-    if verbosity > 0
+    if verbosity > 0 && mod(sysParam.frameNum, 20) == 0
         fprintf('Estimated carrier frequency offset is %d Hz.\n', ...
             freqOffset(end) * sysParam.scs);
     end
-    if verbosity > 0
+    if verbosity > 0 && mod(sysParam.frameNum, 20) == 0
         fprintf('Correcting frequency offset across all samples\n');
     end
     cfoCorrectedData = rxObj.pfo( ...
@@ -203,7 +203,7 @@ userData = equalizedData;
 %Questo codice si attiva se il Tx non ha ricevuto il feedback e non ha
 %cambiato i parametri della comunicazione. Il RX si adatta ai nuovi
 %parametri.
-if modOrder ~= sysParam.modOrder || str2num(codeRate) ~= sysParam.codeRate
+if ~headerCRCErrFlag && (modOrder ~= sysParam.modOrder || str2num(codeRate) ~= sysParam.codeRate)
     headerCRCErrFlag = 1;
     fprintf('Il TX non ha cambiato i parametri di comunicazione\n');
     sysParam.modOrder = modOrder;
@@ -215,13 +215,13 @@ if modOrder ~= sysParam.modOrder || str2num(codeRate) ~= sysParam.codeRate
 end
 
 if headerCRCErrFlag
-    if verbosity > 0
+    if verbosity > 0 && mod(sysParam.frameNum, 20) == 0
         fprintf('Header CRC failed\n');
     end
     dataCRCErrFlag = 1;
     decodedDataBits = zeros(sysParam.trBlkSize,1);
 else
-    if verbosity > 0
+    if verbosity > 0 && mod(sysParam.frameNum, 20) == 0
         fprintf('Header CRC passed\n');
         fprintf('Modulation: %s, codeRate=%s, and FFT Length=%d\n',...
             modName, codeRate, fftLength);
@@ -254,8 +254,8 @@ else
         OFDMDataRecovery(squeeze(dataConstData),...
         modOrder,codeIndex,sysParam);
     softLLRs = llrOutput(:);
-    if verbosity > 0
-        if dataCRCErrFlag
+    if verbosity > 0 && mod(sysParam.frameNum, 20) == 0
+        if dataCRCErrFlag 
             fprintf('Data CRC failed\n');
         else
             fprintf('Data CRC passed\n');
