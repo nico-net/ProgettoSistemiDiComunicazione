@@ -1,5 +1,5 @@
 %% DISPOSITIVO 2
-
+clear; clc;
 % -------------------------------------------
 %% PROTOCOLLO DI COMUNICAZIONE
 % * Ricezione del messaggio inviato da dispositivo 1
@@ -29,7 +29,7 @@ while endureCommunication
             %Se ci sono troppi fail nel CRC dell'header allora c'è un problema con
             %il CFO, quindi somma alla carrier il CFO stimato.
             GeneralParam.carrier_frequency = GeneralParam.carrier_frequency - estCFO;
-            fprintf(['La comunicazione non è avvenuta o è troppo disturbata.' ...
+            fprintf(['La comunicazione non è avvenuta o è troppo disturbata. ' ...
                 'Riprovo la ricezione\n']);
             pause(3);
         end

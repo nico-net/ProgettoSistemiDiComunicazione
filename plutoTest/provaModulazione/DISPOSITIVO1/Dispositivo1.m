@@ -24,6 +24,7 @@ endureTransmission = 1;
 %% TRASMISSIONE
 
 while endureTransmission
+    fprintf('Sono in trasmissione\n');
     %plotting dell'ordine della costellazione e del code rate
     helperPlotter(str2num(dataParams.coderate), dataParams.modOrder)
 

@@ -85,7 +85,7 @@ estCFO = 0;
 if length(minBer) >= (dataParams.numFrames)/4
     rxFlag = 1;
     berMax = max(minBer);
-    fprintf('BerMedio = %d, BerMax = %d\n', mean(minBer),berMax);
+    fprintf('Ber medio = %d, BerMax = %d\n', mean(minBer),berMax);
     SNRmean = mean(SNR_vect);
     class = helperPredictionSVM(SNRmean, berMax, SVMModel);
     fprintf(['Classe stimata: %d\n' ...

@@ -31,14 +31,15 @@ for frameNum = 1:dataParams.numFramesFB
         sysParam.timingAdvance = toff;
 
         if isConnected
-            if dataParams.printData && mod(frameNum, 20) == 0
-                % As each character in the data is encoded by 7 bits, decode the received data up to last multiples of 7
+            if ~rxDiagnostics.dataCRCErrorFlag
+                % As each character in the data is encoded by 7 bits, decode the received data up to last multiples of 7 
                 numBitsToDecode = length(rxDataBits) - mod(length(rxDataBits),7);
                 recData = char(bit2int(reshape(rxDataBits(1:numBitsToDecode),7,[]),7));
-                fprintf('Received data in frame %d: %s\n',frameNum,recData);
                 message_vect(frameNum) =  recData;
+                if dataParams.printData && mod(frameNum, 20) == 0
+                    fprintf('Received data in frame %d: %s\n',frameNum,recData);
+                end
             end
-        else
         end
 
         if isConnected && dataParams.enableScopes
@@ -55,9 +56,14 @@ end
 
 % Accetta il messaggio solo se la stazione ha ricevuto almeno il 20% dei
 % frame
-if length(message_vect)>=dataParams.numFramesFB/5
-    message = message_vect(end);
+rxFlag = 1;
+if  nnz(message_vect ~= "") >= dataParams.numFramesFB/5
+    message_not_empty = message_vect(message_vect ~= ""); 
+    message = message_not_empty(end);
     fprintf('Messaggio ricevuto: %s\n', message);
+elseif nnz(message_vect ~= "") > 0
+    %La comunicazione è troppo disturbata
+    message = '0000';
     rxFlag = 1;
 else
     rxFlag = 0;

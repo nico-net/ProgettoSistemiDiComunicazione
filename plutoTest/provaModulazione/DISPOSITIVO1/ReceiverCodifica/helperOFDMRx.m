@@ -68,7 +68,7 @@ else
     toff = sysParam.timingAdvance;
 
     if sysParam.verbosity > 0 && mod(sysParam.frameNum, 20) == 0
-        fprintf('Detected and processing frame %d\n', sysParam.frameNum);
+        fprintf('\nDetected and processing frame %d\n', sysParam.frameNum);
         fprintf('------------------------------------------\n');
     else
         fprintf('.');
