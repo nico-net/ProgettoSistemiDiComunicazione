@@ -203,15 +203,11 @@ userData = equalizedData;
 %Questo codice si attiva se il Tx non ha ricevuto il feedback e non ha
 %cambiato i parametri della comunicazione. Il RX si adatta ai nuovi
 %parametri.
+paramsNotChanged = 0;
 if ~headerCRCErrFlag && (modOrder ~= sysParam.modOrder || str2num(codeRate) ~= sysParam.codeRate)
     headerCRCErrFlag = 1;
     fprintf('Il TX non ha cambiato i parametri di comunicazione\n');
-    sysParam.modOrder = modOrder;
-    codeStruct = helperOFDMGetTables(codeIndex);
-    sysParam.puncVec = codeStruct.puncVec;
-    sysParam.codeRate = codeStruct.codeRate;
-    sysParam.codeRateK = codeStruct.codeRateK;
-    sysParam.tracebackDepth = codeStruct.tracebackDepth;
+    paramsNotChanged = 1;
 end
 
 if headerCRCErrFlag
@@ -277,7 +273,8 @@ diagnostics = struct( ...
     'decodedCodeRateIndex',codeIndex,...
     'decodedModOrder',modOrder,...
     'headerCRCErrorFlag',headerCRCErrFlag,...
-    'dataCRCErrorFlag',dataCRCErrFlag);
+    'dataCRCErrorFlag',dataCRCErrFlag, ...
+    'paramsNotChanged', paramsNotChanged);
 
 end
 

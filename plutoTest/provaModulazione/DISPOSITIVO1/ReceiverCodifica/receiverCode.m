@@ -56,17 +56,13 @@ end
 
 % Accetta il messaggio solo se la stazione ha ricevuto almeno il 20% dei
 % frame
-rxFlag = 1;
+rxFlag = 0;
 if  nnz(message_vect ~= "") >= dataParams.numFramesFB/5
     message_not_empty = message_vect(message_vect ~= ""); 
     message = message_not_empty(end);
     fprintf('Messaggio ricevuto: %s\n', message);
-elseif nnz(message_vect ~= "") > 0
-    %La comunicazione è troppo disturbata
-    message = '0000';
     rxFlag = 1;
 else
-    rxFlag = 0;
     message = '';
 end
 release(radio);

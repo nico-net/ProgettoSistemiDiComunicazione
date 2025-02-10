@@ -40,6 +40,16 @@ for frameNum = 1:dataParams.numFrames
             if rxDiagnostics.headerCRCErrorFlag 
                 numHeaderCRCfail = numHeaderCRCfail + 1;
                 BER(frameNum) = 0.5;
+                if rxDiagnostics.paramsNotChanged
+                    sysParam.modOrder = rxDiagnostics.decodedModOrder;
+                    codeStruct = helperOFDMGetTables(rxDiagnostics.decodedCodeRateIndex);
+                    sysParam.puncVec = codeStruct.puncVec;
+                    sysParam.codeRate = codeStruct.codeRate;
+                    sysParam.codeRateK = codeStruct.codeRateK;
+                    sysParam.tracebackDepth = codeStruct.tracebackDepth;
+                    fprintf('Cambio i parametri: Mod =%d  Code = %d \n', ...
+                        sysParam.modOrder, sysParam.codeRate);
+                end
             else
                 berVals = errorRate(...
                     transportBlk((1:sysParam.trBlkSize)).', ...
@@ -50,8 +60,8 @@ for frameNum = 1:dataParams.numFrames
                     % As each character in the data is encoded by 7 bits, decode the received data up to last multiples of 7
                     numBitsToDecode = length(rxDataBits) - mod(length(rxDataBits),7);
                     recData = char(bit2int(reshape(rxDataBits(1:numBitsToDecode),7,[]),7));
-                    fprintf('Received data in frame %d: %s\n',frameNum,recData);
-                    fprintf('SNR estimated: %d\n', SNR_vect(frameNum));
+                    fprintf('Dati ricevuti nel frame %d: %s\n',frameNum,recData);
+                    fprintf('SNR stimato: %d\n', SNR_vect(frameNum));
                 end
             end
         else

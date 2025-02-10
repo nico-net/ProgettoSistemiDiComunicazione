@@ -29,16 +29,17 @@ while endureCommunication
             %Se ci sono troppi fail nel CRC dell'header allora c'è un problema con
             %il CFO, quindi somma alla carrier il CFO stimato.
             GeneralParam.carrier_frequency = GeneralParam.carrier_frequency - estCFO;
-            fprintf(['La comunicazione non è avvenuta o è troppo disturbata. ' ...
+            fprintf(['\nLa comunicazione non è avvenuta o è troppo disturbata. ' ...
                 'Riprovo la ricezione\n']);
             pause(3);
-        end
-        if ripetizioniRicezione == 4
+        
+        elseif ripetizioniRicezione == 4
             % se per 3 volte il RX non si connette o riceve dati troppo
             % rumorosi, termina la comunicazione
             endureCommunication = 0;
-        end
-        if rxFlag
+            ripetizioniRicezione = 5;
+            
+        elseif rxFlag
             GeneralParam.carrier_frequency = 865e6;
             fprintf('Passo in trasmissione\n');
             %Nuovo messaggio da inviare
@@ -51,7 +52,7 @@ while endureCommunication
             [dataParams.modOrder, dataParams.coderate] = helperChooseModCode(params); 
         
             %Attesa di 3s per sincronizzarsi con il TX
-            pause(8);
+            pause((ripetizioniRicezione - 3) * (-4));
             helperTrasmissionModule(GeneralParam,OFDMParams, dataParams);
             %pause(5);
             % Per contrastare il CFO, aggiungo 3/2 del CFO stimato alla carrier del ricevitore

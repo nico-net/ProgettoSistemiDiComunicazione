@@ -37,9 +37,8 @@ while endureTransmission
 %% ATTESA RICEZIONE
     if attese ~= GeneralParam.numAtteseMax
         fprintf('Passo in ricezione\n');
-        %pause(2);
         % Per contrastare il CFO, aggiungo 1kHz alla carrier 
-        GeneralParam.carrier_frequency = GeneralParam.carrier_frequency + 0.001;
+        GeneralParam.carrier_frequency = GeneralParam.carrier_frequency - 0.001;
         ripetizioniRicezione=0;
     while ripetizioniRicezione<=3
         [rxFlag, message] = helperReceiverModule(GeneralParam, OFDMParams, dataParams);
@@ -48,7 +47,7 @@ while endureTransmission
             %Aggiornamento del numero di ricezioni fallite
             ripetizioniRicezione = ripetizioniRicezione+1;
             fprintf('Non ho ricevuto niente. Riprovo\n');
-            pause(5);
+            pause(3);
 
         elseif ripetizioniRicezione == 3
             % se per 3 volte il TX non si connette o riceve dati troppo
@@ -66,7 +65,7 @@ while endureTransmission
         endureTransmission = 0;
     end
     %Tolgo 1kHz per trasmettere correttamente
-    GeneralParam.carrier_frequency = GeneralParam.carrier_frequency - 0.001;
+    GeneralParam.carrier_frequency = GeneralParam.carrier_frequency + 0.001;
     pause(8);
 end
 fprintf('Trasmissione conclusa\n Feedback non ricevuto per %d volte\n', ...

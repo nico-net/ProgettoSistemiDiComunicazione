@@ -4,8 +4,8 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
 
     %% VARIE
     GeneralParam.carrier_frequency        = 865e6;  % Carrier
-    GeneralParam.gainTx                   = -10;  % TX radio gain
-    GeneralParam.gainRx                   = 60;  % RX radio gain
+    GeneralParam.gainTx                   = -3;  % TX radio gain
+    GeneralParam.gainRx                   = 72;  % RX radio gain
     GeneralParam.numAtteseMax             = 2;   % Numero di attese massimo prima di invio KeepAlive
     GeneralParam.message                  = 'Hello World!';  % Messaggio da inviare
     

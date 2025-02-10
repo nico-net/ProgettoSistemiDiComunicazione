@@ -9,8 +9,8 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
     load SVMModel.mat SVMModel
     %% VARIE
     GeneralParam.carrier_frequency        = 865e6;  % Carrier (+1kHz per correzione CFO)
-    GeneralParam.gainTx                   = -10;  % TX radio gain
-    GeneralParam.gainRx                   = 50;  % RX radio gain
+    GeneralParam.gainTx                   = -3;  % TX radio gain
+    GeneralParam.gainRx                   = 70;  % RX radio gain
     GeneralParam.waitTime                 = 5;  % Attesa in secondi per la ricezione 
     GeneralParam.threshold                = 5e-1;  %Soglia per decidere se il messaggio ricevuto è corrett
     GeneralParam.model                    = SVMModel;  %Modello di classificazione
