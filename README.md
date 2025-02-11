@@ -5,8 +5,8 @@ Progetto di Sistemi di Comunicazione dell'Anno Accademico 2024-2025, relativo a:
   comunicazione.
   
 Gli autori del progetto sono:
-Nicola Gallucci - nicola.gallucci@mail.polimi.it
-Matteo Malagrinò - matteo.malagrino@mail.polimi.it
+- Nicola Gallucci - nicola.gallucci@mail.polimi.it
+- Matteo Malagrinò - matteo.malagrino@mail.polimi.it
 
 ## Indice
 - [Introduzione](#introduzione)
