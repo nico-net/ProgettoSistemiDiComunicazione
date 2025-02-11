@@ -1,23 +1,23 @@
 function [camped,toff,foff] = helperOFDMRxSearch(rxIn,sysParam)
-%helperOFDMRxSearch Receiver search sequencer.
-%   This helper function searches for the synchronization signal of the
-%   base station to align the receiver timing to the transmitter timing.
-%   Following successful detection of the sync signal, frequency offset
-%   estimation is performed to on the first five frames to align the
-%   receiver center frequency to the transmitter frequency.
+%helperOFDMRxSearch Sequenziatore di ricerca del ricevitore.
+%   Questa funzione helper cerca il segnale di sincronizzazione della
+%   stazione base per allineare il tempo del ricevitore al tempo del trasmettitore.
+%   Dopo la rilevazione con successo del segnale di sincronizzazione, viene eseguita
+%   la stima dell'offset di frequenza sui primi cinque frame per allineare
+%   la frequenza centrale del ricevitore alla frequenza del trasmettitore.
 %
-%   Once this is completed, the receiver is declared camped and ready for
-%   processing data frames. 
+%   Una volta completato questo processo, il ricevitore viene dichiarato "camped" 
+%   e pronto per il trattamento dei frame di dati.
 %
 %   [camped,toff,foff] = helperOFDMRxSearch(rxIn,sysParam)
-%   rxIn - input time-domain waveform
-%   sysParam - structure of system parameters
-%   camped - boolean to indicate receiver has detected sync signal and
-%   estimated frequency offset
-%   toff - timing offset as calculated from the sync signal location in
-%   signal buffer
-%   foff - frequency offset as calculated from the first 144 symbols
-%   following sync symbol detection
+%   rxIn - waveform in ingresso nel dominio del tempo
+%   sysParam - struttura dei parametri di sistema
+%   camped - valore booleano che indica se il ricevitore ha rilevato il segnale
+%   di sincronizzazione e stimato l'offset di frequenza
+%   toff - offset temporale calcolato dalla posizione del segnale di sincronizzazione
+%   nel buffer del segnale
+%   foff - offset di frequenza calcolato dai primi 144 simboli
+%   successivi alla rilevazione del segnale di sincronizzazione
 %
 % Copyright 2022-2023 The MathWorks, Inc.
 

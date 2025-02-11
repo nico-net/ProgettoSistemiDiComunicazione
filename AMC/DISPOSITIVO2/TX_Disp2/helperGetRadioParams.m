@@ -1,12 +1,13 @@
 function ofdmRadioParams = helperGetRadioParams(sysParams,sampleRate,centerFrequency,gain)
-%helperGetRadioParams(SYSPARAM,RADIODEVICE,SAMPLERATE,CENTERFREQUENCY,GAIN) defines a set of
-% required parameters OFDMTX, for the radio system object initialization. The
-% parameters are derived based on the user chosen radio device RADIODEVICE,
-% sample rate SAMPLERATE and other system parameters SYSPARAM. This
-% function searches for the radio device as selected by the user and if one
-% such device is connected to the host computer, it fetches the IP address,
-% and derives the Master Clock Rate and decimation/interpolation factor
-% based on the given sample rate. 
+%helperGetRadioParams(SYSPARAM,RADIODEVICE,SAMPLERATE,CENTERFREQUENCY,GAIN) 
+%   Definisce un insieme di parametri richiesti per OFDMTX, necessari per 
+%   l'inizializzazione dell'oggetto di sistema radio. I parametri vengono 
+%   derivati in base al dispositivo radio scelto dall'utente RADIODEVICE, 
+%   alla frequenza di campionamento SAMPLERATE e ad altri parametri di sistema SYSPARAM. 
+%   Questa funzione cerca il dispositivo radio selezionato dall'utente e, se 
+%   è connesso al computer host, recupera l'indirizzo IP e calcola la Master Clock Rate 
+%   e il fattore di decimazione/interpolazione basandosi sulla frequenza di campionamento.
+
 
 % Copyright 2023-2024 The MathWorks, Inc.
 ofdmRadioParams.CenterFrequency = centerFrequency;

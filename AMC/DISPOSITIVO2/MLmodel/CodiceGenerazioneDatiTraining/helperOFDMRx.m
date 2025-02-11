@@ -1,31 +1,30 @@
 function [rxDataBits,isConnected,toff,diagnostics] = helperOFDMRx(rxWaveform,sysParam,rxObj)
-%helperOFDMRx Processes OFDM signal.
-%   Performs carrier frequency offset estimation and correction, frame
-%   synchronization, OFDM demodulation, channel estimation, channel
-%   equalization, phase offset correction, and decodes transmitted bits.
+%%helperOFDMRx Elabora il segnale OFDM.
+%   Esegue la stima e la correzione dello sfasamento in frequenza portante, 
+%   la sincronizzazione di frame, la demodulazione OFDM, la stima del canale, 
+%   l'uguagliamento del canale, la correzione dello sfasamento di fase e la 
+%   decodifica dei bit trasmessi.
 %
 %   [rxDataBits,isConnected,toff,diagnostics] = helperOFDMRx(rxWaveform,sysParam,rxObj)
-%   rxWaveform - input time-domain waveform
-%   sysParam - structure of system parameters
-%   rxObj - structure of rx parameters and states
-%   rxDataBits  - Decoded information bits
-%   isConnected - indicates if the receiver is in a connected state
-%   toff - timing offset desired from receiver
-%   diagnostics - Struct that contains:
-%    estCfo                - Values of estimated carrier frequency 
-%                            offset for entire frame
-%    estChannel            - Values of estimated channel for entire frame
-%    timeOffset            - Time offset values
-%    rxConstellationHeader - Demodulated constellation symbols of
-%                            header
-%    rxConstellationData   - Demodulated constellation symbols of
-%                            transmitted data information
-%    softLLR               - LLR values (soft information) of symbol
-%                            demodulated data
-%    decodedCodeRateIndex  - Decoded code rate from header
-%    decodedModRate        - Decoded modulation order from header
-%    headerCRCErrorFlag    - Indicates header CRC status (0-pass, 1-fail)
-%    dataCRCErrorFlag      - Indicates data CRC status (0-pass, 1-fail)
+%   rxWaveform - segnale di ingresso nel dominio del tempo
+%   sysParam - struttura dei parametri di sistema
+%   rxObj - struttura dei parametri e stati del ricevitore
+%   rxDataBits  - Bit informativi decodificati
+%   isConnected - Indica se il ricevitore è in stato connesso
+%   toff - Offset temporale stimato dal ricevitore
+%   diagnostics - Struttura contenente:
+%    estCfo                - Valori dello sfasamento in frequenza portante stimato 
+%                            per l'intero frame
+%    estChannel            - Valori del canale stimato per l'intero frame
+%    timeOffset            - Valori dell'offset temporale
+%    rxConstellationHeader - Simboli della costellazione demodulati dell'header
+%    rxConstellationData   - Simboli della costellazione demodulati dei dati trasmessi
+%    softLLR               - Valori LLR (informazione soft) dei dati demodulati
+%    decodedCodeRateIndex  - Indice del code rate decodificato dall'header
+%    decodedModRate        - Ordine di modulazione decodificato dall'header
+%    headerCRCErrorFlag    - Indica lo stato CRC dell'header (0-pass, 1-fail)
+%    dataCRCErrorFlag      - Indica lo stato CRC dei dati (0-pass, 1-fail)
+
  
 %   Copyright 2020-2023 The MathWorks, Inc.
 

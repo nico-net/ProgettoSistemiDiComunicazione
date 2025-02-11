@@ -1,11 +1,11 @@
 function txObj = helperOFDMTxInit(sysParam)
-%helperOFDMTxInit Initializes transmitter
-%   This helper function is called once and sets up various transmitter
-%   objects for use in per-frame processing of transport blocks.
+%helperOFDMTxInit Inizializza il trasmettitore
+%   Questa funzione di supporto viene chiamata una sola volta e configura 
+%   vari oggetti del trasmettitore per l'elaborazione per frame dei blocchi di trasporto.
 %
 %   txObj = helperOFDMTxInit(sysParam)
-%   sysParam - structure of system parameters
-%   txObj - structure of tx parameters and object handles
+%   sysParam - struttura dei parametri di sistema
+%   txObj - struttura dei parametri del trasmettitore e dei relativi handle di oggetto
 
 % Copyright 2020-2023 The MathWorks, Inc.
 

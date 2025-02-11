@@ -17,7 +17,7 @@ function syncSignal = helperOFDMSyncSignal()
 %   syncSignal = helperOFDMSyncSignal() 
 %   syncSignal - segnale di sincronizzazione nel dominio della frequenza
 
-% Copyright 2023 The MathWorks, Inc.
+% Copyright 2022 The MathWorks, Inc.
 
 zcRootIndex = 25;
 seqLen      = 62;

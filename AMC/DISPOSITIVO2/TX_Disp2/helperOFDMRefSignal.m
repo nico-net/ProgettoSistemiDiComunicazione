@@ -1,24 +1,25 @@
 function refSignal = helperOFDMRefSignal(numSubCarr)
-%helperOFDMRefSignal Generates reference signal.
-%   This function generates a reference signal (refSignal) for the given
-%   number of active subcarriers (numSubCarr). This reference signal is
-%   known to both the transmitter and receiver.
+%helperOFDMRefSignal Genera il segnale di riferimento.
+%   Questa funzione genera un segnale di riferimento (refSignal) per un dato 
+%   numero di sottoportanti attivi (numSubCarr). Questo segnale di riferimento 
+%   è noto sia al trasmettitore che al ricevitore.
 %
-%   By default, this function uses a BPSK-modulated pseudo random binary
-%   sequence, repeated as necessary to fill the desired subcarriers. The
-%   sequence is designed to be centered around DC. The sequence for the
-%   smallest FFT length is also used for the other larger FFT lengths within
-%   those subcarriers, so that receivers that can only support the minimum
-%   FFT length can use the reference signal to demodulate the header (which
-%   is transmitted at the minimum FFT length to support all receivers
-%   independent of supported bandwidth). The sequence can be less than the
-%   FFT length to accommodate for null carriers within the OFDM symbol.
+%   Per impostazione predefinita, questa funzione utilizza una sequenza binaria 
+%   pseudo-casuale modulata in BPSK, ripetuta se necessario per riempire le 
+%   sottoportanti desiderate. La sequenza è progettata per essere centrata intorno 
+%   alla portante DC. La sequenza per la lunghezza FFT minima viene utilizzata anche 
+%   per altre lunghezze FFT più grandi all'interno di quelle sottoportanti, in modo 
+%   che i ricevitori che supportano solo la lunghezza FFT minima possano utilizzare 
+%   il segnale di riferimento per demodulare l'header (che viene trasmesso alla 
+%   lunghezza FFT minima per supportare tutti i ricevitori indipendentemente dalla 
+%   larghezza di banda supportata). La sequenza può essere più corta della lunghezza 
+%   FFT per adattarsi ai sottoportanti nulli all'interno del simbolo OFDM.
 %
-%   This sequence can be user-defined as needed.
+%   Questa sequenza può essere definita dall'utente secondo necessità.
 %
 %   refSignal = helperOFDMRefSignal(numSubCarr)
-%   numSubCarr - number of subcarriers per symbol
-%   refSignal - frequency-domain reference signal
+%   numSubCarr - numero di sottoportanti per simbolo
+%   refSignal  - segnale di riferimento nel dominio della frequenza
 
 % Copyright 2023 The MathWorks, Inc.
 

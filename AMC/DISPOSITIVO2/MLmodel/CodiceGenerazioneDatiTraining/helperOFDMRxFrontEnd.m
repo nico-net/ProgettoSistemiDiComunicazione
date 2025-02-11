@@ -1,16 +1,15 @@
 function rxOut = helperOFDMRxFrontEnd(rxIn,sysParam,rxObj)
-%helperOFDMRxFrontEnd Receiver front-end processing
-%   This helper function handles sample buffer management and front-end
-%   filtering. This simulates a typical receiver front end component. 
+%helperOFDMRxFrontEnd Elaborazione del front-end del ricevitore
+%   Questa funzione helper gestisce la gestione del buffer dei campioni e il filtraggio del front-end.
+%   Simula un tipico componente del front-end del ricevitore.
 %
-%   Optional components such as AGC and A/D converters may also be added to
-%   this helper function for more detailed simulations.
+%   Componenti opzionali come AGC e convertitori A/D possono anche essere aggiunti
+%   a questa funzione helper per simulazioni più dettagliate.
 %
 %   rxOut = helperOFDMRxFrontEnd(rxIn,sysParam,rxObj)
-%   rxIn - input time-domain waveform
-%   sysParam - structure of system parameters
-%   rxObj - structure of rx states and parameters
-%
+%   rxIn - waveform in ingresso nel dominio del tempo
+%   sysParam - struttura dei parametri di sistema
+%   rxObj - struttura degli stati e parametri del ricevitore
 
 % Copyright 2022 The MathWorks, Inc.
 

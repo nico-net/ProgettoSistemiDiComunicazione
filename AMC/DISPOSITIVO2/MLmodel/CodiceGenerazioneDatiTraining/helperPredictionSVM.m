@@ -1,3 +1,6 @@
+%HELPERPREDICTIONSVM    La funzione restituisce in output la
+%classificazione dello stato della comunicazione
+
 function class = helperPredictionSVM(SNR, BER, SVMModel)
     xmax = [25, 0.5];
     xmin = [0, 0];

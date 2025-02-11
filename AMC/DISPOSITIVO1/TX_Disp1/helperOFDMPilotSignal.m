@@ -8,6 +8,7 @@ function pilot = helperOFDMPilotSignal(pilotsPerSym)
 %   pilot = helperOFDMPilotSignal(pilotsPerSym)
 %   pilotsPerSym - numero di piloti per simbolo
 %   pilot - sequenza pilota nel dominio della frequenza
+
 % Copyright 2023 The MathWorks, Inc.
 
 s = RandStream("dsfmt19937","Seed",15);

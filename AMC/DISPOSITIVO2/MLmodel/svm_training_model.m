@@ -1,8 +1,12 @@
+% SVM_TRAINING_MODEL Questa funzione serve per trainare il modello SVM con
+% i dati di training contenuti nel file csv 'dati_classificati.csv'
+
 clear;
 
 function X_scaled = minmax_scale(X)
     % MINMAX_SCALE Normalizza i dati utilizzando la scala min-max.
-    %   X_scaled = minmax_scale(X) normalizza ogni feature di X nell'intervallo [0, 1].
+    %   X_scaled = minmax_scale(X) normalizza ogni feature di X 
+    %   nell'intervallo [0, 1].
     
     X_min = min(X);
     X_max = max(X);
@@ -42,6 +46,7 @@ acc = sum(y_pred == y_test)/numel(y_test);
 disp(['Accuracy: ', num2str(acc)]);
 
 
+%Test con dei valori casuali di SNR e BER
 X_test = [25, 1.4e-6; 
           0, 0.5;
           7, 1e-2;

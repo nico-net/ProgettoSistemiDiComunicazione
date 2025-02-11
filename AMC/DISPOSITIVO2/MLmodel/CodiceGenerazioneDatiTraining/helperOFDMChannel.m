@@ -1,21 +1,25 @@
 function rxOut = helperOFDMChannel(txIn,chanParam,sysParam, BWstruct)
-%helperOFDMChannel() Generate channel impairments.
-%   This function generates channel impairments and applies them to the
-%   input waveform.
+% helperOFDMChannel() Genera le imperfezioni del canale.
+%   Questa funzione genera imperfezioni del canale e le applica
+%   al segnale di ingresso.
 %   rxOut = helperOFDMChannel(txIn,chanParam,sysParam)
-%   txIn - input time-domain waveform
-%   chanParam - structure of channel impairment parameters
-%   sysParam - structure of system parameters
-%   rxOut - output time-domain waveform
+%   txIn - segnale di ingresso nel dominio del tempo
+%   chanParam - struttura dei parametri delle imperfezioni del canale
+%   sysParam - struttura dei parametri del sistema
+%   rxOut - segnale di uscita nel dominio del tempo
 %
-%   The channel parameters specify the level of impairments:
+%   I parametri del canale specificano il livello delle imperfezioni:
 %
-%   Normalized Doppler shift - Doppler frequency times symbol duration
-%   Path delays and gains - Vector of path delays and average gains
+%   Scostamento Doppler normalizzato - frequenza Doppler moltiplicata per 
+%   la durata del simbolo
+%   Ritardi e guadagni dei percorsi - Vettore dei ritardi di percorso e 
+%   guadagni medi
 %   SNR - in dB
-%   Normalized carrier frequency offset (ppm) - tx/rx frequency offset
-%   divided by the sample rate. Though processing is done in the baseband, it
-%   is assumed that carrier offset is preserved when down-converting to DC. 
+%   Scostamento di frequenza portante normalizzato (ppm) - scostamento di 
+%   frequenza tra trasmettitore e ricevitore diviso per la frequenza di 
+%   campionamento. Sebbene l'elaborazione venga eseguita in banda base, si 
+%   assume che lo scostamento di frequenza della portante venga mantenuto 
+%   durante la conversione verso la continua (DC).
 
 % Copyright 2022 The MathWorks, Inc.
 symLen = (sysParam.FFTLen+sysParam.CPLen);

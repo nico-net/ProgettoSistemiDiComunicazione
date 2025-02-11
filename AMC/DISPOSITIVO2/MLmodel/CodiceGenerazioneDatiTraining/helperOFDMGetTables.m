@@ -1,26 +1,11 @@
 function [BWStruct, codeStruct] = helperOFDMGetTables(BWIndex,codeRateIndex)
-%helperOFDMGetTables Return common tx/rx parameters.
-%   This helper is called from the tx and rx functions to return a common
-%   set of system parameters from index pointer. Index a desired bandwidth
-%   index to return the FFT length, CP length, subcarrier spacing (symbol
-%   rate), and number of data subcarriers per OFDM symbol.
-%
-%   [BWStruct, codeStruct] = helperOFDMGetTables(BWIndex,codeRateIndex)
-%   BWIndex - index into BW table
-%   codeRateIndex - index into code rate table
-%   BWStruct = {FFT length, CP length, number of occupied subcarriers,
-%   subcarrier spacing, pilot subcarrier spacing, channel BW}:
-%
-%   * 1 = {128,  32,   72,  15e3,   9,   1.4e6} (default)
-%   * 2 = {256,  64,  180,  15e3,   20,  3e6}
-%   * 3 = {512,  128, 300,  15e3,   20,  5e6}
-%   * 4 = {1024, 256, 600,  15e3,   20,  10e6}
-%   * 5 = {2048, 512, 1200, 15e3,   24,  20e6}
-%   * 6 = {128,  32,  112,  312.5e3, 14, 35.6e6}
-%   * 7 = {4096, 1024, 3276, 30e3,  36,  98.28e6}
-%
-%   codeStruct = structure comprising code rate, puncture vector,
-%   constraint length, and traceback depth of the convolutional coder.
+%helperOFDMGetTables Restituisce i parametri comuni tx/rx.
+%   Questo helper viene chiamato dalle funzioni di trasmettitore e ricevitore
+%   per restituire un insieme comune di parametri di sistema dall'indice 
+%   del puntatore. Indicizza l'indice di larghezza di banda desiderato per 
+%   restituire la lunghezza FFT, la lunghezza del prefisso ciclico (CP), 
+%   la spaziatura delle sottoportanti (velocità simbolica) e il numero di 
+%   sottoportanti dati per simbolo OFDM.
 
 % Copyright 2022 The MathWorks, Inc.
 
