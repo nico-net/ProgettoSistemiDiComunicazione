@@ -75,11 +75,11 @@ Il dataset finale contiene circa 13.000 campioni, suddivisi in training e test s
 
 ### Training e accuracy del modello
 Il modello SVM è stato addestrato utilizzando un kernel **RBF** con parametri ottimizzati tramite *Grid Search*. Le metriche di valutazione del modello includono:
-![Classification report](img/classreport)
+![Classification report](img/classreport.png)
 
 Di seguito viene riportata la matrice di confusione del modello:
 
-![Matrice di confusione](img/confmat)
+![Matrice di confusione](img/confmat.png)
 
 
 # Conclusioni
