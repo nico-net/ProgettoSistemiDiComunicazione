@@ -26,6 +26,15 @@ Gli autori del progetto sono:
   - [Codice Matlab](#codice-matlab-amc)   
 - [Conclusioni](#conclusioni)
 
+# Introduzione
+# Abstract
+
+La crescente diffusione delle reti di comunicazione wireless avanzate richiede sistemi sempre più efficienti e adattabili alle condizioni variabili del canale. Questa tesi si concentra sulla simulazione e la validazione **Over-The-Air (OTA)** di un sistema di comunicazione basato su **OFDM (Orthogonal Frequency Division Multiplexing)** utilizzando **SDR (Software-Defined Radio) Adalm-Pluto**. L’obiettivo principale è implementare e testare un sistema di **Adaptive Modulation and Coding (AMC)** che ottimizza la trasmissione in base alle condizioni del canale.
+
+In una prima fase, vengono effettuati test su un sistema **OFDM base**, sia in assenza che in presenza di **codifica di canale**, valutando le prestazioni attraverso simulazioni e test **OTA**. Successivamente, per classificare lo stato della comunicazione e adattare dinamicamente i parametri di modulazione e codifica, viene sviluppato un modello di **Machine Learning (ML)**. Tale modello analizza parametri chiave come **SNR stimato, BER e risposta all’impulso del canale**, permettendo di selezionare la configurazione ottimale per massimizzare l'affidabilità e l’efficienza spettrale del sistema.
+
+La validazione sperimentale avviene tramite test **OTA (Over The Air)** in ambienti controllati, valutando le prestazioni del sistema in presenza di **interferenze, fading e effetto Doppler**, tipici di scenari dinamici. I risultati ottenuti dimostrano l'efficacia dell'approccio proposto, evidenziando il ruolo cruciale dell'**intelligenza artificiale** nell’ottimizzazione adattiva delle comunicazioni wireless.
+
 
 # AMC
 
