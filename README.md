@@ -20,7 +20,7 @@ Gli autori del progetto sono:
 - [Sistema AMC](#amc)
   - [Introduzione al sistema](#introduzione-al-sistema)
   - [Descrizione del classificatore](#descrizione-del-classificatore)
-    - [Generazione dei dati di training](#dati-di-training)
+    - [Generazione dei dati di training](#generazione-dei-dati-di-training)
     - [Training e accuracy del modello](#training-e-accuracy-del-modello)
   - [Test OTA](#test-ota)
   - [Codice Matlab](#codice-matlab-amc)   
@@ -54,7 +54,8 @@ Di seguito sono riportati i parametri associati ai vari casi di classificazione 
 - **0 - Comunicazione Pessima**: QPSK, 1/2
 - **1 - Comunicazione Discreta**: 16-QAM, 2/3
 - **2 - Comunicazione Ottima**: 64-QAM, 3/4
-- 
+
+  
 ### Generazione dei dati di training
 Per addestrare il modello SVM, è stata utilizzata una simulazione del sistema OFDM [\cite{matsim}](#) in cui sono stati variati in modo casuale diversi parametri:
 
@@ -71,9 +72,14 @@ I risultati ottenuti dalla simulazione sono stati salvati in un file CSV e etich
 - **Classe 0**: in tutti gli altri casi.
 
 Il dataset finale contiene circa 13.000 campioni, suddivisi in training e test set per ottimizzare le prestazioni del modello SVM.
+
 ### Training e accuracy del modello
 Il modello SVM è stato addestrato utilizzando un kernel **RBF** con parametri ottimizzati tramite *Grid Search*. Le metriche di valutazione del modello includono:
+![Classification report](img/classreport)
 
+Di seguito viene riportata la matrice di confusione del modello:
+
+![Matrice di confusione](img/confmat)
 
 
 # Conclusioni
