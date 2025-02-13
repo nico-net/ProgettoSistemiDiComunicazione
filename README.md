@@ -18,7 +18,7 @@ Gli autori del progetto sono:
   - [Risultati dei test OTA](risultati-dei-test-ota)
   - [Codice Matlab](codice-matlab-ofdm)
 - [Sistema AMC](#amc)
-  - [Introduzione al sistema](introduzione-al-sistema)
+  - [Introduzione al sistema](Introduzione-al-sistema)
   - [Descrizione del classificatore](descrizione-del-classificatore)
     - [Generazione dei dati di training](dati-di-training)
     - [Training e accuracy del modello](training-e-accuracy-del-modello)
@@ -27,7 +27,7 @@ Gli autori del progetto sono:
 - [Conclusioni](#conclusioni)
 
 
-# Sistema AMC
+# AMC
 
 ## Introduzione al sistema
 La crescente esigenza di sistemi di comunicazione wireless ad alte prestazioni ha portato allo sviluppo di tecniche avanzate come l'**Adaptive Modulation and Coding (AMC)**. L'AMC è una strategia che consente di ottimizzare la trasmissione dei dati in funzione delle condizioni variabili del canale di comunicazione, migliorando così l'efficienza spettrale e la robustezza del sistema. In questa sezione, esploreremo i fondamenti teorici dell'AMC, il ruolo cruciale di un **classifier** basato su algoritmi di **Machine Learning (ML)**, e i risultati ottenuti attraverso l'implementazione pratica con le schede SDR **Adalm-Pluto**.
