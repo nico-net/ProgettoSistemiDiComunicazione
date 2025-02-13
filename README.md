@@ -18,18 +18,19 @@ Gli autori del progetto sono:
   - [Risultati dei test OTA](risultati-dei-test-ota)
   - [Codice Matlab](codice-matlab-ofdm)
 - [Sistema AMC](#amc)
-  - [Introduzione al sistema](Introduzione-al-sistema)
-  - [Descrizione del classificatore](descrizione-del-classificatore)
-    - [Generazione dei dati di training](dati-di-training)
-    - [Training e accuracy del modello](training-e-accuracy-del-modello)
-  - [Test OTA](test-ota)
-  - [Codice Matlab](codice-matlab-amc)   
+  - [Introduzione al sistema](#introduzione-al-sistema)
+  - [Descrizione del classificatore](#descrizione-del-classificatore)
+    - [Generazione dei dati di training](#dati-di-training)
+    - [Training e accuracy del modello](#training-e-accuracy-del-modello)
+  - [Test OTA](#test-ota)
+  - [Codice Matlab](#codice-matlab-amc)   
 - [Conclusioni](#conclusioni)
 
 
 # AMC
 
 ## Introduzione al sistema
+
 La crescente esigenza di sistemi di comunicazione wireless ad alte prestazioni ha portato allo sviluppo di tecniche avanzate come l'**Adaptive Modulation and Coding (AMC)**. L'AMC è una strategia che consente di ottimizzare la trasmissione dei dati in funzione delle condizioni variabili del canale di comunicazione, migliorando così l'efficienza spettrale e la robustezza del sistema. In questa sezione, esploreremo i fondamenti teorici dell'AMC, il ruolo cruciale di un **classifier** basato su algoritmi di **Machine Learning (ML)**, e i risultati ottenuti attraverso l'implementazione pratica con le schede SDR **Adalm-Pluto**.
 
 L'AMC si basa sulla selezione dinamica di diverse configurazioni di modulazione e codifica per adattarsi in tempo reale alle condizioni del canale, come la **SNR (Signal-to-Noise Ratio)** e il **BER (Bit Error Rate)**. A seconda della qualità del canale, vengono utilizzati schemi di modulazione ad alta efficienza, come **QAM (Quadrature Amplitude Modulation)** e **PSK (Phase Shift Keying)**, insieme a diversi tassi di codifica per ottimizzare l'affidabilità e la velocità di trasmissione.
@@ -39,6 +40,40 @@ Un aspetto fondamentale nell'implementazione dell'AMC è la capacità di monitor
 Successivamente, verrà illustrato l'algoritmo scelto per la trasmissione dei dati, che combina la modulazione adattativa con la codifica di canale, e come l'SVM viene integrato per ottimizzare dinamicamente la configurazione di modulazione e codifica. Infine, presenteremo i risultati degli esperimenti condotti utilizzando le schede **Adalm-Pluto**, che hanno permesso di testare l'implementazione dell'AMC in scenari reali di comunicazione, valutando le prestazioni del sistema in presenza di interferenze, fading e altre condizioni dinamiche del canale.
 
 I risultati ottenuti dimostrano l'efficacia dell'approccio proposto, evidenziando come l'uso combinato dell'AMC e dell'apprendimento automatico possa migliorare significativamente le prestazioni dei sistemi di comunicazione wireless in ambienti complessi e variabili.
+
+## Descrizione del classificatore
+Il classificatore SVM utilizza un insieme di caratteristiche estratte dal segnale ricevuto per determinare lo stato della comunicazione. In particolare, gli ingressi del modello includono:
+
+- **SNR stimato**: Indice del rapporto segnale-rumore.
+- **BER (Bit Error Rate)**: Indicatore della qualità della decodifica.
+
+L'uscita del classificatore è un punteggio discreto compreso tra 0 e 2, che rappresenta lo stato della comunicazione e determina la configurazione ottimale di modulazione e codifica.
+
+Di seguito sono riportati i parametri associati ai vari casi di classificazione della comunicazione (modulazione - code rate):
+
+- **0 - Comunicazione Pessima**: QPSK, 1/2
+- **1 - Comunicazione Discreta**: 16-QAM, 2/3
+- **2 - Comunicazione Ottima**: 64-QAM, 3/4
+- 
+### Generazione dei dati di training
+Per addestrare il modello SVM, è stata utilizzata una simulazione del sistema OFDM [\cite{matsim}](#) in cui sono stati variati in modo casuale diversi parametri:
+
+- **SNR ricevuto**: da 0 a 25 dB.
+- **Modulazione**: BPSK, QPSK, 16-QAM, 64-QAM.
+- **Code rate**: 1/2, 2/3, 3/4.
+- **Velocità del ricevitore**: da 0 a 3 km/h.
+- **CFO (Carrier Frequency Offset)**: da 0 a 3 ppm.
+
+I risultati ottenuti dalla simulazione sono stati salvati in un file CSV e etichettati per la classificazione in tre classi:
+
+- **Classe 2**: se SNR ≥ 18 dB e BER < 10⁻².
+- **Classe 1**: se 8 < SNR < 18 dB e 10⁻² ≤ BER < 8 × 10⁻², oppure se SNR ≥ 18 dB e BER > 10⁻².
+- **Classe 0**: in tutti gli altri casi.
+
+Il dataset finale contiene circa 13.000 campioni, suddivisi in training e test set per ottimizzare le prestazioni del modello SVM.
+### Training e accuracy del modello
+Il modello SVM è stato addestrato utilizzando un kernel **RBF** con parametri ottimizzati tramite *Grid Search*. Le metriche di valutazione del modello includono:
+
 
 
 # Conclusioni
