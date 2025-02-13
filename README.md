@@ -27,7 +27,6 @@ Gli autori del progetto sono:
 - [Conclusioni](#conclusioni)
 
 # Introduzione
-# Abstract
 
 La crescente diffusione delle reti di comunicazione wireless avanzate richiede sistemi sempre più efficienti e adattabili alle condizioni variabili del canale. Questa tesi si concentra sulla simulazione e la validazione **Over-The-Air (OTA)** di un sistema di comunicazione basato su **OFDM (Orthogonal Frequency Division Multiplexing)** utilizzando **SDR (Software-Defined Radio) Adalm-Pluto**. L’obiettivo principale è implementare e testare un sistema di **Adaptive Modulation and Coding (AMC)** che ottimizza la trasmissione in base alle condizioni del canale.
 
