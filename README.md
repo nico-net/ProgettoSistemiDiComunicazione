@@ -57,7 +57,7 @@ Di seguito sono riportati i parametri associati ai vari casi di classificazione 
 
   
 ### Generazione dei dati di training
-Per addestrare il modello SVM, è stata utilizzata una simulazione del sistema OFDM [\cite{matsim}](#) in cui sono stati variati in modo casuale diversi parametri:
+Per addestrare il modello SVM, è stata utilizzata una simulazione del sistema OFDM in cui sono stati variati in modo casuale diversi parametri:
 
 - **SNR ricevuto**: da 0 a 25 dB.
 - **Modulazione**: BPSK, QPSK, 16-QAM, 64-QAM.
