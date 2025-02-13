@@ -75,12 +75,31 @@ Il dataset finale contiene circa 13.000 campioni, suddivisi in training e test s
 
 ### Training e accuracy del modello
 Il modello SVM è stato addestrato utilizzando un kernel **RBF** con parametri ottimizzati tramite *Grid Search*. Le metriche di valutazione del modello includono:
+
 ![Classification report](img/classreport.png)
 
 Di seguito viene riportata la matrice di confusione del modello:
 
 ![Matrice di confusione](img/confmat.png)
 
+## Test OTA
+
+Il classificatore è stato integrato nel ricevitore OFDM, il quale, dopo aver stimato i parametri del canale, utilizza il modello SVM per determinare lo stato della comunicazione. In base alla decisione del classificatore, il trasmettitore adatta la modulazione e il code rate, garantendo un equilibrio tra efficienza spettrale e robustezza della trasmissione. Nel seguito saranno analizzati i risultati ottenuti dall’esperimento del sistema AMC attuato con l’ausilio di due SDR "Adalm-Pluto" che fungono da trasmettitore e ricevitore.
+Si consideri il trasmettitore come Dispositivo 1 e il ricevitore, con il classificatore SVM, come Dispositivo 2.
+I risultati sperimentali mostrano che l’implementazione dell’AMC basato su SVM migliora significativamente le prestazioni del sistema in scenari con variazioni rapide delle condizioni del canale. La comunicazione comincia sempre utilizzando una 64-QAM con un tasso di codifica di 3/4 per aumentare l’efficienza di trasmissione. Tuttavia, come si può osservare dai grafici, nel caso dell’esperimento la trasmissione appariva molto disturbata e le performance di trasmissione erano pessime (BER molto elevato).
+
+<div style="display: flex; justify-content: space-between;">
+  <div style="width: 48%;">
+    ![Costellazione 64QAM](img/costellazione64qam.png)
+    <br>
+    <em>Costellazione 64QAM.</em>
+  </div>
+  <div style="width: 48%;">
+    ![Costellazione QPSK](img/costellazioneqpsk.png)
+    <br>
+    <em>Costellazione QPSK.</em>
+  </div>
+</div>
 
 # Conclusioni
 
