@@ -93,8 +93,8 @@ Si consideri il trasmettitore come Dispositivo 1 e il ricevitore, con il classif
 I risultati sperimentali mostrano che l’implementazione dell’AMC basato su SVM migliora significativamente le prestazioni del sistema in scenari con variazioni rapide delle condizioni del canale. La comunicazione comincia sempre utilizzando una 64-QAM con un tasso di codifica di 3/4 per aumentare l’efficienza di trasmissione. Tuttavia, come si può osservare dai grafici, nel caso dell’esperimento la trasmissione appariva molto disturbata e le performance di trasmissione erano pessime (BER molto elevato).
 
 <p align="center">
-  <img src="img/results1step.png" width="200">
-  <img src="img/results2step.png" width="200">
+  <img src="img/results1step.png" width="300">
+  <img src="img/results2step.png" width="300">
 </p>
 <p align = "center">
 Fig.1-2 - Risultati rispettivamente della prima e seconda ricezione
@@ -112,10 +112,13 @@ Fig.3-4 - Costellazioni ricevute rispettivamente alla prima e seconda trasmissio
 </p>
 
 Il risultato della trasmissione è indicato nella figura 2. Il trasmettitore quindi sceglie la coppia 16-QAM 2/3 come nuovi parametri di trasmissione. In figura 5 è possibile osservare l’andamento dei parametri di trasmissione di Dispositivo 1 ai vari step di trasmissione.
-<p align="center">
-  <img src="img/paramAMC.png" width="300">
-</p>
 
+<p align="center">
+  <img src="img/paramAMC.png" width="400">
+</p>
+<p align = "center">
+Fig.5 - Code Rate e Modulation order nel tempo
+</p>
 
 # Conclusioni
 
