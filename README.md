@@ -129,11 +129,14 @@ Fig.5 - Code Rate e Modulation order nel tempo
 </p>
 
 ## Codice Matlab AMC
-Per utilizzare il codice si consiglia di utilizzare due dispositivi differenti a cui sono collegate due Adalm-Pluto. Nel caso si dovesse usare un solo dispositivo, accedere ai file [helperGetRadioTxObj.m](AMC/DISPOSITIVO2/TX_Disp2/helperGetRadioTxObj.m) [helperGetRadioRxObj.m](AMC/DISPOSITIVO2/RX_Disp2/helperGetRadioRxObj.m) e modificare la seguente riga di codice sostituendo "usb:0" con "usb:1".
+Per utilizzare il codice si consiglia di utilizzare due dispositivi differenti a cui sono collegate due Adalm-Pluto. Nel caso si dovesse usare un solo dispositivo, accedere ai file [helperGetRadioTxObj.m](AMC/DISPOSITIVO2/TX_Disp2/helperGetRadioTxObj.m) e [helperGetRadioRxObj.m](AMC/DISPOSITIVO2/RX_Disp2/helperGetRadioRxObj.m) e modificare la seguente riga di codice sostituendo "usb:0" con "usb:1".
 ```Matlab
 radio = sdrrx('Pluto','RadioID','usb:0');
 ```
- 
+Si supponga di utilizzare due dispositivi. Sul primo dispositivo eseguire il codice di DISPOSITIVO 1 con il comando
+>> run Dispositivo1.m
+Sul secondo dispositivo invece eseguire il codice per il secondo dispositivo (DISPOSITIVO 2) con il comando
+>> run Dispositivo2.m
 
 # Conclusioni
 
