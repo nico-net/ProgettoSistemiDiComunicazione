@@ -133,9 +133,8 @@ Per utilizzare il codice si consiglia di utilizzare due dispositivi differenti a
 ```Matlab
 radio = sdrrx('Pluto','RadioID','usb:0');
 ```
-Si supponga di utilizzare due dispositivi. Sul primo dispositivo eseguire il codice di DISPOSITIVO 1 con il comando
+Si supponga di utilizzare due dispositivi. Sul primo dispositivo eseguire il codice di DISPOSITIVO 1 e sul secondo dispositivo, invece, eseguire il codice per il secondo dispositivo (DISPOSITIVO 2) con i comandi
 >> run Dispositivo1.m
-Sul secondo dispositivo invece eseguire il codice per il secondo dispositivo (DISPOSITIVO 2) con il comando
 >> run Dispositivo2.m
 
 # Conclusioni
