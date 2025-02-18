@@ -134,11 +134,13 @@ Per utilizzare il codice si consiglia di utilizzare due dispositivi differenti a
 radio = sdrrx('Pluto','RadioID','usb:0');
 ```
 Tutti i file presentano una descrizione dettagliata delle loro funzionalità. Consultare i commenti presenti in ogni file per approfondire la loro utilità.
+
 Si supponga di utilizzare due dispositivi. Sul primo dispositivo eseguire il codice di DISPOSITIVO 1 e sul secondo dispositivo, invece, eseguire il codice per il secondo dispositivo (DISPOSITIVO 2) con i comandi:
 ```
 >> run Dispositivo1.m
 >> run Dispositivo2.m
 ```
+
 Nel caso si volessero cambiare i parametri di trasmissione, modificare a proprio piacimento i **parametri vari e dati (NON modificare quelli relativi al OFDM)** nei file [helperSetParameters.m](AMC/DISPOSITIVO2/helperSetParameters.m) e [helperSetParameters.m](AMC/DISPOSITIVO1/helperSetParameters.m).
 
 La cartella [MLmodel](AMC/DISPOSITIVO2/MLmodel) contiene i file utilizzati per la generazione dei dati di training, per la loro labelizzazione e l'addestramento del modello. Visionare il file [SVM.ipynb](AMC/DISPOSITIVO2/MLmodel/SVM.ipynb) per approfondire il training del modello SVM. 
