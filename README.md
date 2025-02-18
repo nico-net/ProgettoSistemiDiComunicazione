@@ -128,6 +128,13 @@ Il risultato della trasmissione è indicato nella figura 2. Il trasmettitore qui
 Fig.5 - Code Rate e Modulation order nel tempo
 </p>
 
+## Codice Matlab AMC
+Per utilizzare il codice si consiglia di utilizzare due dispositivi differenti a cui sono collegate due Adalm-Pluto. Nel caso si dovesse usare un solo dispositivo, accedere ai file [helperGetRadioTxObj.m](AMC/DISPOSITIVO2/TX_Disp2/helperGetRadioTxObj.m) [helperGetRadioRxObj.m](AMC/DISPOSITIVO2/RX_Disp2/helperGetRadioRxObj.m) e modificare la seguente riga di codice sostituendo "usb:0" con "usb:1".
+```Matlab
+radio = sdrrx('Pluto','RadioID','usb:0');
+```
+ 
+
 # Conclusioni
 
 Il lavoro svolto in questa tesi ha dimostrato l'efficacia di un sistema di comunicazione basato su **OFDM** con **Adaptive Modulation and Coding (AMC)**, ottimizzato tramite tecniche di **Machine Learning** e validato in condizioni reali tramite test **Over-The-Air (OTA)** con **SDR Adalm-Pluto**. L'integrazione di un modello ML per la classificazione dello stato del canale ha permesso di adattare dinamicamente i parametri di trasmissione, migliorando l'affidabilità e l'efficienza spettrale del sistema.
