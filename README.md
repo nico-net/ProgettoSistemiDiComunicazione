@@ -156,7 +156,7 @@ Quello che accade nel sistema reale diventa ancora più chiaro guardando il segn
 | QPSK | 1/2 | 0 | 15.9 | SI | 60cm (**) |
 | QPSK | 1/2 | 0 | 17 | SI | 1.20m (**) |
 
-*(*) Massimo gain in ricezione pari a 72 e in trasmissione pari a -3*
+*(*) *Massimo gain in ricezione pari a 72 e in trasmissione pari a -3*
 
 *(**) Presenza di un ostacolo durante la trasmissione*
 
