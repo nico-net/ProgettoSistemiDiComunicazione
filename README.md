@@ -13,7 +13,7 @@ Gli autori del progetto sono:
 - [Sistema OFDM](#sistema-ofdm)
   - [Introduzione agli esperimenti](introduzione-agli-esperimenti)
   - [Parametri di trasmissione](#parametri-di-trasmissione)
-  - [Scenari considerati](#scenari-considerati)
+  - [Stima di BER e SNR](#stima-di-ber-e-snr)
   - [Risultati delle simulazioni](#risultati-delle-simulazioni)
   - [Risultati dei test OTA](risultati-dei-test-ota)
   - [Codice Matlab](codice-matlab-ofdm)
@@ -49,52 +49,6 @@ Al termine della fase di testing, con i dati raccolti si è stati in grado di va
 
 ## Parametri di trasmissione
 
-Per valutare il sistema in maniera completa ed efficace si è avuta la necessità di testarlo in ambienti e in situazioni differenti, così da poter confrontare i risultati e avere un quadro preciso rispetto a quelle che sono le reali prestazioni del sistema di comunicazione.
-
-I dati raccolti, come si vedrà in dettaglio successivamente, sono stati ottenuti in due modi:
-
-- **Simulazione del sistema**: il sistema è stato simulato in maniera del tutto virtuale attraverso il software MATLAB nel quale sono stati utilizzati gli stessi parametri del sistema reale. Le simulazioni sono state eseguite variando opportunamente le caratteristiche per adattarle alle casistiche successivamente applicate nella realtà. 
-  > *Il riferimento al codice, simulato e non, è disponibile in versione integrale nella repository GitHub presente nella bibliografia* [GitHub Repository](#github).
-
-- **Testing del sistema reale**: attraverso l'utilizzo di *Software Defined Radio* ADALM-PLUTO e il software MATLAB si è stati in grado di programmare le SDR in modo tale da trasmettere e ricevere correttamente un segnale di testo, utilizzando una modulazione OFDM in vari ambienti e con parametri editabili direttamente dall'interfaccia utente.
-
-Al termine della fase di testing, con i dati raccolti si è stati in grado di valutare analiticamente le prestazioni del sistema, prendendo come riferimenti i tradizionali parametri di valutazione delle performance nelle telecomunicazioni come il **BER** (*Bit Error Rate*) e l'**SNR** (*Signal-to-Noise Ratio*).
-
----
-
-### Parametri del sistema
-
-Per valutare il sistema in maniera completa ed efficace si è avuta la necessità di testarlo in ambienti e in situazioni differenti, così da poter confrontare i risultati e avere un quadro preciso rispetto a quelle che sono le reali prestazioni del sistema di comunicazione.
-
-I dati raccolti, come si vedrà in dettaglio successivamente, sono stati ottenuti in due modi:
-
-- **Simulazione del sistema**: il sistema è stato simulato in maniera del tutto virtuale attraverso il software MATLAB nel quale sono stati utilizzati gli stessi parametri del sistema reale. Le simulazioni sono state eseguite variando opportunamente le caratteristiche per adattarle alle casistiche successivamente applicate nella realtà. 
-
-- **Testing del sistema reale**: attraverso l'utilizzo di *Software Defined Radio* ADALM-PLUTO e il software MATLAB si è stati in grado di programmare le SDR in modo tale da trasmettere e ricevere correttamente un segnale di testo, utilizzando una modulazione OFDM in vari ambienti e con parametri editabili direttamente dall'interfaccia utente.
-
-Al termine della fase di testing, con i dati raccolti si è stati in grado di valutare analiticamente le prestazioni del sistema, prendendo come riferimenti i tradizionali parametri di valutazione delle performance nelle telecomunicazioni come il **BER** (*Bit Error Rate*) e l'**SNR** (*Signal-to-Noise Ratio*).
-
-
-### Parametri del sistema
-
-Oltre quest'ultima, restano da definire i parametri standard della trasmissione:
-
-| **Parametri** | **Valore** |
-|--------------|-----------|
-| FFT | 128 |
-| Cycle Prefix | 32 |
-| Number of Subcarriers | 72 |
-| Subcarrier spacing | 30 kHz |
-| Pilot Subcarrier spacing | 9 |
-| Bandwidth | 3 MHz |
-| Carrier Frequency | 865 MHz |
-| Gain Tx | [-10, -5, 0] |
-| Gain Rx | [40, 60, 70] |
-
----
-
-### Implementazione della modulazione OFDM
-
 La modulazione OFDM è stata implementata nel sistema di comunicazione tramite l'utilizzo del software MATLAB, nel quale è stato possibile realizzare e simulare un sistema OFDM reale definendo i parametri caratteristici e programmando trasmettitore e ricevitore sulla base di essi.
 
 I parametri, editabili direttamente sull'interfaccia del trasmettitore e del ricevitore, sono:
@@ -126,7 +80,6 @@ Fig.1 - Tabella OFDM
 | **DC and Guard Subcarriers** | Le sottoportanti nulle al limite dello spettro di trasmissione vengono utilizzate per limitare l'energia spettrale a una larghezza di banda specificata. Anche la sottoportante in DC viene annullata per mantenere l'energia del segnale entro l'intervallo lineare dell'amplificatore di potenza. |
 
 
-
 I parametri standard della trasmissione e della ricezione per i test OTA considerati sono:
 
 | **Parametri** | **Valore** |
@@ -149,6 +102,23 @@ La forma d'onda oggetto della trasmissione tra dispositivi, che trasporta l'info
 Fig.2 - Forma d'onda trasmessa
 </p>
 
+---
+
+## Stima di BER e SNR
+## Valutazione del Sistema
+
+Per valutare il sistema è stato necessario calcolare i suddetti parametri, i quali sono stati ricavati in modo tale da approssimare al meglio il valore reale.
+
+Nel calcolo del BER, al ricevitore è nota la stringa di testo da ricevere (*stringa attesa*) e questo consente di confrontarla con la stringa ricevuta attraverso la funzione MATLAB `comm.errorRate(tx,rx)`, determinando il numero di bit effettivamente errati e ottenendo il valore del parametro.\(\textsuperscript{1}\)
+
+Per quanto riguarda invece il calcolo dell'SNR, l'approssimazione utilizzata prevede di mediare i valori di potenza ottenuti tramite la densità spettrale di potenza del segnale ricevuto, all'interno della banda di interesse (tra -100MHz e 100MHz), così da ottenere la **potenza media del segnale utile**.
+
+Successivamente si procede selezionando un punto al di fuori della banda (circa 129MHz) in cui non è presente il segnale utile così da catturare la **potenza di rumore**, necessaria per determinare il valore finale.
+
+Per ottenere il valore approssimato di SNR si procede sottraendo alla potenza di segnale utile quella di rumore (poiché i dati raccolti sono in dBm).
+
+---
+\(\textsuperscript{1}\) Si consideri, come verrà mostrato successivamente, la presenza del BER teorico, ottenuto tramite simulazione software in MATLAB.
 
 # AMC
 
