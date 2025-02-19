@@ -69,13 +69,11 @@ Per valutare il sistema in maniera completa ed efficace si è avuta la necessit�
 I dati raccolti, come si vedrà in dettaglio successivamente, sono stati ottenuti in due modi:
 
 - **Simulazione del sistema**: il sistema è stato simulato in maniera del tutto virtuale attraverso il software MATLAB nel quale sono stati utilizzati gli stessi parametri del sistema reale. Le simulazioni sono state eseguite variando opportunamente le caratteristiche per adattarle alle casistiche successivamente applicate nella realtà. 
-  > *Il riferimento al codice, simulato e non, è disponibile in versione integrale nella repository GitHub presente nella bibliografia* [GitHub Repository](#github).
 
 - **Testing del sistema reale**: attraverso l'utilizzo di *Software Defined Radio* ADALM-PLUTO e il software MATLAB si è stati in grado di programmare le SDR in modo tale da trasmettere e ricevere correttamente un segnale di testo, utilizzando una modulazione OFDM in vari ambienti e con parametri editabili direttamente dall'interfaccia utente.
 
 Al termine della fase di testing, con i dati raccolti si è stati in grado di valutare analiticamente le prestazioni del sistema, prendendo come riferimenti i tradizionali parametri di valutazione delle performance nelle telecomunicazioni come il **BER** (*Bit Error Rate*) e l'**SNR** (*Signal-to-Noise Ratio*).
 
----
 
 ### Parametri del sistema
 
@@ -111,7 +109,7 @@ I parametri, editabili direttamente sull'interfaccia del trasmettitore e del ric
 In questo modo si riesce a generare una forma d'onda con modulazione OFDM da trasmettere, definita come:
 
 <p align="center">
-  <img src="img/TrasmittedOFDMSignal.png" width="400">
+  <img src="img/TransmittedOFDMSignal.png" width="400">
 </p>
 <p align = "center">
 Fig.1 - Tabella OFDM
@@ -150,7 +148,6 @@ La forma d'onda oggetto della trasmissione tra dispositivi, che trasporta l'info
 <p align = "center">
 Fig.2 - Forma d'onda trasmessa
 </p>
-
 
 
 # AMC
