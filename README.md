@@ -105,11 +105,10 @@ Fig.2 - Forma d'onda trasmessa
 ---
 
 ## Stima di BER e SNR
-## Valutazione del Sistema
 
 Per valutare il sistema è stato necessario calcolare i suddetti parametri, i quali sono stati ricavati in modo tale da approssimare al meglio il valore reale.
 
-Nel calcolo del BER, al ricevitore è nota la stringa di testo da ricevere (*stringa attesa*) e questo consente di confrontarla con la stringa ricevuta attraverso la funzione MATLAB `comm.errorRate(tx,rx)`, determinando il numero di bit effettivamente errati e ottenendo il valore del parametro.\(\textsuperscript{1}\)
+Nel calcolo del BER, al ricevitore è nota la stringa di testo da ricevere (*stringa attesa*) e questo consente di confrontarla con la stringa ricevuta attraverso la funzione MATLAB `comm.errorRate(tx,rx)`, determinando il numero di bit effettivamente errati e ottenendo il valore del parametro.
 
 Per quanto riguarda invece il calcolo dell'SNR, l'approssimazione utilizzata prevede di mediare i valori di potenza ottenuti tramite la densità spettrale di potenza del segnale ricevuto, all'interno della banda di interesse (tra -100MHz e 100MHz), così da ottenere la **potenza media del segnale utile**.
 
@@ -117,8 +116,67 @@ Successivamente si procede selezionando un punto al di fuori della banda (circa 
 
 Per ottenere il valore approssimato di SNR si procede sottraendo alla potenza di segnale utile quella di rumore (poiché i dati raccolti sono in dBm).
 
----
-\(\textsuperscript{1}\) Si consideri, come verrà mostrato successivamente, la presenza del BER teorico, ottenuto tramite simulazione software in MATLAB.
+## Risultati delle simulazioni
+
+
+## Risultati dei test OTA
+## Simulazione dei Contesti di Trasmissione
+
+La prima fase consiste nel simulare tutti i contesti di trasmissione di interesse, per avere un quadro di riferimento sul quale basare le misurazioni reali.
+
+Nelle immagini riportate di seguito (Figura 3.2) sono state simulate virtualmente le curve di **BER vs SNR** e confrontate con la **curva teorica**, considerando la presenza e non della codifica di canale e dei diversi code rate:
+
+![BPSK](Images/Plot%20Progetto/BPSK.jpg) ![QPSK](Images/Plot%20Progetto/QPSK.jpg)
+
+![untitled](Images/Plot%20Progetto/untitled.jpg) ![64-QAM](Images/Plot%20Progetto/64-QAM.jpg)
+
+**Figura 3.2**: Grafici BER vs SNR simulati, con diverse modulazioni.
+
+Da questi risultati, a priori, si può notare che la presenza del canale e di conseguenza del rumore, distorce i risultati rispetto alla curva teorica, che rappresenta il caso ideale.
+
+## Misurazioni Reali con SDR
+
+Sotto la guida di questi risultati è possibile procedere con le misurazioni reali, attraverso i dispositivi SDR, per valutare concretamente quali siano gli effetti della trasmissione quando l'onda viene propagata in spazio libero, immersa in continui stimoli di rumore ed interferenze di vario genere.
+
+Quello che accade nel sistema reale diventa ancora più chiaro guardando il segnale ricevuto, le costellazioni ottenute per ogni ambiente e i valori delle misurazioni in contesti differenti:
+
+| Modulazione | Code-Rate | BER | SNR | Codifica di canale | Distanza |
+|-------------|-----------|------|------|--------------------|----------|
+| BPSK | 1/2 | 0 | 11 | SI | 5m |
+| BPSK | 2/3 | 0 | 9 | SI | 5m |
+| BPSK | 3/4 | 1.9×10⁻³ | 12.6 | SI | 5m |
+| QPSK | 1/2 | 0 | 10.3 | SI | 5m |
+| QPSK | 2/3 | 0 | 11.6 | SI | 5m |
+| QPSK | 3/4 | 0 | 12.9 | SI | 5m |
+| 16-QAM | 1/2 | 2×10⁻² | 10 | SI | 5m |
+| 16-QAM | 2/3 | 6.3×10⁻³ | 11 | SI | 5m |
+| 16-QAM | 3/4 | 1.6×10⁻² | 12 | SI | 5m |
+| 64-QAM | 1/2 | 5×10⁻³ | 12.6 | SI | 5m |
+| 64-QAM | 2/3 | 3×10⁻¹ | 10.8 | SI | 5m |
+| 64-QAM | 3/4 | 1.88×10⁻¹ | 11.5 | SI | 5m |
+| BPSK | - | 0 | 19.8 | NO | 5m |
+| QPSK | - | 0 | 19.9 | NO | 5m |
+| 16-QAM | - | 1.13×10⁻¹ | 18 | NO | 5m |
+| 64-QAM | - | 4.8×10⁻¹ | 20 | NO | 5m |
+| QPSK | 1/2 | 5.2679×10⁻⁵ (*) | 11 | SI | 20m |
+| QPSK | 1/2 | 4.587×10⁻² (*) | 8 | SI | 20m (**) |
+| QPSK | 1/2 | 0 | 15.9 | SI | 60cm (**) |
+| QPSK | 1/2 | 0 | 17 | SI | 1.20m (**) |
+
+*(*) Massimo gain in ricezione pari a 72 e in trasmissione pari a -3*
+
+*(**) Presenza di un ostacolo durante la trasmissione*
+
+<p align="center">
+  <img src="img/N2.1.png" width="300">
+  <img src="img/N2.2.png" width="300">
+</p>
+
+<p align="center">
+  <img src="img/N4.2.png" width="300">
+  <img src="img/N4.3.png" width="300">
+</p>
+
 
 # AMC
 
