@@ -34,6 +34,124 @@ In una prima fase, vengono effettuati test su un sistema **OFDM base**, sia in a
 
 La validazione sperimentale avviene tramite test **OTA (Over The Air)** in ambienti controllati, valutando le prestazioni del sistema in presenza di **interferenze, fading e effetto Doppler**, tipici di scenari dinamici. I risultati ottenuti dimostrano l'efficacia dell'approccio proposto, evidenziando il ruolo cruciale dell'**intelligenza artificiale** nell’ottimizzazione adattiva delle comunicazioni wireless.
 
+# SISTEMA OFDM
+## Introduzione agli esperimenti
+Per valutare il sistema in maniera completa ed efficace si è avuta la necessità di testarlo in ambienti e in situazioni differenti, così da poter confrontare i risultati e avere un quadro preciso rispetto a quelle che sono le reali prestazioni del sistema di comunicazione.
+
+I dati raccolti, come si vedrà in dettaglio successivamente, sono stati ottenuti in due modi:
+
+- **Simulazione del sistema**: il sistema è stato simulato in maniera del tutto virtuale attraverso il software MATLAB nel quale sono stati utilizzati gli stessi parametri del sistema reale. Le simulazioni sono state eseguite variando opportunamente le caratteristiche per adattarle alle casistiche successivamente applicate nella realtà. 
+  > *Il riferimento al codice, simulato e non, è disponibile in versione integrale nella cartella 
+
+- **Testing del sistema reale**: attraverso l'utilizzo di *Software Defined Radio* ADALM-PLUTO e il software MATLAB si è stati in grado di programmare le SDR in modo tale da trasmettere e ricevere correttamente un segnale di testo, utilizzando una modulazione OFDM in vari ambienti e con parametri editabili direttamente dall'interfaccia utente.
+
+Al termine della fase di testing, con i dati raccolti si è stati in grado di valutare analiticamente le prestazioni del sistema, prendendo come riferimenti i tradizionali parametri di valutazione delle performance nelle telecomunicazioni come il **BER** (*Bit Error Rate*) e l'**SNR** (*Signal-to-Noise Ratio*).
+
+## Parametri di trasmissione
+
+Per valutare il sistema in maniera completa ed efficace si è avuta la necessità di testarlo in ambienti e in situazioni differenti, così da poter confrontare i risultati e avere un quadro preciso rispetto a quelle che sono le reali prestazioni del sistema di comunicazione.
+
+I dati raccolti, come si vedrà in dettaglio successivamente, sono stati ottenuti in due modi:
+
+- **Simulazione del sistema**: il sistema è stato simulato in maniera del tutto virtuale attraverso il software MATLAB nel quale sono stati utilizzati gli stessi parametri del sistema reale. Le simulazioni sono state eseguite variando opportunamente le caratteristiche per adattarle alle casistiche successivamente applicate nella realtà. 
+  > *Il riferimento al codice, simulato e non, è disponibile in versione integrale nella repository GitHub presente nella bibliografia* [GitHub Repository](#github).
+
+- **Testing del sistema reale**: attraverso l'utilizzo di *Software Defined Radio* ADALM-PLUTO e il software MATLAB si è stati in grado di programmare le SDR in modo tale da trasmettere e ricevere correttamente un segnale di testo, utilizzando una modulazione OFDM in vari ambienti e con parametri editabili direttamente dall'interfaccia utente.
+
+Al termine della fase di testing, con i dati raccolti si è stati in grado di valutare analiticamente le prestazioni del sistema, prendendo come riferimenti i tradizionali parametri di valutazione delle performance nelle telecomunicazioni come il **BER** (*Bit Error Rate*) e l'**SNR** (*Signal-to-Noise Ratio*).
+
+---
+
+### Parametri del sistema
+
+Per valutare il sistema in maniera completa ed efficace si è avuta la necessità di testarlo in ambienti e in situazioni differenti, così da poter confrontare i risultati e avere un quadro preciso rispetto a quelle che sono le reali prestazioni del sistema di comunicazione.
+
+I dati raccolti, come si vedrà in dettaglio successivamente, sono stati ottenuti in due modi:
+
+- **Simulazione del sistema**: il sistema è stato simulato in maniera del tutto virtuale attraverso il software MATLAB nel quale sono stati utilizzati gli stessi parametri del sistema reale. Le simulazioni sono state eseguite variando opportunamente le caratteristiche per adattarle alle casistiche successivamente applicate nella realtà. 
+  > *Il riferimento al codice, simulato e non, è disponibile in versione integrale nella repository GitHub presente nella bibliografia* [GitHub Repository](#github).
+
+- **Testing del sistema reale**: attraverso l'utilizzo di *Software Defined Radio* ADALM-PLUTO e il software MATLAB si è stati in grado di programmare le SDR in modo tale da trasmettere e ricevere correttamente un segnale di testo, utilizzando una modulazione OFDM in vari ambienti e con parametri editabili direttamente dall'interfaccia utente.
+
+Al termine della fase di testing, con i dati raccolti si è stati in grado di valutare analiticamente le prestazioni del sistema, prendendo come riferimenti i tradizionali parametri di valutazione delle performance nelle telecomunicazioni come il **BER** (*Bit Error Rate*) e l'**SNR** (*Signal-to-Noise Ratio*).
+
+---
+
+### Parametri del sistema
+
+Oltre quest'ultima, restano da definire i parametri standard della trasmissione:
+
+| **Parametri** | **Valore** |
+|--------------|-----------|
+| FFT | 128 |
+| Cycle Prefix | 32 |
+| Number of Subcarriers | 72 |
+| Subcarrier spacing | 30 kHz |
+| Pilot Subcarrier spacing | 9 |
+| Bandwidth | 3 MHz |
+| Carrier Frequency | 865 MHz |
+| Gain Tx | [-10, -5, 0] |
+| Gain Rx | [40, 60, 70] |
+
+---
+
+### Implementazione della modulazione OFDM
+
+La modulazione OFDM è stata implementata nel sistema di comunicazione tramite l'utilizzo del software MATLAB, nel quale è stato possibile realizzare e simulare un sistema OFDM reale definendo i parametri caratteristici e programmando trasmettitore e ricevitore sulla base di essi.
+
+I parametri, editabili direttamente sull'interfaccia del trasmettitore e del ricevitore, sono:
+
+- **FFT Length**: definisce la lunghezza della Fast Fourier Transform.
+- **Cycle Prefix Length**: definisce la lunghezza del Cycle Prefix (*Il Cycle Prefix determina il tempo di guardia in un sistema multiportante che utilizza FFT/IFFT*).
+- **Number of Subcarriers**: definisce il numero di sottoportanti ortogonali utilizzati nella modulazione.
+- **Subcarrier Spacing**: indica la banda di ogni sottoportante.
+- **Pilot Subcarrier Spacing**: indica la banda della sottoportante pilota o principale (*Le sottoportanti pilota vengono utilizzate allo scopo di compensare gli offset di frequenza e di fase nel ricevitore*).
+- **Channel Bandwidth**: larghezza di banda del canale.
+
+In questo modo si riesce a generare una forma d'onda con modulazione OFDM da trasmettere, definita come:
+
+<p align="center">
+  <img src="img/TrasmittedOFDMSignal.png" width="400">
+</p>
+<p align = "center">
+Fig.1 - Tabella OFDM
+</p>
+
+### Legenda delle sigle utilizzate
+
+| **Sigla** | **Descrizione** |
+|----------|---------------|
+| **SS: Synchronization Symbol** | Un segnale di sincronizzazione (sync) viene trasmesso come primo simbolo nel frame. Il segnale di sincronizzazione è costituito da un segnale a 62 sottoportanti centrato su DC generato utilizzando uno ZadOff-Chu. Questo segnale è progettato per essere indipendente dalla larghezza di banda. |
+| **RF: Reference Symbol** | Il simbolo successivo nel frame di trasmissione è il simbolo di riferimento. Noto sia al trasmettitore che al ricevitore, il simbolo di riferimento consente al ricevitore di confrontare il simbolo di riferimento ricevuto con il simbolo di riferimento noto per stimare il canale. |
+| **HS: Header Symbol** | Il simbolo di header trasmette la larghezza di banda, lo schema di modulazione della sottoportante e la velocità di codifica dei simboli di dati OFDM per aiutare il ricevitore a decodificare il frame trasmesso. Le informazioni sono abbastanza importanti da essere trasmesse con ampi margini di segnalazione e codifica per massimizzare la decodifica corretta. |
+| **PS: Pilot Signals** | Utilizzato per combattere il jitter di fase osservato a frequenze di trasmissione più elevate. Un pilot viene trasmesso a intervalli di sottoportante fissi all'interno dei simboli di dati per fornire un riferimento di fase al ricevitore. |
+| **DC and Guard Subcarriers** | Le sottoportanti nulle al limite dello spettro di trasmissione vengono utilizzate per limitare l'energia spettrale a una larghezza di banda specificata. Anche la sottoportante in DC viene annullata per mantenere l'energia del segnale entro l'intervallo lineare dell'amplificatore di potenza. |
+
+
+
+I parametri standard della trasmissione e della ricezione per i test OTA considerati sono:
+
+| **Parametri** | **Valore** |
+|--------------|-----------|
+| FFT | 128 |
+| Cycle Prefix | 32 |
+| Number of Subcarriers | 72 |
+| Subcarrier spacing | 30 kHz |
+| Pilot Subcarrier spacing | 9 |
+| Bandwidth | 3 MHz |
+| Carrier Frequency | 865 MHz |
+| Gain Tx | [-10, -5, 0] |
+| Gain Rx | [40, 60, 70] |
+
+La forma d'onda oggetto della trasmissione tra dispositivi, che trasporta l'informazione di testo, è una forma d'onda a coseno rialzato del tipo:
+<p align="center">
+  <img src="img/TrasmittedSignal.png" width="400">
+</p>
+<p align = "center">
+Fig.2 - Forma d'onda trasmessa
+</p>
+
+
 
 # AMC
 
