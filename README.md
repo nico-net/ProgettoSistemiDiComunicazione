@@ -168,15 +168,30 @@ Quello che accade nel sistema reale diventa ancora più chiaro guardando il segn
 *(**) Presenza di un ostacolo durante la trasmissione*
 
 <p align="center">
-  <img src="img/N2.1.png" width="300">
   <img src="img/N2.2.png" width="300">
+  <img src="img/N4.2.png" width="300">
 </p>
 
 <p align="center">
-  <img src="img/N4.2.png" width="300">
+  <img src="img/N5.3.png" width="300">
+  <img src="img/N6.2.png" width="300">
+</p>
+<p align = "center">
+Fig.3-4-5-6 - Forme d'onda delle modulazioni (da in alto a sx a in basso a dx) rispettivamente di BPSK, QPSK, 16-QAM, 64-QAM
+</p>
+
+<p align="center">
+  <img src="img/N2.1.png" width="300">
   <img src="img/N4.3.png" width="300">
 </p>
 
+<p align="center">
+  <img src="img/104.png" width="300">
+  <img src="img/Seconda64-QAM.png" width="300">
+</p>
+<p align = "center">
+Fig.7-8-9-10 - Costellazioni (da in alto a sx a in basso a dx) rispettivamente di BPSK, QPSK, 16-QAM, 64-QAM
+</p>
 
 # AMC
 
