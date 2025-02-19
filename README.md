@@ -117,11 +117,6 @@ Successivamente si procede selezionando un punto al di fuori della banda (circa 
 Per ottenere il valore approssimato di SNR si procede sottraendo alla potenza di segnale utile quella di rumore (poiché i dati raccolti sono in dBm).
 
 ## Risultati delle simulazioni
-
-
-## Risultati dei test OTA
-## Simulazione dei Contesti di Trasmissione
-
 La prima fase consiste nel simulare tutti i contesti di trasmissione di interesse, per avere un quadro di riferimento sul quale basare le misurazioni reali.
 
 Nelle immagini riportate di seguito (Figura 3.2) sono state simulate virtualmente le curve di **BER vs SNR** e confrontate con la **curva teorica**, considerando la presenza e non della codifica di canale e dei diversi code rate:
@@ -130,12 +125,10 @@ Nelle immagini riportate di seguito (Figura 3.2) sono state simulate virtualment
 
 ![untitled](Images/Plot%20Progetto/untitled.jpg) ![64-QAM](Images/Plot%20Progetto/64-QAM.jpg)
 
-**Figura 3.2**: Grafici BER vs SNR simulati, con diverse modulazioni.
 
 Da questi risultati, a priori, si può notare che la presenza del canale e di conseguenza del rumore, distorce i risultati rispetto alla curva teorica, che rappresenta il caso ideale.
 
-## Misurazioni Reali con SDR
-
+## Risultati dei test OTA
 Sotto la guida di questi risultati è possibile procedere con le misurazioni reali, attraverso i dispositivi SDR, per valutare concretamente quali siano gli effetti della trasmissione quando l'onda viene propagata in spazio libero, immersa in continui stimoli di rumore ed interferenze di vario genere.
 
 Quello che accade nel sistema reale diventa ancora più chiaro guardando il segnale ricevuto, le costellazioni ottenute per ogni ambiente e i valori delle misurazioni in contesti differenti:
@@ -167,6 +160,9 @@ Quello che accade nel sistema reale diventa ancora più chiaro guardando il segn
 
 *(**) Presenza di un ostacolo durante la trasmissione*
 
+
+Si osserva che modulazioni più robuste con codifiche più ridondanti risultano avere performance migliori con BER minori. 
+
 <p align="center">
   <img src="img/N2.2.png" width="300">
   <img src="img/N4.2.png" width="300">
@@ -192,6 +188,25 @@ Fig.3-4-5-6 - Forme d'onda delle modulazioni (da in alto a sx a in basso a dx) r
 <p align = "center">
 Fig.7-8-9-10 - Costellazioni (da in alto a sx a in basso a dx) rispettivamente di BPSK, QPSK, 16-QAM, 64-QAM
 </p>
+
+## Codice Matlab OFDM
+Per utilizzare il codice delle simulazioni scegliere uno tra i file [OFDMEndToEndCodifica.mlx](OFDM_simulato/OFDMConTutteCodifiche/OFDMEndToEndCodifica.mlx) e [OFDMEndToEndNoCodifica.mlx](OFDM_simulato/OFDMSenzaCodifiche/OFDMEndToEndNoCodifica.mlx). E' possibile scegliere i parametri di trasmissione tra quelli proposti nel codice. Leggere attentamente i commenti all'interno dei codici. 
+
+Per utilizzare il codice per le SDR con codifica si consiglia di utilizzare due dispositivi differenti a cui sono collegate due Adalm-Pluto. Nel caso si dovesse usare un solo dispositivo, accedere ai file [helperGetRadioTxObj.m](OFDM_OTA/plutoTxRxConCodifica/TransmitterCodifica/helperGetRadioTxObj.m) e [helperGetRadioRxObj.m](OFDM_OTA/plutoTxRxConCodifica/ReceiverCodifica/helperGetRadioRxObj.m) e modificare la seguente riga di codice sostituendo "usb:0" con "usb:1".
+```Matlab
+radio = sdrrx('Pluto','RadioID','usb:0');
+```
+Per utilizzare il codice per le SDR senza codifica si segua lo stesso procedimento ma per i file [helperGetRadioTxObj.m](OFDM_OTA/plutoTxRxSenzaCodifica/NoCodificaTransmitter/helperGetRadioTxObj.m) e [helperGetRadioRxObj.m](OFDM_OTA/plutoTxRxSenzaCodifica/NoCodificaReceiver/helperGetRadioRxObj.m)
+Tutti i file presentano una descrizione dettagliata delle loro funzionalità. Consultare i commenti presenti in ogni file per approfondire la loro utilità.
+
+Si supponga di utilizzare due dispositivi. Sul primo dispositivo eseguire il codice di *TransmitterCodifica* e sul secondo dispositivo, invece, eseguire il codice per *ReceiverCodifica* con i comandi:
+```
+>> run CodificaTx.mlx
+>> run CodificaRx.mlx
+```
+Assicurarsi di essere prima nelle cartelle giuste. Lo stesso discorso è estendibile anche per i test senza codifica.
+
+Nel caso si volessero cambiare i parametri di trasmissione, modificare a proprio piacimento i **parametri vari e dati (NON modificare quelli relativi al OFDM)** nei file del trasmettitore e del ricevitore.
 
 # AMC
 
