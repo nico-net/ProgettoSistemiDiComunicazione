@@ -121,10 +121,18 @@ La prima fase consiste nel simulare tutti i contesti di trasmissione di interess
 
 Nelle immagini riportate di seguito (Figura 3.2) sono state simulate virtualmente le curve di **BER vs SNR** e confrontate con la **curva teorica**, considerando la presenza e non della codifica di canale e dei diversi code rate:
 
-![BPSK](Images/Plot%20Progetto/BPSK.jpg) ![QPSK](Images/Plot%20Progetto/QPSK.jpg)
+<p align="center">
+  <img src="img/N2.2.png" width="300">
+  <img src="img/N4.2.png" width="300">
+</p>
 
-![untitled](Images/Plot%20Progetto/untitled.jpg) ![64-QAM](Images/Plot%20Progetto/64-QAM.jpg)
-
+<p align="center">
+  <img src="img/N5.3.png" width="300">
+  <img src="img/N6.2.png" width="300">
+</p>
+<p align = "center">
+Fig.3-4-5-6 - Forme d'onda delle modulazioni (da in alto a sx a in basso a dx) rispettivamente di BPSK, QPSK, 16-QAM, 64-QAM
+</p>
 
 Da questi risultati, a priori, si può notare che la presenza del canale e di conseguenza del rumore, distorce i risultati rispetto alla curva teorica, che rappresenta il caso ideale.
 
@@ -156,7 +164,7 @@ Quello che accade nel sistema reale diventa ancora più chiaro guardando il segn
 | QPSK | 1/2 | 0 | 15.9 | SI | 60cm (**) |
 | QPSK | 1/2 | 0 | 17 | SI | 1.20m (**) |
 
-*(*) *Massimo gain in ricezione pari a 72 e in trasmissione pari a -3*
+(*) *Massimo gain in ricezione pari a 72 e in trasmissione pari a -3*
 
 *(**) Presenza di un ostacolo durante la trasmissione*
 
@@ -278,7 +286,7 @@ I risultati sperimentali mostrano che l’implementazione dell’AMC basato su S
   <img src="img/results2step.png" width="300">
 </p>
 <p align = "center">
-Fig.1-2 - Risultati rispettivamente della prima e seconda ricezione
+Fig.11-12 - Risultati rispettivamente della prima e seconda ricezione
 </p>
 
 
@@ -289,7 +297,7 @@ Il classificatore ha restituito 0 (comunicazione pessima), quindi il messaggio d
   <img src="img/costellazioneqpsk.png" width="300">
 </p>
 <p align = "center">
-Fig.3-4 - Costellazioni ricevute rispettivamente alla prima e seconda trasmissione
+Fig.13-14 - Costellazioni ricevute rispettivamente alla prima e seconda trasmissione
 </p>
 
 Il risultato della trasmissione è indicato nella figura 2. Il trasmettitore quindi sceglie la coppia 16-QAM 2/3 come nuovi parametri di trasmissione. In figura 5 è possibile osservare l’andamento dei parametri di trasmissione di Dispositivo 1 ai vari step di trasmissione.
@@ -298,7 +306,7 @@ Il risultato della trasmissione è indicato nella figura 2. Il trasmettitore qui
   <img src="img/paramAMC.png" width="400">
 </p>
 <p align = "center">
-Fig.5 - Code Rate e Modulation order nel tempo
+Fig.15 - Code Rate e Modulation order nel tempo
 </p>
 
 ## Codice Matlab AMC
