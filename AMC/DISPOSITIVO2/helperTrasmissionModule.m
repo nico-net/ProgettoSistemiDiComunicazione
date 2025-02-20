@@ -1,7 +1,7 @@
 function helperTrasmissionModule(GeneralParam,OFDMParams, dataParams)
 %HELPERTRANSMISSIONMODULE  Modulo per la trasmissione
 
-    addpath './TransmitterCodifica'
+    addpath './TX_Disp2'
 
      % Siccome il feedback deve arrivare a destinazione, lo trasmetto
      % con una modulazione e un code rate robusti.

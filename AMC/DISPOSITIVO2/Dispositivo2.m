@@ -54,7 +54,6 @@ while endureCommunication
             %Attesa di 3s per sincronizzarsi con il TX
             pause((ripetizioniRicezione - 3) * (-4));
             helperTrasmissionModule(GeneralParam,OFDMParams, dataParams);
-            %pause(5);
             ripetizioniRicezione = 5;
         end
     end

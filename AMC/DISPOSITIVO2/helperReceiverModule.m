@@ -2,7 +2,7 @@ function [rxFlag, params, estCFO] = helperReceiverModule(GeneralParam, OFDMParam
 %HELPERRECEIVERMODULE   Modulo per la ricezione
 
     close all;
-    addpath './ReceiverCodifica'
+    addpath './RX_Disp2'
     SVMModel = GeneralParam.model;
     params = '';
     [rxFlag, class, estCFO] = receiverCode(GeneralParam, OFDMParams, dataParams, SVMModel);
