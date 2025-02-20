@@ -122,13 +122,13 @@ La prima fase consiste nel simulare tutti i contesti di trasmissione di interess
 Nelle immagini riportate di seguito (Figura 3.2) sono state simulate virtualmente le curve di **BER vs SNR** e confrontate con la **curva teorica**, considerando la presenza e non della codifica di canale e dei diversi code rate:
 
 <p align="center">
-  <img src="img/PLOTNUOVOBPSK.png" width="300">
-  <img src="img/PLOTNUOVOQPSK.png" width="300">
+  <img src="img/PLOTNUOVOBPSK.jpg" width="300">
+  <img src="img/PLOTNUOVOQPSK.jpg" width="300">
 </p>
 
 <p align="center">
-  <img src="img/16QAM.png" width="300">
-  <img src="img/64QAM.png" width="300">
+  <img src="img/16QAM.jpg" width="300">
+  <img src="img/64QAM.jpg" width="300">
 </p>
 <p align = "center">
 Fig.3-4-5-6 - Forme d'onda delle modulazioni (da in alto a sx a in basso a dx) rispettivamente di BPSK, QPSK, 16-QAM, 64-QAM
@@ -181,7 +181,7 @@ Si osserva che modulazioni più robuste con codifiche più ridondanti risultano 
   <img src="img/N6.2.png" width="300">
 </p>
 <p align = "center">
-Fig.3-4-5-6 - Forme d'onda delle modulazioni (da in alto a sx a in basso a dx) rispettivamente di BPSK, QPSK, 16-QAM, 64-QAM
+Fig.7-8-9-10 - Forme d'onda delle modulazioni (da in alto a sx a in basso a dx) rispettivamente di BPSK, QPSK, 16-QAM, 64-QAM
 </p>
 
 <p align="center">
@@ -194,7 +194,7 @@ Fig.3-4-5-6 - Forme d'onda delle modulazioni (da in alto a sx a in basso a dx) r
   <img src="img/Seconda64-QAM.png" width="300">
 </p>
 <p align = "center">
-Fig.7-8-9-10 - Costellazioni (da in alto a sx a in basso a dx) rispettivamente di BPSK, QPSK, 16-QAM, 64-QAM
+Fig.11-12-13-14 - Costellazioni (da in alto a sx a in basso a dx) rispettivamente di BPSK, QPSK, 16-QAM, 64-QAM
 </p>
 
 ## Codice Matlab OFDM
@@ -268,11 +268,16 @@ Il modello SVM è stato addestrato utilizzando un kernel **RBF** con parametri o
 <p align="center">
   <img src="img/classreport.png" width="300">
 </p>
-
+<p align = "center">
+Fig.15- Report accuracy
+</p>
 Di seguito viene riportata la matrice di confusione del modello:
 
 <p align="center">
   <img src="img/confmat.png" width="400">
+</p>
+<p align = "center">
+Fig.16 - Matrice di confusione
 </p>
 
 ## Test OTA
@@ -286,7 +291,7 @@ I risultati sperimentali mostrano che l’implementazione dell’AMC basato su S
   <img src="img/results2step.png" width="300">
 </p>
 <p align = "center">
-Fig.11-12 - Risultati rispettivamente della prima e seconda ricezione
+Fig.17-18 - Risultati rispettivamente della prima e seconda ricezione
 </p>
 
 
@@ -297,7 +302,7 @@ Il classificatore ha restituito 0 (comunicazione pessima), quindi il messaggio d
   <img src="img/costellazioneqpsk.png" width="300">
 </p>
 <p align = "center">
-Fig.13-14 - Costellazioni ricevute rispettivamente alla prima e seconda trasmissione
+Fig.19-20 - Costellazioni ricevute rispettivamente alla prima e seconda trasmissione
 </p>
 
 Il risultato della trasmissione è indicato nella figura 2. Il trasmettitore quindi sceglie la coppia 16-QAM 2/3 come nuovi parametri di trasmissione. In figura 5 è possibile osservare l’andamento dei parametri di trasmissione di Dispositivo 1 ai vari step di trasmissione.
@@ -306,7 +311,7 @@ Il risultato della trasmissione è indicato nella figura 2. Il trasmettitore qui
   <img src="img/paramAMC.png" width="400">
 </p>
 <p align = "center">
-Fig.15 - Code Rate e Modulation order nel tempo
+Fig.21 - Code Rate e Modulation order nel tempo
 </p>
 
 ## Codice Matlab AMC
