@@ -53,7 +53,7 @@ end
 
 % Call visualization only the first time
 if ~visualizationCalled
-    helperOFDMChannelVisualization(rayChan, BWstruct);
+    %helperOFDMChannelVisualization(rayChan, BWstruct);
     visualizationCalled = true; % Mark as called
 end
 

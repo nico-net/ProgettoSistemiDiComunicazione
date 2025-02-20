@@ -2,7 +2,7 @@ clc; clear; close all;
 
 
 % Definire i valori di Eb/N0 in dB
-EbN0_dB = -5:1:30;  % Gamma di valori in dB
+EbN0_dB = 0:1:30;  % Gamma di valori in dB
 EbN0_linear = 10.^(EbN0_dB / 10);  % Convertire da dB a valore lineare
 
 Rb2 = log2(2)*(128 * 3e3); % tra parentesi Rs, symbol rate BPSK
