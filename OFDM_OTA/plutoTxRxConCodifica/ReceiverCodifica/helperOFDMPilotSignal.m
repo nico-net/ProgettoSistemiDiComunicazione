@@ -1,13 +1,14 @@
 function pilot = helperOFDMPilotSignal(pilotsPerSym)
-%helperOFDMPilotSignal  Generates pilot signal
-%   This function generates the pilot signal (pilot). This pilot signal is
-%   known to both the transmitter and receiver. This sequence uses a
-%   BPSK-modulated pseudo random binary sequence. This sequence can be
-%   user-defined.
+%helperOFDMPilotSignal Genera il segnale pilota
+%   Questa funzione genera il segnale pilota (pilot). Questo segnale pilota è
+%   conosciuto sia dal trasmettitore che dal ricevitore. La sequenza utilizza
+%   una sequenza binaria pseudo-casuale modulata BPSK. La sequenza può essere
+%   definita dall'utente.
 %
 %   pilot = helperOFDMPilotSignal(pilotsPerSym)
-%   pilotsPerSym - pilots per symbol
-%   pilot - frequency-domain pilot sequence
+%   pilotsPerSym - numero di piloti per simbolo
+%   pilot - sequenza pilota nel dominio delle frequenze
+
 
 % Copyright 2023 The MathWorks, Inc.
 

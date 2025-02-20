@@ -1,15 +1,12 @@
 function codeStruct = helperOFDMGetTables(codeRateIndex)
-%helperOFDMGetTables Return common tx/rx parameters.
-%   This helper is called from the tx and rx functions to return a common
-%   set of system parameters from index pointer. Index a desired bandwidth
-%   index to return the FFT length, CP length, subcarrier spacing (symbol
-%   rate), and number of data subcarriers per OFDM symbol.
-%
-%   codeStruct = helperOFDMGetTables(BWIndex,codeRateIndex)
-%   codeRateIndex - index into code rate table
-%
-%   codeStruct = structure comprising code rate, puncture vector,
-%   constraint length, and traceback depth of the convolutional coder.
+%helperOFDMGetTables Restituisce i parametri comuni tx/rx.
+%   Questo helper viene chiamato dalle funzioni di trasmettitore e ricevitore
+%   per restituire un insieme comune di parametri di sistema dall'indice 
+%   del puntatore. Indicizza l'indice di larghezza di banda desiderato per 
+%   restituire la lunghezza FFT, la lunghezza del prefisso ciclico (CP), 
+%   la spaziatura delle sottoportanti (velocità simbolica) e il numero di 
+%   sottoportanti dati per simbolo OFDM.
+
 
 % Copyright 2024 The MathWorks, Inc.
 

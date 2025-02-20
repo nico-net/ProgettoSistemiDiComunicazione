@@ -1,15 +1,15 @@
 function channelEst = helperOFDMChannelEstimation(refSymOld,refSymCurr,chanEstRefSymbols,sysParam)
-%helperOFDMChannelEstimation Estimates channel using reference symbols.
-%   This function returns the estimated channel of a frame of data by
-%   linearly interpolating over two reference signals across consecutive
-%   frames.
+%helperOFDMChannelEstimation Stima il canale usando simboli di riferimento.
+%   Questa funzione restituisce la stima del canale di un frame di dati
+%   interpolando linearmente due segnali di riferimento attraverso frame
+%   consecutivi.
 %
 %   channelEst = helperOFDMChannelEstimation(refSymOld,refSymCurr,chanEstRefSymbols,sysParam)
-%   refSymOld - reference symbols from previous frame
-%   refSymCurr - reference symbols from current frame
-%   chanEstRefSymbols - reference symbols used to estimate channel
-%   sysParam - system parameters structure
-%   channelEst - Estimated channel output of the frame of OFDM symbols
+%   refSymOld - simboli di riferimento dal frame precedente
+%   refSymCurr - simboli di riferimento dal frame corrente
+%   chanEstRefSymbols - simboli di riferimento utilizzati per stimare il canale
+%   sysParam - struttura dei parametri di sistema
+%   channelEst - Stima del canale risultante dal frame di simboli OFDM
 
 % Copyright 2023 The MathWorks, Inc.
 

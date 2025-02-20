@@ -1,12 +1,11 @@
 function helperOFDMPlotResourceGrid(txGrid,sysParam)
-%helperOFDMPlotResourceGrid Plots the resource grid.
-%   This function plots the resource grid and differentiates signals with
-%   different colors.
+%helperOFDMPlotResourceGrid Disegna la griglia delle risorse.
+%   Questa funzione rappresenta graficamente la griglia delle risorse e 
+%   differenzia i segnali utilizzando colori diversi.
 %
 %   helperOFDMPlotResourceGrid(txGrid)
-%   txGrid - packed transmission grid
-%   sysParam - structure of system parameters
-
+%   txGrid - griglia di trasmissione
+%   sysParam - struttura dei parametri di sistema
 % Copyright 2023 The MathWorks, Inc.
 
 fftLen = sysParam.FFTLen; % FFT length

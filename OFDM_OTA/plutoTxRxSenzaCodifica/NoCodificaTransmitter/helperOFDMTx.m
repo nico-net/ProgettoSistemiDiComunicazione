@@ -1,55 +1,54 @@
 function [txWaveform,grid,diagnostics] = helperOFDMTx(txParamConfig,sysParam,txObj)
-%helperOFDMTx Generates OFDM transmitter waveform
-%   Generates OFDM transmitter waveform with synchronization, reference,
-%   header, pilots, and data signals. This function returns txWaveform,
-%   txGrid, and diagnostics using transmitter parameters txParamConfig.
+%helperOFDMTx Genera la forma d'onda del trasmettitore OFDM
+%   Genera la forma d'onda del trasmettitore OFDM con sincronizzazione, 
+%   riferimento, header, piloti e segnali dati. Questa funzione restituisce 
+%   txWaveform, txGrid e diagnostica utilizzando i parametri del trasmettitore txParamConfig.
 %
 %   [txWaveform,grid,diagnostics] = helperOFDMTx(txParamConfig,sysParam,txObj)
-%   txParamConfig - Specify as structure or array of structure with the
-%   following attributes as shown below:
-%   modOrder      - Specify 2, 4, 16, 64, 256, or 1024 
-%   codeRateIndex - Specify 0, 1, 2, and 3 for the rates '1/2', '2/3',
-%                   '3/4', and '5/6' respectively. 
-%   txDataBits    - Specify binary values in a row or column vector of
-%                   length trBlkSize. Default is column vector containing
-%                   randomly generated binary values of length trBlkSize.
+%   txParamConfig - Specificato come struttura o array di strutture con 
+%   i seguenti attributi:
+%   modOrder      - Specificare 2, 4, 16, 64, 256 o 1024 
+%   codeRateIndex - Specificare 0, 1, 2 o 3 per i code rate '1/2', '2/3',
+%                   '3/4' e '5/6' rispettivamente. 
+%   txDataBits    - Specificare valori binari in un vettore riga o colonna di 
+%                   lunghezza trBlkSize. Il valore predefinito è un vettore colonna 
+%                   contenente valori binari generati casualmente di lunghezza trBlkSize.
 %
-%   Calculate transport block size (trBlkSize) as follows:
-%   numSubCar - Number of data subcarriers per symbol
-%   pilotsPerSym - Number of pilots per symbol
-%   numDataOFDMSymbols - Number of data OFDM symbols per frame
-%   bitsPerModSym - Number of bits per modulated symbol
-%   codeRate - Punctured code rate
-%   dataConvK - Constraint length of the convolutional encoder
-%   dataCRCLen - CRC length
+%   Calcolo della dimensione del blocco di trasporto (trBlkSize):
+%   numSubCar - Numero di sottoportanti dati per simbolo
+%   pilotsPerSym - Numero di piloti per simbolo
+%   numDataOFDMSymbols - Numero di simboli OFDM dati per frame
+%   bitsPerModSym - Numero di bit per simbolo modulato
+%   codeRate - Code rate dopo la punteggiatura
+%   dataConvK - Lunghezza del vincolo dell'encoder convoluzionale
+%   dataCRCLen - Lunghezza del CRC
 %   trBlkSize = ((numSubCar - pilotsPerSym) * 
 %              numDataOFDMSymbols * bitsPerModSym * codeRate) - 
 %              (dataConvK-1) - dataCRCLen
 %
-%   txWaveform  - Transmitter waveform, returned as a column vector of length
-%               ((fftLen+cpLen)*numSymPerFrame), where
-%               fftLen - FFT length
-%               cpLen - Cyclic prefix length
-%               numSymPerFrame - Number of OFDM symbols per frame
+%   txWaveform  - Forma d'onda del trasmettitore, restituita come un vettore colonna 
+%               di lunghezza ((fftLen+cpLen)*numSymPerFrame), dove:
+%               fftLen - Lunghezza FFT
+%               cpLen - Lunghezza del prefisso ciclico
+%               numSymPerFrame - Numero di simboli OFDM per frame
 %
-%   grid        - Grid, returned as a matrix of dimension
+%   grid        - Griglia, restituita come una matrice di dimensioni
 %               numSubCar-by-numSymPerFrame
 %
-%   diagnostics - Diagnostics,returned as a structure or array of structure
-%   based on txParamConfig. Diagnostics has the following attributes:
-%   headerBits - Header bits as column vector of size 22 includes:
-%                Number of bits to represent FFT length index       =  3
-%                Number of bits to represent symbol modulation type =  2
-%                Number of bits to represent code rate index        =  2
-%                Number of spare bits                               = 15
-%   dataBits   - Actual data bits transmitted
-%                dataBits is a binary row or column vector of length
-%                trbBlkSize. Row or column vector
-%                depends on the dimension of txParamConfig.dataBits.
-%                Default size is a column vector of length trbBlkSize.
-%   ofdmModOut - OFDM modulated output as a column vector of length
+%   diagnostics - Diagnostica, restituita come una struttura o un array di strutture
+%   basata su txParamConfig. La diagnostica ha i seguenti attributi:
+%   headerBits - Bit di intestazione come vettore colonna di dimensione 22, che include:
+%                Numero di bit per rappresentare l'indice di lunghezza FFT     =  3
+%                Numero di bit per rappresentare il tipo di modulazione        =  2
+%                Numero di bit per rappresentare l'indice del code rate        =  2
+%                Numero di bit di riserva                                      = 15
+%   dataBits   - Bit effettivi trasmessi
+%                dataBits è un vettore binario riga o colonna di lunghezza 
+%                trBlkSize. La forma (riga o colonna) dipende dalla dimensione di 
+%                txParamConfig.dataBits. La dimensione predefinita è un vettore 
+%                colonna di lunghezza trBlkSize.
+%   ofdmModOut - Uscita modulata OFDM come vettore colonna di lunghezza
 %                (fftLen+cpLen)*numSymPerFrame.
-
 % Copyright 2023 The MathWorks, Inc.
 
 ssIdx = sysParam.ssIdx;         % sync symbol index

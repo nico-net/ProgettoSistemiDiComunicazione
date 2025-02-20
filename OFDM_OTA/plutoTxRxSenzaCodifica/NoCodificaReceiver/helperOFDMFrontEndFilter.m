@@ -1,10 +1,9 @@
 function firCoeff = helperOFDMFrontEndFilter(sysParam)
-%helperOFDMFrontEndFilter() Generates the transceiver front-end filter.
+%helperOFDMFrontEndFilter() Genera il filtro del front-end del trasmettitore/ricevitore.
 %
 %   firCoeff = helperOFDMFrontEndFilter(sysParam)
-%   sysParam - system parameters structure
-%   firCoeff - FIR filter coefficients for the specified bandwidth
-
+%   sysParam - struttura dei parametri di sistema
+%   firCoeff - coefficienti del filtro FIR per la larghezza di banda specificata
 % Copyright 2023 The MathWorks, Inc.
 
 BW = sysParam.BW;                  % Bandwidth (in Hz) of OFDM signal

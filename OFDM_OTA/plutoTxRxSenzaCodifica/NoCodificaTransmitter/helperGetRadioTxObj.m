@@ -1,9 +1,9 @@
 function [radio,spectrumAnalyze] = helperGetRadioTxObj(ofdmTx)
-%helperGetRadioTxObj(OFDMTX) returns the radio system object RADIO, based
-%   on the chosen radio device and radio parameters such as Gain,
-%   CenterFrequency, MasterClockRate, and Interpolation factor from the
-%   radioParameter structure OFDMTX. The function also returns the spectrumAnalyzer
-%   systemobject SPECTRUMANALYZE inorder to view the transmitted waveform
+%helperGetRadioTxObj(OFDMTX) Restituisce l'oggetto di sistema radio RADIO, 
+%   basandosi sul dispositivo radio scelto e sui parametri radio come Gain, 
+%   CenterFrequency, MasterClockRate e Interpolation Factor dal parametro di sistema 
+%   OFDMTX. La funzione restituisce anche l'oggetto di sistema spectrumAnalyzer 
+%   SPECTRUMANALYZER per visualizzare lo spettro dell'onda trasmessa.
 
 % Copyright 2023-2024 The MathWorks, Inc.
 

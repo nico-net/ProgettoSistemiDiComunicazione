@@ -1,17 +1,18 @@
 function [sysParam,txParam,payload] = helperOFDMSetParamsSDR(OFDMParam,dataParam)
-%helperOFDMSetParamsSDR(OFDMParam,dataParam) Generates simulation parameters.
-%   This function generates transmit-specific and common transmitter/receiver
-%   parameters for the OFDM simulation, based on the high-level user
-%   parameter settings passed into the helper function, specifically used in the SDR. Coding parameters may
-%   be changed here, subject to some constraints noted below. This function
-%   also generates a payload of the computed transport block size 
+%helperOFDMSetParamsSDR(OFDMParam,dataParam) Genera i parametri di simulazione.
+%   Questa funzione genera parametri specifici per il trasmettitore e comuni 
+%   per il trasmettitore/ricevitore per la simulazione OFDM, basati sulle 
+%   impostazioni dei parametri utente di alto livello passati alla funzione helper, 
+%   specificamente utilizzati nel SDR. I parametri di codifica possono 
+%   essere modificati qui, soggetti ad alcune limitazioni riportate di seguito. 
+%   Questa funzione genera anche un payload della dimensione del blocco di trasporto calcolato.
 %
 %   [sysParam,txParam,payload] = helperOFDMSetParameters(userParam)
-%   OFDMParam - structure of OFDM related parameters
-%   dataParam - structure of data related parameters
-%   sysParam  - structure of system parameters common to tx and rx
-%   txParam   - structure of tx parameters
-%   payload   - known data payload generated for the trBlk size
+%   OFDMParam - struttura dei parametri relativi all'OFDM
+%   dataParam - struttura dei parametri relativi ai dati
+%   sysParam  - struttura dei parametri di sistema comuni al trasmettitore e ricevitore
+%   txParam   - struttura dei parametri del trasmettitore
+%   payload   - payload dei dati noti generato per la dimensione del trBlk
 
 % Copyright 2023-2024 The MathWorks, Inc.
 
