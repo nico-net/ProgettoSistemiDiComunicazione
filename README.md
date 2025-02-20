@@ -122,8 +122,8 @@ La prima fase consiste nel simulare tutti i contesti di trasmissione di interess
 Nelle immagini riportate di seguito (Figura 3.2) sono state simulate virtualmente le curve di **BER vs SNR** e confrontate con la **curva teorica**, considerando la presenza e non della codifica di canale e dei diversi code rate:
 
 <p align="center">
-  <img src="img/PLOTNUOVOBPSK.jpg" width="300">
-  <img src="img/PLOTNUOVOQPSK.jpg" width="300">
+  <img src="img/BPSK2.jpg" width="300">
+  <img src="img/QPSK.jpg" width="300">
 </p>
 
 <p align="center">
