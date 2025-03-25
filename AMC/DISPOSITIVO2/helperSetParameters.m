@@ -8,9 +8,9 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
     
     load SVMModel.mat SVMModel
     %% VARIE
-    GeneralParam.carrier_frequency        = 865e6;  % Carrier (+1kHz per correzione CFO)
+    GeneralParam.carrier_frequency        = 2.4e9;  % Carrier (+1kHz per correzione CFO)
     GeneralParam.gainTx                   = -10;  % TX radio gain
-    GeneralParam.gainRx                   = 50;  % RX radio gain
+    GeneralParam.gainRx                   = 60;  % RX radio gain
     GeneralParam.threshold                = 5e-1;  %Soglia per decidere se il messaggio ricevuto è corrett
     GeneralParam.model                    = SVMModel;  %Modello di classificazione
     
@@ -24,9 +24,9 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
     
     %% Parametri Dati
     % Modulazioni accettate: QPSK(4), 16-QAM(16), 64-QAM (64)
-    dataParams.modOrder       = 64;   % Data modulation order
+    dataParams.modOrder       = 16;   % Data modulation order
     % Code rate accettati: 1/2, 2/3, 3/4
-    dataParams.coderate       = "3/4";   % Code rate
+    dataParams.coderate       = "2/3";   % Code rate
     dataParams.numSymPerFrame = 25;   % Number of data symbols per frame
     dataParams.numFrames      = 500;   % Number of frames to receive
     dataParams.numFramesFB    = 300;  %Number of frames to transmit for feedback

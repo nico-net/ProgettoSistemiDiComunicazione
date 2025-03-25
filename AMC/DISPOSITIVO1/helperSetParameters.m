@@ -3,9 +3,9 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
     % ricezione delle due AdalmPluto.
 
     %% VARIE
-    GeneralParam.carrier_frequency        = 865e6;  % Carrier
-    GeneralParam.gainTx                   = -3;  % TX radio gain
-    GeneralParam.gainRx                   = 72;  % RX radio gain
+    GeneralParam.carrier_frequency        = 2.4e9;  % Carrier
+    GeneralParam.gainTx                   = -5;  % TX radio gain
+    GeneralParam.gainRx                   = 50;  % RX radio gain
     GeneralParam.numAtteseMax             = 2;   % Numero di attese massimo prima di invio KeepAlive
     GeneralParam.message                  = 'Hello World!';  % Messaggio da inviare
     
@@ -19,9 +19,9 @@ function [OFDMParams,dataParams, GeneralParam] = helperSetParameters()
     
     %% Parametri Dati
     % Modulazioni accettate: QPSK(4), 16-QAM(16), 64-QAM (64)
-    dataParams.modOrder       = 64;       % Ordine di modulazione dei dati
+    dataParams.modOrder       = 16;       % Ordine di modulazione dei dati
     % Code rate accettati: 1/2, 2/3, 3/4
-    dataParams.coderate       = "3/4";   % Code rate
+    dataParams.coderate       = "2/3";   % Code rate
     dataParams.numSymPerFrame = 25;   % Numero di simboli dati per frame
     dataParams.numFrames      = 500;   % Numero di frame da trasmettere
     dataParams.numFramesFB    = 300;   % Numero di frame da ricevere

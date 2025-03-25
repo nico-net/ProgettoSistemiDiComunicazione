@@ -28,7 +28,9 @@ while endureCommunication
 
             %Se ci sono troppi fail nel CRC dell'header allora c'è un problema con
             %il CFO, quindi somma alla carrier il CFO stimato.
-            GeneralParam.carrier_frequency = GeneralParam.carrier_frequency - estCFO;
+            disp(estCFO);
+            %GeneralParam.carrier_frequency = GeneralParam.carrier_frequency + estCFO;
+            disp(GeneralParam.carrier_frequency);
             fprintf(['\nLa comunicazione non è avvenuta o è troppo disturbata. ' ...
                 'Riprovo la ricezione\n']);
             pause(3);
@@ -40,7 +42,7 @@ while endureCommunication
             ripetizioniRicezione = ripetizioniRicezione+1;
             
         elseif rxFlag
-            GeneralParam.carrier_frequency = 865e6;
+            GeneralParam.carrier_frequency = 2.4e9;
             fprintf('Passo in trasmissione\n');
             %Nuovo messaggio da inviare
             GeneralParam.message = params;
