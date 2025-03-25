@@ -80,7 +80,7 @@ for frameNum = 1:dataParams.numFrames
     if mod(frameNum, 20) == 0
         fprintf('\nBER = %d \n',BER(frameNum));
     end
-    if numHeaderCRCfail == 50
+    if numHeaderCRCfail == 100
         break;
     end
 end
@@ -104,7 +104,7 @@ if length(minBer) >= (dataParams.numFrames)/4
 else
     rxFlag = 0;
     class = 0;
-    if numHeaderCRCfail == 50
+    if numHeaderCRCfail == 100
         %Calcolo il CFO stimato solo nel caso di almeno 50 headerCRCfail.
         estCFO = -rxDiagnostics.estCFO(end) * sysParam.scs;
     end

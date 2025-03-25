@@ -8,7 +8,7 @@ function [rxFlag, message] = helperReceiverModule(GeneralParam, OFDMParams, data
 %   rxFlag:     Flag per assicurare la ricezione
 %   message:    Messaggio ricevuto
     
-    addpath './ReceiverCodifica'
+    addpath './RX_Disp1'
     % Si utilizza una modulazione e un code rate robusti per assicurare la
     % ricezione del feedback
     dataParams.modOrder = 2;
